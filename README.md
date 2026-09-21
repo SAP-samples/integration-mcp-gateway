@@ -1,36 +1,93 @@
-# SAP-samples/repository-template
-This default template for SAP Samples repositories includes files for README, LICENSE, and REUSE.toml. All repositories on github.com/SAP-samples will be created based on this template.
-
-# Containing Files
-
-1. The LICENSE file:
-In most cases, the license for SAP sample projects is `Apache 2.0`.
-
-2. The REUSE.toml file: 
-The [Reuse Tool](https://reuse.software/) must be used for your samples project. You can find the REUSE.toml in the project initial. Please replace the parts inside the single angle quotation marks < > by the specific information for your repository.
-
-3. The README.md file (this file):
-Please edit this file as it is the primary description file for your project. You can find some placeholder titles for sections below.
-
-# [MCP Gateway]
-<!-- Please include descriptive title -->
-
-<!--- Register repository https://api.reuse.software/register, then add REUSE badge:
-[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/REPO-NAME)](https://api.reuse.software/info/github.com/SAP-samples/REPO-NAME)
--->
+# Expose Composed APIs as MCP Server using SAP Integration Suite MCP Gateway
 
 ## Description
-<!-- Please include SEO-friendly description -->
+This hands-on session demonstrates how **SAP Integration Suite** supports agentic AI scenarios by using **MCP Gateway** functionality to expose composed business APIs as **Model Context Protocol (MCP) tools**. _This approach gives AI agents standardized, secure, and governed access to enterprise context._
+
+Through the exercises, you will combine multiple backend APIs into a unified Business Data Graph, package it as an MCP Server, and test it using MCP Inspector
 
 ## Requirements
+There are no dedicated requirements for this session. You would be able to execute the exercises by just following the descriptions even if you do not have any experience with **SAP Integration Suite** and the **Model Context Protocol (MCP)**.
 
-## Download and Installation
+However, you will be able to derive more value from this session if you have some knowledge and understanding of Model Context Protocol (MCP) along with SAP Integration Suite, API Management and API Composition capabilities.
 
-## Known Issues
-<!-- You may simply state "No known issues. -->
+To get started and build expertise with the technologies used in this workshop, explore the following resources:
 
-## How to obtain support
-[Create an issue](https://github.com/SAP-samples/<repository-name>/issues) in this repository if you find a bug or have questions about the content.
+- [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all)
+- [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro)
+
+## Session Overview
+
+**Company:** BestRun
+
+**Challenge:** The company BestRun wants to optimize their procurement process by establishing a Risk Assessment Process using an AI Agent.
+
+**Data Sources:**
+| Source | Content |
+|---|---|
+| Business Partner API | Supplier details |
+| Risk Analytics API | Third party API (e.g. Everstream system) that exposes risk associated with a location |
+| Plant API | Plant details |
+| Material API | Material, Storage location, stock levels, and batch details |
+
+
+> [!NOTE]
+> All these APIs are mock APIs publicly hosted for trial. They can be used to create a composed API via Business Data Graph, as detailed in [Exercise 1](tutorials/composed-mcp-server/exercises/ex1/README.md).
+
+**Goal:** Select most reliable supplier for each material taking into consideration the risk associated with a location of the plant, stock levels of the material at a plant and physical distance of the plant from delivery location.
+
+See [architecture.md](architecture.md) for the full solution architecture diagram.
+
+```
+SAP Backend APIs
+      │
+      ▼
+SAP Integration Suite (Integration Cell)
+  ├─ Business Data Graph  ◄── Destinations
+  └─ MCP Server  ◄── OpenAPI Spec
+      │
+      ▼
+SAP Developer Hub
+  └─ Product  →  Subscribe  →  Key & Secret
+      │
+      ▼
+Agentic Client
+```
+
+## Pre-configured Setup
+Chapters in this section provide pre-configured setups to support learning, without being part of the hands-on exercises:
+
+- [Destinations (for your information only)](intro/intro1/README.md)
+- [API Compositions (for your information only)](intro/intro2/README.md)
+  
+## System URL and login information
+To complete the exercises, the instructors will provide the following system URL and access
+
+- **SAP Integration Suite**
+- **MCP Inspector**
+
+> [!IMPORTANT]
+> - _For a smooth experience, tenants have been preconfigured, and you already have all the roles and permissions needed to complete this exercise._
+> - _System details along with User ID and password information will be provided to you by the instructors._
+> - _When you run through the exercise steps, you need to ensure that the technical IDs of the integration artifacts that you will create are unique. Hence, add a participant number to your integration artifacts. The instructors will assign the participant number to you._
+> - _Please adhere strictly to the instructions regarding the naming conventions for the artifacts you create. This will ensure successful completion of the tasks without conflicting with other participants._
+> - _Do not delete, change or undeploy any artifact in the tenant other than yours._
+
+## Exercises
+
+| # | Title |
+|---|---|
+| [Exercise 1](tutorials/composed-mcp-server/exercises/ex1/README.md) | Build a Unified Supply Risk API with Business Data Graph |
+| [Exercise 2](tutorials/composed-mcp-server/exercises/ex2/README.md) | Create, Deploy & Consume an MCP Server |
+
+## Feedback
+We appreciate your feedback after the session!
+
+## Code of Conduct
+Please read the [SAP Open Source Code of Conduct](https://github.com/SAP-samples/.github/blob/main/CODE_OF_CONDUCT.md).
+
+## How to Obtain Support
+Support for the content in this repository is available during the actual time of the session for which this content has been designed.
+Otherwise, [Create an issue](https://github.com/SAP-samples/<repository-name>/issues) in this repository if you find a bug or have questions about the content.
  
 For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
 
