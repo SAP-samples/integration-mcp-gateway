@@ -79,9 +79,6 @@ Review the details:
 - **Schema:** `sap.graph`, `sap.s4`, `my.custom`
 - **Options:** OData Containment enabled
 
-> [!NOTE]
-> The `bestrun` namespace will appear in the Schema after you link the Model Extension and re-activate the Business Data Graph in Ex. 1.6.
-
 ![Business Data Graph — Draft overview](../../resources/screenshots/opt-step-5.png)
 
 ---
