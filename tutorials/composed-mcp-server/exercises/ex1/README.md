@@ -9,6 +9,9 @@ By the end, you will have an OData endpoint and an OpenAPI Specification ready f
 
 ---
 
+> [!IMPORTANT]
+> Add your participant number to the end of every artifact you create. Wherever you see `XX` in the steps below, replace it with your assigned number (e.g. participant `03` uses `plantsupplyrisk-demo-XX-03`).
+
 ## Ex. 1.1 — Create a New Business Data Graph
 
 ### Step 1 — Navigate to Business Data Graphs
@@ -27,7 +30,7 @@ Fill in the details in the creation dialog:
 
 | Field | Value |
 |---|---|
-| ID | `plantsupplyrisk-demo` |
+| ID | `plantsupplyrisk-demo-XX` |
 | Description | `A unified API to identify risk associated with vendor location and stock level of a material in a plant.` |
 
 Under **Data Source Destinations**, select the following 4 destinations:
@@ -126,9 +129,9 @@ Fill in the details:
 
 | Field | Value |
 |---|---|
-| Name | `plantsupplyrisk-demo` |
+| Name | `plantsupplyrisk-demo-XX` |
 | Description | `A unified Model to identify the risk associated with vendor location and stock level of a material in a plant.` |
-| Use metadata from business data graph | Select your newly created graph (e.g. `plantsupplyrisk-demo`) |
+| Use metadata from business data graph | Select your newly created graph (e.g. `plantsupplyrisk-demo-XX`) |
 
 ![Create Model Extension dialog](../../resources/screenshots/opt-step-9.png)
 
@@ -295,7 +298,7 @@ After saving the Model Extension, you need to link it back to your Business Data
 
 Navigate to **Design → Business Data Graphs**.
 
-Your graph `plantsupplyrisk-demo` will appear in the list with status **Available**. Click on it to open it.
+Your graph `plantsupplyrisk-demo-XX` will appear in the list with status **Available**. Click on it to open it.
 
 > [!NOTE]
 > After opening, the graph status changes to **Draft**. This happens because linking a Model Extension is a configuration change that requires a fresh activation cycle.
@@ -312,13 +315,13 @@ Click **Add a Model Extension**.
 
 ![Business Data Graph Model Extensions tab — empty](../../resources/screenshots/ex1-step10-bdg-model-extension-empty.png)
 
-In the **Edit Model Extensions** dialog, select your model extension (e.g. `plantsupplyrisk-demo`) by checking the checkbox next to it.
+In the **Edit Model Extensions** dialog, select your model extension (e.g. `plantsupplyrisk-demo-XX`) by checking the checkbox next to it.
 
 ![Edit Model Extensions — select extension](../../resources/screenshots/ex1-step10-bdg-select-model-extension.png)
 
 Click **Apply**.
 
-You can verify the custom entity was saved by navigating to **Design → Business Data Graphs → Model Extensions → `plantsupplyrisk-demo`** and opening the **Custom Entities** tab — `bestrun.assessment` should appear there with its Main Source and Additional Sources listed.
+You can verify the custom entity was saved by navigating to **Design → Business Data Graphs → Model Extensions → `plantsupplyrisk-demo-XX`** and opening the **Custom Entities** tab — `bestrun.assessment` should appear there with its Main Source and Additional Sources listed.
 
 ![Model Extension — Custom Entities tab showing bestrun.assessment](../../resources/screenshots/ex1-step10-model-extension-custom-entities.png)
 
@@ -345,7 +348,7 @@ Click the **grid icon (⠿)** icon in the top-right to open the navigation menu.
 
 The **Developer Hub | API Composition** page opens, listing all available Business Data Graphs on the tenant.
 
-Click on **`plantsupplyrisk-demo`**.
+Click on **`plantsupplyrisk-demo-XX`**.
 
 ![API Composition Navigator — Business Data Graph list](../../resources/screenshots/ex1-step11-composition-navigator-list.png)
 
