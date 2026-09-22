@@ -11,37 +11,6 @@ By the end, your supply risk data is accessible to any MCP-compatible agent — 
 
 ---
 
-## Prerequisites
-
-For login credentials and system access, refer to the [System URL and Login Information](../../README.md#system-url-and-login-information) section.
-
-The MCP Server artifact and Integration Cell runtime required for this exercise are already provisioned on the shared workshop tenant.
-
-<details>
-<summary>Self-paced setup — expand if you are using your own tenant</summary>
-
-Before you begin, ensure that the following are in place:
-
-**1. Supported Service Plan**
-
-The MCP Server artifact is available only with supported SAP Integration Suite service plans, including **Enhanced**, **Premium**, **Trial**, and **Free Tier**.
-
-**2. SAP Integration Suite**
-
-Your SAP Integration Suite tenant is provisioned and the **API Management** capability is activated.
-
-**3. Integration Cell Runtime**
-
-An Integration Cell runtime is activated and available. If you haven't configured Integration Cell yet, refer to the [API-Centric Integration on SAP Integration Suite — Part 1](https://community.sap.com/t5/technology-blog-posts-by-sap/api-centric-integration-on-sap-integration-suite-part-1-build-and-deploy/ba-p/14438357) blog post (section: **Activate the Integration Cell Runtime**).
-
-**4. Developer Role**
-
-The `PI_Integration_Developer` role collection is assigned to your user to create, configure, and deploy MCP Server artifacts.
-
-</details>
-
----
-
 ## Ex. 2.1 — Create an Integration Package
 
 ### Step 1 — Navigate to Integrations and APIs
