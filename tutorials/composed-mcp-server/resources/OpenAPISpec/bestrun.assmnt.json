@@ -1,0 +1,994 @@
+{
+  "externalDocs": {
+    "description": "Graph Documentation",
+    "url": "https://help.sap.com/docs/graph"
+  },
+  "info": {
+    "title": "assmnt",
+    "version": "1"
+  },
+  "openapi": "3.0.2",
+  "x-sap-shortText": "",
+  "x-sap-stateInfo": {
+    "state": "Beta"
+  },
+  "servers": [
+    {
+      "description": "Sandbox URL",
+      "url": "https://sandbox.api.sap.com/sapgraph"
+    },
+    {
+      "description": "Production URL",
+      "url": "https://us10.graph.sap/catalog/bestrun"
+    }
+  ],
+  "tags": [
+    {
+      "name": "assmnt"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "bestrun.assmnt": {
+        "title": "assmnt",
+        "type": "object",
+        "x-sapgraph-root-entity": true,
+        "x-sapgraph-source-entities": [
+          "my.custom.Plant",
+          "sap.s4.A_MatlStkInAcctMod",
+          "my.custom.LocationRiskFactors"
+        ],
+        "properties": {
+          "plantId": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "plantName": {
+            "type": "string",
+            "example": "ABC",
+            "nullable": true
+          },
+          "matlStkInAcctMods": {
+            "items": {
+              "$ref": "#/components/schemas/bestrun.assmnt_matlStkInAcctMods"
+            },
+            "type": "array",
+            "x-sapgraph-filterable": false,
+            "x-sapgraph-sortable": false
+          },
+          "locationRiskFactors": {
+            "items": {
+              "$ref": "#/components/schemas/bestrun.assmnt_locationRiskFactors"
+            },
+            "type": "array",
+            "x-sapgraph-filterable": false,
+            "x-sapgraph-sortable": false
+          }
+        },
+        "x-sapgraph-creatable": false,
+        "x-sapgraph-updatable": false,
+        "x-sapgraph-deletable": false
+      },
+      "bestrun.assmnt_locationRiskFactors": {
+        "title": "assmnt_locationRiskFactors",
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "riskFactor": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "riskCategory": {
+            "type": "string",
+            "example": "ABC",
+            "nullable": true
+          },
+          "riskScore": {
+            "type": "string",
+            "example": "ABC",
+            "nullable": true
+          },
+          "riskTrend": {
+            "type": "string",
+            "example": "ABC",
+            "nullable": true
+          },
+          "riskScope": {
+            "type": "string",
+            "example": "ABC",
+            "nullable": true
+          }
+        }
+      },
+      "bestrun.assmnt_matlStkInAcctMods": {
+        "title": "assmnt_matlStkInAcctMods",
+        "type": "object",
+        "properties": {
+          "material": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "storageLocation": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "batch": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "supplier": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "customer": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "wbsElementInternalID": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "sdDocument": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "sdDocumentItem": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "inventorySpecialStockType": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "inventoryStockType": {
+            "type": "string",
+            "example": "ABC",
+            "x-sapgraph-key": true
+          },
+          "materialStock": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "example": 0,
+            "format": "decimal",
+            "nullable": true
+          }
+        }
+      },
+      "error": {
+        "properties": {
+          "error": {
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "details": {
+                "items": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "target": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "innererror": {
+                "description": "The structure of this object is service-specific",
+                "type": "object"
+              },
+              "message": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "type": "object"
+      }
+    },
+    "parameters": {
+      "count": {
+        "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+        "in": "query",
+        "name": "$count",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "skip": {
+        "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+        "in": "query",
+        "name": "$skip",
+        "schema": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "top": {
+        "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+        "example": 50,
+        "in": "query",
+        "name": "$top",
+        "schema": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "search": {
+        "description": "Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)",
+        "in": "query",
+        "name": "$search",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "error": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            }
+          }
+        },
+        "description": "Error"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "bearerFormat": "JWT",
+        "description": "To use this API, you need to obtain the Access Token. Please follow steps in the official documentation of Graph.",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "paths": {
+    "/bestrun/assmnt": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "$ref": "#/components/parameters/search"
+          },
+          {
+            "in": "query",
+            "name": "$filter",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)"
+          },
+          {
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "in": "query",
+            "name": "$orderby",
+            "schema": {
+              "items": {
+                "enum": [
+                  "plantId",
+                  "plantId desc",
+                  "plantName",
+                  "plantName desc"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          {
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "in": "query",
+            "name": "$select",
+            "schema": {
+              "items": {
+                "enum": [
+                  "plantId",
+                  "plantName"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          {
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "in": "query",
+            "name": "$expand",
+            "schema": {
+              "items": {
+                "enum": [
+                  "*",
+                  "matlStkInAcctMods",
+                  "locationRiskFactors"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved assmnt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "$ref": "#/components/schemas/bestrun.assmnt"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "Collection of assmnt",
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "summary": "Retrieve a list of assmnt.",
+        "tags": [
+          "assmnt"
+        ]
+      }
+    },
+    "/bestrun/assmnt/{plantId}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "plantId",
+          "required": true,
+          "description": "key: plantId",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        }
+      ],
+      "get": {
+        "parameters": [
+          {
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "in": "query",
+            "name": "$select",
+            "schema": {
+              "items": {
+                "enum": [
+                  "plantId",
+                  "plantName"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          {
+            "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+            "explode": false,
+            "in": "query",
+            "name": "$expand",
+            "schema": {
+              "items": {
+                "enum": [
+                  "*",
+                  "matlStkInAcctMods",
+                  "locationRiskFactors"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved assmnt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/bestrun.assmnt"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "summary": "Retrieve a single assmnt.",
+        "tags": [
+          "assmnt"
+        ]
+      }
+    },
+    "/bestrun/assmnt/{plantId}/matlStkInAcctMods": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "plantId",
+          "required": true,
+          "description": "key: plantId",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        }
+      ],
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "$ref": "#/components/parameters/search"
+          },
+          {
+            "in": "query",
+            "name": "$filter",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)"
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "in": "query",
+            "name": "$orderby",
+            "schema": {
+              "items": {
+                "enum": [
+                  "material",
+                  "material desc",
+                  "storageLocation",
+                  "storageLocation desc",
+                  "batch",
+                  "batch desc",
+                  "supplier",
+                  "supplier desc",
+                  "customer",
+                  "customer desc",
+                  "wbsElementInternalID",
+                  "wbsElementInternalID desc",
+                  "sdDocument",
+                  "sdDocument desc",
+                  "sdDocumentItem",
+                  "sdDocumentItem desc",
+                  "inventorySpecialStockType",
+                  "inventorySpecialStockType desc",
+                  "inventoryStockType",
+                  "inventoryStockType desc",
+                  "materialStock",
+                  "materialStock desc"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          {
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "in": "query",
+            "name": "$select",
+            "schema": {
+              "items": {
+                "enum": [
+                  "material",
+                  "storageLocation",
+                  "batch",
+                  "supplier",
+                  "customer",
+                  "wbsElementInternalID",
+                  "sdDocument",
+                  "sdDocumentItem",
+                  "inventorySpecialStockType",
+                  "inventoryStockType",
+                  "materialStock"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved matl stk in acct mods",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "$ref": "#/components/schemas/bestrun.assmnt_matlStkInAcctMods"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "Collection of assmnt_matlStkInAcctMods",
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "summary": "Retrieve a list of matl stk in acct mods of an assmnt.",
+        "tags": [
+          "assmnt"
+        ]
+      }
+    },
+    "/bestrun/assmnt/{plantId}/matlStkInAcctMods/{material-1}/{storageLocation-1}/{batch-1}/{supplier-1}/{customer-1}/{wbsElementInternalID-1}/{sdDocument-1}/{sdDocumentItem-1}/{inventorySpecialStockType-1}/{inventoryStockType-1}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "plantId",
+          "required": true,
+          "description": "key: plantId",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "material-1",
+          "required": true,
+          "description": "key: material",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "storageLocation-1",
+          "required": true,
+          "description": "key: storageLocation",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "batch-1",
+          "required": true,
+          "description": "key: batch",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "supplier-1",
+          "required": true,
+          "description": "key: supplier",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "customer-1",
+          "required": true,
+          "description": "key: customer",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "wbsElementInternalID-1",
+          "required": true,
+          "description": "key: wbsElementInternalID",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "sdDocument-1",
+          "required": true,
+          "description": "key: sdDocument",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "sdDocumentItem-1",
+          "required": true,
+          "description": "key: sdDocumentItem",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "inventorySpecialStockType-1",
+          "required": true,
+          "description": "key: inventorySpecialStockType",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "inventoryStockType-1",
+          "required": true,
+          "description": "key: inventoryStockType",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        }
+      ],
+      "get": {
+        "parameters": [
+          {
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "in": "query",
+            "name": "$select",
+            "schema": {
+              "items": {
+                "enum": [
+                  "material",
+                  "storageLocation",
+                  "batch",
+                  "supplier",
+                  "customer",
+                  "wbsElementInternalID",
+                  "sdDocument",
+                  "sdDocumentItem",
+                  "inventorySpecialStockType",
+                  "inventoryStockType",
+                  "materialStock"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved matl stk in acct mod",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/bestrun.assmnt_matlStkInAcctMods"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "summary": "Retrieve a single matl stk in acct mod of an assmnt.",
+        "tags": [
+          "assmnt"
+        ]
+      }
+    },
+    "/bestrun/assmnt/{plantId}/locationRiskFactors": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "plantId",
+          "required": true,
+          "description": "key: plantId",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        }
+      ],
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/top"
+          },
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "$ref": "#/components/parameters/search"
+          },
+          {
+            "in": "query",
+            "name": "$filter",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)"
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+            "explode": false,
+            "in": "query",
+            "name": "$orderby",
+            "schema": {
+              "items": {
+                "enum": [
+                  "location",
+                  "location desc",
+                  "riskFactor",
+                  "riskFactor desc",
+                  "riskCategory",
+                  "riskCategory desc",
+                  "riskScore",
+                  "riskScore desc",
+                  "riskTrend",
+                  "riskTrend desc",
+                  "riskScope",
+                  "riskScope desc"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          {
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "in": "query",
+            "name": "$select",
+            "schema": {
+              "items": {
+                "enum": [
+                  "location",
+                  "riskFactor",
+                  "riskCategory",
+                  "riskScore",
+                  "riskTrend",
+                  "riskScope"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved location risk factors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "$ref": "#/components/schemas/bestrun.assmnt_locationRiskFactors"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "Collection of assmnt_locationRiskFactors",
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "summary": "Retrieve a list of location risk factors of an assmnt.",
+        "tags": [
+          "assmnt"
+        ]
+      }
+    },
+    "/bestrun/assmnt/{plantId}/locationRiskFactors/{location-1}/{riskFactor-1}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "plantId",
+          "required": true,
+          "description": "key: plantId",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "location-1",
+          "required": true,
+          "description": "key: location",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        },
+        {
+          "in": "path",
+          "name": "riskFactor-1",
+          "required": true,
+          "description": "key: riskFactor",
+          "schema": {
+            "type": "string",
+            "example": "ABC"
+          }
+        }
+      ],
+      "get": {
+        "parameters": [
+          {
+            "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+            "explode": false,
+            "in": "query",
+            "name": "$select",
+            "schema": {
+              "items": {
+                "enum": [
+                  "location",
+                  "riskFactor",
+                  "riskCategory",
+                  "riskScore",
+                  "riskTrend",
+                  "riskScope"
+                ],
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved location risk factor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/bestrun.assmnt_locationRiskFactors"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "summary": "Retrieve a single location risk factor of an assmnt.",
+        "tags": [
+          "assmnt"
+        ]
+      }
+    },
+    "/$batch": {
+      "post": {
+        "description": "Group multiple requests into a single request payload, see [Batch Requests](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_BatchRequests).\n\n*Please note that \"Try it out\" is not supported for this request.*",
+        "requestBody": {
+          "content": {
+            "multipart/mixed;boundary=request-separator": {
+              "example": "--request-separator\nContent-Type: application/http\nContent-Transfer-Encoding: binary\n\nGET assmnt HTTP/1.1\nAccept: application/json\n\n\n--request-separator--",
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Batch request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "multipart/mixed": {
+                "example": "--response-separator\nContent-Type: application/http\n\nHTTP/1.1 200 OK\nContent-Type: application/json\n\n{...}\n--response-separator--",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Batch response"
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        },
+        "summary": "Send a group of requests",
+        "tags": [
+          "Batch Requests"
+        ]
+      }
+    }
+  },
+  "x-sapgraph-model-element": "entity",
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+    "businessDataGraphIdentifier": "plant-supply-risk",
+    "schemaVersion": "1.2.1",
+    "description": "",
+    "graphModelVersion": "^v3",
+    "odataContainment": true,
+    "dataSources": [
+        {
+            "name": "my.custom",
+            "services": [
+                {
+                    "destinationName": "demo_LocationRisk",
+                    "path": ""
+                },
+                {
+                    "destinationName": "demo_S4_sap-s4-ce-plant-0001-v1",
+                    "path": ""
+                }
+            ],
+            "namespace": "my.custom"
+        },
+        {
+            "name": "s4",
+            "services": [
+                {
+                    "destinationName": "demo_S4_API_MATERIAL_STOCK_SRV",
+                    "path": ""
+                },
+                {
+                    "destinationName": "s4hana_api_business-partner",
+                    "path": ""
+                }
+            ]
+        }
+    ],
+    "extensions": [
+        "plant-supply-risk"
+    ],
+    "locatingPolicy": {
+        "description": "",
+        "cues": [],
+        "keyMapping": [],
+        "rules": [
+            {
+                "name": "sap.graph.*",
+                "leading": "s4"
+            },
+            {
+                "name": "sap.s4.*",
+                "leading": "s4",
+                "local": []
+            },
+            {
+                "name": "bestrun.assmnt",
+                "leading": "my.custom",
+                "cues": []
+            },
+            {
+                "name": "bestrun.assmnt",
+                "leading": "s4",
+                "local": [],
+                "cues": [],
+                "sourceEntity": "sap.s4.A_MatlStkInAcctMod"
+            },
+            {
+                "name": "bestrun.assmnt",
+                "leading": "my.custom",
+                "cues": [],
+                "sourceEntity": "my.custom.LocationRiskFactors"
+            },
+            {
+                "name": "my.custom.*",
+                "leading": "my.custom"
+            }
+        ]
+    },
+    "deleted": false,
+    "exclude": [],
+    "effectiveGraphModelVersion": "3.1.5"
+}
