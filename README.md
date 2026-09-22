@@ -3,7 +3,7 @@
 ## Description
 This hands-on session demonstrates how **SAP Integration Suite** supports agentic AI scenarios by using **MCP Gateway** functionality to expose composed business APIs as **Model Context Protocol (MCP) tools**. _This approach gives AI agents standardized, secure, and governed access to enterprise context._
 
-Through the exercises, you will combine multiple backend APIs into a unified Business Data Graph, package it as an MCP Server, and test it using MCP Inspector
+Through the exercises, you will combine multiple backend APIs into a unified Business Data Graph, package it as an MCP Server, and test it using MCP Client
 
 ## Requirements
 There are no dedicated requirements for this session. You would be able to execute the exercises by just following the descriptions even if you do not have any experience with **SAP Integration Suite** and the **Model Context Protocol (MCP)**.
