@@ -63,7 +63,7 @@ Chapters in this section provide pre-configured setups to support learning, with
 To complete the exercises, the instructors will provide the following system URL and access
 
 - **SAP Integration Suite**
-- **MCP Inspector**
+- **MCP Inspector** (MCP Client)
 
 > [!IMPORTANT]
 > - _For a smooth experience, tenants have been preconfigured, and you already have all the roles and permissions needed to complete this exercise._
