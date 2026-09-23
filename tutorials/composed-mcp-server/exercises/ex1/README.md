@@ -26,7 +26,7 @@ Fill in the details in the creation dialog:
 
 | Field | Value |
 |---|---|
-| ID | `plantsupplyrisk-XX` [replace **`XX`** with your assigned participant number]|
+| ID | `plantsupplyrisk-XX` (replace **`XX`** with your assigned participant number)|
 | Description | `A unified API to identify risk associated with vendor location and stock level of a material in a plant.` |
 
 Under **Data Source Destinations**, select all the following 4 destinations we pre-conifgured for you. You can learn amore about them [here](../../pre-configured/SAP_BTP_Destinations_Setup/README.md)
@@ -115,9 +115,9 @@ Fill in the details for the model extension:
 
 | Field | Value |
 |---|---|
-| Name | `plantsupplyrisk-model-XX` [replace **`XX`** with your assigned participant number]|
+| Name | `plantsupplyrisk-model-XX` (replace **`XX`** with your assigned participant number)|
 | Description | `A unified Model to identify the risk associated with vendor location and stock level of a material in a plant.` |
-| Use metadata from business data graph | Select your newly created graph i.e. `plantsupplyrisk-XX` [replace **`XX`** with your assigned participant number] |
+| Use metadata from business data graph | Select your newly created graph i.e. `plantsupplyrisk-XX` (replace **`XX`** with your assigned participant number) |
 
 Click **Create**.
 
@@ -289,7 +289,7 @@ After saving the Model Extension, you need to link it back to your Business Data
 
 Navigate to **Design → Business Data Graphs**.
 
-Your graph `plantsupplyrisk-XX` will appear in the list with status **Available**. Click on it to open it.
+Your graph `plantsupplyrisk-XX` (replace **`XX`** with your assigned participant number) will appear in the list with status **Available**. Click on it to open it.
 
 > [!NOTE]
 > After opening, the graph status changes to **Draft**. This happens because linking a Model Extension is a configuration change that requires a fresh activation cycle.
@@ -306,21 +306,21 @@ Click **Add a Model Extension**.
 
 ![Business Data Graph Model Extensions tab — empty](../../resources/screenshots/ex1-step10-bdg-model-extension-empty.png)
 
-In the **Edit Model Extensions** dialog, select `plantsupplyrisk-model-XX` by checking the checkbox next to it.
-
-![Edit Model Extensions — select extension](../../resources/screenshots/ex1-step10-bdg-select-model-extension.png)
+In the **Edit Model Extensions** dialog, select `plantsupplyrisk-model-XX` (replace **`XX`** with your assigned participant number) by checking the checkbox next to it.
 
 Click **Apply**.
+The Model Extensions tab now shows `plantsupplyrisk-model-XX` (replace **`XX`** with your assigned participant number) linked to the Business Data Graph.
 
-The Model Extensions tab now shows `plantsupplyrisk-model-XX` linked to the Business Data Graph. The **Activate** button appears at the bottom of the page.
-
-![Business Data Graph — Model Extension linked, Activate button visible](../../resources/screenshots/ex1-step10-bdg-model-extension-linked.png)
+![Edit Model Extensions — select extension](../../resources/screenshots/ex1-step10-bdg-select-model-extension.png)
 
 ### Step 3 — Activate
 
 Click **Activate** at the bottom of the page.
 
-A confirmation dialog appears asking *"Are you sure you want to update the plantsupplyrisk-XX business data graph?"*. Click **Update**.
+![Business Data Graph — Model Extension linked, Activate button visible](../../resources/screenshots/ex1-step10-bdg-model-extension-linked.png)
+
+A confirmation dialog appears asking *"Are you sure you want to update the `plantsupplyrisk-XX` (replace **`XX`** with your assigned participant number) business data graph?"*.
+<br>Click **Update**.
 
 > [!NOTE]
 > The dialog uses the word **Update** rather than Activate — this is expected. Since the graph has been activated before, the system re-activates it with the new Model Extension configuration.
@@ -346,7 +346,7 @@ Click the **grid icon (⠿)** icon in the top-right to open the navigation menu.
 
 The **Developer Hub | API Composition** page opens, listing all available Business Data Graphs on the tenant.
 
-Click on **`plantsupplyrisk-XX`**.
+Click on **`plantsupplyrisk-XX`** (replace **`XX`** with your assigned participant number).
 
 ![API Composition Navigator — Business Data Graph list](../../resources/screenshots/ex1-step11-composition-navigator-list.png)
 
@@ -430,16 +430,14 @@ Use the **Navigate** panel on the right to drill into `…/addressRisks` or `…
 
 In this exercise you:
 
-- Created a **Business Data Graph** composing 4 backend destinations into a single unified API
-- Activated the graph and retrieved the OData URL
-- Created a **Model Extension** and defined a **Custom Entity** (`bestrun.assessment`) joining Plant, AddressRisk, and MaterialStock with cross-source navigation properties
-- Connected the Model Extension back to the Business Data Graph and re-activated it to expose the custom entity
-- Explored the Business Data Graph via the **API Composition Navigator**, confirmed entity relationships, and downloaded the **OpenAPI Specification**
+- **Created** a **Business Data Graph** composed of 4 backend destinations into a single unified API
+- **Activated** the **Business Data Graph** and retrieved the OData URL
+- **Created** a **Model Extension** and defined a **Custom Entity** (`bestrun.assessment`) joining Plant, AddressRisk, and MaterialStock with cross-source navigation properties
+- **Connected** the **Model Extension** back to the **Business Data Graph** and **re-activated** it to expose the custom entity
+- **Explored** the Business Data Graph via the **API Composition Navigator**, confirmed entity relationships, and downloaded the **OpenAPI Specification**
 
 This composed API is what powers the MCP Server in the core exercises — enabling the AI Agent to query supplier, plant, material, and risk data through a single endpoint.
 
 ---
 
 Continue to [Exercise 2 — Create, Deploy & Consume an MCP Server](../ex2/README.md)
-
-[Back to Overview](../../README.md)
