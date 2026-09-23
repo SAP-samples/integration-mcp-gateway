@@ -18,7 +18,7 @@ By the end, you will have an OData endpoint and an OpenAPI Specification ready f
 
 In SAP Integration Suite, go to **Design → Business Data Graphs**.
 
-You will either see a list of existing graphs on the tenant, or an empty state with a Create button at the center of the page if none exist yet.
+You will see a list of existing Business Data Graphs on the tenant.
 
 ![Business Data Graphs list](../../resources/screenshots/opt-step-1.png)
 
@@ -81,9 +81,13 @@ Review the details:
 
 ![Business Data Graph — Draft overview](../../resources/screenshots/opt-step-5.png)
 
+Once you have reviewed the details, proceed to activate the graph in Ex. 1.3.
+
 ---
 
 ## Ex. 1.3 — Activate the Business Data Graph
+
+### Step 1 — Activate
 
 Click **Activate** at the bottom of the page.
 
@@ -104,7 +108,7 @@ Your graph now appears in **Design → Business Data Graphs** with status **Avai
 ![Business Data Graphs — updated list](../../resources/screenshots/opt-step-7.png)
 
 > [!NOTE]
-> You will copy the final OData URL after re-activating the Business Data Graph with the Model Extension in Ex. 1.6. That is the URL to use in your MCP Server configuration.
+> You will copy the final OData URL after re-activating the Business Data Graph with the Model Extension in Ex. 1.6. That is the URL to use in your MCP Server configuration. Make a note of where to find it — the URL is shown on the Overview page under the graph name.
 
 ---
 
@@ -328,14 +332,17 @@ Click **Activate** at the bottom of the page.
 
 A confirmation dialog appears asking *"Are you sure you want to update the plantsupplyrisk-XX business data graph?"*. Click **Update**.
 
+> [!NOTE]
+> The dialog uses the word **Update** rather than Activate — this is expected. Since the graph has been activated before, the system re-activates it with the new Model Extension configuration.
+
 ![Business Data Graph — Activate confirmation dialog](../../resources/screenshots/ex1-step10-bdg-activate-confirm.png)
 
 The status will return to **Available** and the `bestrun` namespace will now appear in the Schema — confirming that `bestrun.assessment` is part of the Business Data Graph.
 
 ![Business Data Graph Overview — Available with URLs and bestrun schema](../../resources/screenshots/ex1-step11-bdg-overview-activated.png)
 
-> [!NOTE]
-> Copy the **OData URL** from the URL section on this page. This is the final URL to use in the MCP Server configuration in Exercise 2.
+> [!IMPORTANT]
+> Copy the **OData URL** from the URL section on this page and save it — this is the final URL you will use when configuring the MCP Server in Exercise 2.
 
 ---
 
@@ -359,7 +366,7 @@ In the left panel, expand the **bestrun (1)** namespace and click on **assessmen
 
 The entity overview shows:
 
-- **API Specification** — click **OpenAPI Specification** to download the spec file. Keep this for Exercise 2.
+- **API Specification** — click **OpenAPI Specification** to download the spec file. Save the file to your local machine — you will upload it in Exercise 2.
 - **Source Entities** — `my.custom/Plant`, `my.custom/AddressRisk`, `sap.s4/A_MatlStkInAcctMod`
 - **Connected Entities** — a visual graph showing `assessment` linked to `assessment_addressRisks` and `assessment_matlStkInAcctMods`
 

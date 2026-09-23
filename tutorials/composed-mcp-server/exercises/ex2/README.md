@@ -305,7 +305,19 @@ Copy and save the following — you will need all three in Ex. 2.8:
 
 The MCP Server can be consumed by any MCP-compatible agent. For this workshop, your instructor will provide a hosted **MCP Inspector** URL — open it in your browser.
 
-### Step 1 — Get a Bearer Token
+### Step 1 — Add Your MCP Server
+
+In MCP Inspector, click **Add Servers → HTTP** and fill in the following:
+
+| Field | Value |
+|---|---|
+| Server ID | `plantsupplyrisk_XX` |
+| Transport | `streamable-http` |
+| URL | Your MCP URL from Ex. 2.4 (e.g. `https://<virtual-host>/mcp-plantsupplyrisk-XX`) |
+
+Click **Save**.
+
+### Step 2 — Get a Bearer Token
 
 SAP Integration Suite uses OAuth 2.0 Client Credentials. Use any API client (Bruno, Postman, curl, etc.) to request a token.
 
@@ -322,7 +334,7 @@ A `200 OK` response returns an `access_token`. Copy it.
 
 ![Bruno — POST request to get access token, 200 OK response with access_token](../../resources/screenshots/ex2-step7-get-access-token.png)
 
-### Step 2 — Add the Token to MCP Inspector
+### Step 3 — Add the Token to MCP Inspector
 
 On the server card, click **Settings** → scroll to **Custom Headers** → expand and add:
 
@@ -334,7 +346,7 @@ Scroll to **OAuth Settings** → ensure **Enterprise-managed authorization** is 
 
 Close Settings → toggle the server switch to **Connected**.
 
-### Step 3 — Explore and Test Tools
+### Step 4 — Explore and Test Tools
 
 Once connected, click **Settings** on the server card → open the **Tools** tab.
 
@@ -354,7 +366,8 @@ Pick any `id` from the results and run **Retrieve a list of address risks** (`ge
 
 | Issue | Fix |
 |---|---|
-| Cannot connect | Verify the MCP URL matches the one shown in Ex. 2.4 || 401 Unauthorized | Re-generate a fresh token — tokens expire after ~3600 seconds |
+| Cannot connect | Verify the MCP URL matches the one shown in Ex. 2.4 |
+| 401 Unauthorized | Re-generate a fresh token — tokens expire after ~3600 seconds |
 | No tools listed | Ensure the correct tools were selected during Ex. 2.2 Step 4 |
 | Issuer mismatch error | Do not use Enterprise-managed authorization — use Custom Headers with Bearer token instead |
 
@@ -369,7 +382,7 @@ In this exercise you:
 - Deployed the MCP Server to **Integration Cell**, making the assessment tools available as a live endpoint
 - Published the MCP Server as a **product** (`plantsupplyriskProduct-XX`) in the Developer Hub
 - Subscribed to the product (`plantsupplyriskSubscription-XX`) and retrieved the **OAuth credentials** (Token URL, Key, Secret) needed by AI agents
-- Verified the MCP Server tools using the **MCP Inspector**
+- Tested the MCP Server tools using the **agentic client** (MCP Inspector)
 
 The MCP Server is now ready to be consumed by any MCP-compatible AI agent.
 
