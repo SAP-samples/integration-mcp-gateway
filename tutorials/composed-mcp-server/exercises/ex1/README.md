@@ -105,8 +105,6 @@ Once activated, the Overview page shows the generated URLs:
 
 Your graph now appears in **Design → Business Data Graphs** with status **Available**.
 
-![Business Data Graphs — updated list](../../resources/screenshots/opt-step-7.png)
-
 > [!NOTE]
 > You will copy the final OData URL after re-activating the Business Data Graph with the Model Extension in Ex. 1.6. That is the URL to use in your MCP Server configuration. Make a note of where to find it — the URL is shown on the Overview page under the graph name.
 
@@ -119,6 +117,10 @@ A **Model Extension** allows you to extend or customize the schema of your Busin
 ### Step 1 — Navigate to Model Extensions
 
 From the **Business Data Graphs** page, click **Model Extensions** (top-right).
+
+![Business Data Graphs list — click Model Extensions top-right](../../resources/screenshots/opt-step-7.png)
+
+You will see the **Model Extensions** list.
 
 ![Model Extensions list](../../resources/screenshots/opt-step-8.png)
 
