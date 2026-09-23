@@ -75,6 +75,8 @@ Fill in the following MCP Server details:
 | ID | `plantsupplyrisk_XX` (replace XX with your assigned participant number) |
 | MCP Path | `/mcp-plantsupplyrisk-XX` (replace XX with your assigned participant number) |
 | Version | `1.0.0` |
+| Runtime Profile | `Integration Cell` |
+| Virtual Host | *(auto-populated based on your tenant)* |
 
 Click **Next**
 
@@ -83,7 +85,7 @@ Click **Next**
 ### Step 4 — Select Tools
 
 The wizard reads your OpenAPI Specification and lists all available operations as **tools**. 
-<br>Select the following tools, these tools would be exposed to the AI agent.
+<br>Select the following tools only, these tools would be exposed to the AI agent.
 
 | Method | Path | Description | Select |
 |---|---|---|---|
@@ -91,8 +93,6 @@ The wizard reads your OpenAPI Specification and lists all available operations a
 | GET | `/bestrun/assessment/{id}` | Retrieve a single assessment | ✓ |
 | GET | `/bestrun/assessment/{id}/addressRisks` | Retrieve a list of address risks | ✓ |
 | GET | `/bestrun/assessment/{id}/addressRisks/{addressId}...` | Retrieve a single address risk | ✓ |
-| GET | `/bestrun/assessment/{id}/matlStkInAcctMods` | Retrieve a list of material stock records | |
-| GET | `/bestrun/assessment/{id}/matlStkInAcctMods/{mat}...` | Retrieve a single material stock record | |
 
 Click **Add**.
 
