@@ -106,6 +106,9 @@ Click **Add**.
 
 ## Ex. 2.3 — Review the Policy Model
 
+> [!NOTE]
+> **No action needed** — the default policy settings are pre-configured and ready to use. You do not need to modify any policy for this workshop.
+
 From the MCP Server detail page, click the **Policies** tab.
 
 ### Default Processing Flow
@@ -142,9 +145,6 @@ Beyond the defaults, additional policies can be added to the processing flow:
 - **Transformation & Mediation** — Payload modification, format conversion, JavaScript or Python scripts
 
 For this workshop, the default configuration is sufficient. Return to the **Overview** tab and proceed to deployment.
-
-> [!NOTE]
-> **No action needed** — the default policy settings are pre-configured and ready to use. You do not need to modify any policy for this workshop.
 
 ---
 
