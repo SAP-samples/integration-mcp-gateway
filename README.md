@@ -1,3 +1,5 @@
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/integration-mcp-gateway)]
+
 # Expose Composed APIs as MCP Server using SAP Integration Suite MCP Gateway
 
 ## Description
