@@ -1,28 +1,24 @@
 # Exercise 1 — Build a Unified Supply Risk API with Business Data Graph
 
-## Overview
-
 In this exercise, you will use API Composition to compose supplier, plant, stock, and location risk data into a single unified API.
 By the end, you will have an OData endpoint and an OpenAPI Specification ready for the MCP Server in [Exercise 2 — Create, Deploy & Consume an MCP Server](../ex2/README.md).
 
+> [!NOTE]
 > For a deeper understanding of the capability, refer to [SAP Help: API Composition](https://help.sap.com/docs/api-composition/isuite-api-composition/what-is-api-composition?locale=en-US)
 
----
-
 > [!IMPORTANT]
-> Add your participant number to the end of every artifact you create. Wherever you see `XX` in the steps below, replace it with your assigned number (e.g. participant `03` uses `plantsupplyrisk-03` for the BDG and `plantsupplyrisk-model-03` for the Model Extension).
+> Add your participant number to the end of every artifact you create. Wherever you see `XX` in the steps below, replace it with your assigned number (e.g. participant `04` uses `plantsupplyrisk-04` for the BDG and `plantsupplyrisk-model-04` for the Model Extension).
 
 ## Ex. 1.1 — Create a New Business Data Graph
 
 ### Step 1 — Navigate to Business Data Graphs
 
-In SAP Integration Suite, go to **Design → Business Data Graphs**.
+In **SAP Integration Suite**, go to **Design → Business Data Graphs**.
 
 You will see a list of existing Business Data Graphs on the tenant.
+Click **Create → New business data graph**.
 
 ![Business Data Graphs list](../../resources/screenshots/opt-step-1.png)
-
-Click **Create → New business data graph**.
 
 ### Step 2 — Fill in Details and Select Destinations
 
@@ -30,48 +26,45 @@ Fill in the details in the creation dialog:
 
 | Field | Value |
 |---|---|
-| ID | `plantsupplyrisk-XX` |
+| ID | `plantsupplyrisk-XX` [replace **`XX`** with your assigned participant number]|
 | Description | `A unified API to identify risk associated with vendor location and stock level of a material in a plant.` |
 
-Under **Data Source Destinations**, select the following 4 destinations:
+Under **Data Source Destinations**, select all the following 4 destinations we pre-conifgured for you. You can learn amore about them [here](../../pre-configured/SAP_BTP_Destinations_Setup/README.md)
 
 - `demo_LocationRisk`
 - `demo_S4_API_MATERIAL_STOCK_SRV`
 - `demo_S4_sap-s4-ce-plant-0001-v1`
 - `s4hana_api_business-partner`
 
-![Create Business Data Graph — configure ID and select destinations](../../resources/screenshots/opt-step-2.png)
-
 Click **Next**.
 
----
+![Create Business Data Graph — configure ID and select destinations](../../resources/screenshots/opt-step-2.png)
 
-## Ex. 1.2 — Configure, Analyze and Review
-
-### Step 1 — Configure Model Extension & Options
+### Step 3 — Configure Model Extension & Options
 
 On the **Model Extension** screen:
 
-- **Model Extension:** Leave as *Select a Model Extension* (skip for now — you will create and link the Model Extension in Ex. 1.4–1.6)
+- **Model Extension:** Leave as *Select a Model Extension* (skip for now — you will create and link the Model Extension from Ex. 1.2 to Ex. 1.4)
 - **OData Containment:** Keep **Enable OData Containment** checked
-
-![Model Extension and OData Containment settings](../../resources/screenshots/opt-step-3.png)
 
 Click **Next**.
 
-### Step 2 — Analyze Landscape
+![Model Extension and OData Containment settings](../../resources/screenshots/opt-step-3.png)
 
-SAP Integration Suite will now connect to each selected destination and analyze the data landscape in the background. This takes a short moment.
+### Step 4 — Analyze Landscape
+
+> [!NOTE]
+> SAP Integration Suite will now connect to each selected destination and analyze the data landscape in the background. This takes a short moment.
 
 Wait until all destinations show a green **Success** status:
 
-![Analyzing Landscape — all destinations successful](../../resources/screenshots/opt-step-4.png)
-
 Click **Next**. Once the next page loads, click **Done**.
 
-### Step 3 — Review the Draft
+![Analyzing Landscape — all destinations successful](../../resources/screenshots/opt-step-4.png)
 
-You will land on the **Overview** page of your newly created Business Data Graph, which is currently in **Draft** status.
+### Step 5 — Review the Draft and Activate
+
+You will land on the **Overview** tab of your newly created Business Data Graph, which is currently in **Draft** status.
 
 Review the details:
 
@@ -79,23 +72,14 @@ Review the details:
 - **Schema:** `sap.graph`, `sap.s4`, `my.custom`
 - **Options:** OData Containment enabled
 
+Once you have reviewed the details, click **Activate** at the bottom of the page.
+
 ![Business Data Graph — Draft overview](../../resources/screenshots/opt-step-5.png)
 
-Once you have reviewed the details, proceed to activate the graph in Ex. 1.3.
+### Step 6 — Review the Activated Business Data Graph
 
----
-
-## Ex. 1.3 — Activate the Business Data Graph
-
-### Step 1 — Activate
-
-Click **Activate** at the bottom of the page.
-
-The system will activate the graph and the status will change to **Available**.
-
-![Business Data Graph — Available status with API URLs](../../resources/screenshots/opt-step-6.png)
-
-Once activated, the Overview page shows the generated URLs:
+After a short period, the system will activate the graph. During this time, the status may display as **Processing** before changing to **Available**. 
+Once activation is complete, the **Overview** page will display the generated URLs:
 
 | URL Type | Use |
 |---|---|
@@ -105,12 +89,14 @@ Once activated, the Overview page shows the generated URLs:
 
 Your graph now appears in **Design → Business Data Graphs** with status **Available**.
 
+![Business Data Graph — Available status with API URLs](../../resources/screenshots/opt-step-6.png)
+
 > [!NOTE]
-> You will copy the final OData URL after re-activating the Business Data Graph with the Model Extension in Ex. 1.6. That is the URL to use in your MCP Server configuration. Make a note of where to find it — the URL is shown on the Overview page under the graph name.
+> You will copy the final OData URL after re-activating the Business Data Graph with the **Model Extension**. That is the URL to use in your MCP Server configuration. Make a note of where to find it — the URL is shown on the Overview page under the graph name.
 
 ---
 
-## Ex. 1.4 — Create a Model Extension
+## Ex. 1.2 — Create a Model Extension
 
 A **Model Extension** allows you to extend or customize the schema of your Business Data Graph.
 
@@ -118,39 +104,32 @@ A **Model Extension** allows you to extend or customize the schema of your Busin
 
 From the **Business Data Graphs** page, click **Model Extensions** (top-right).
 
-![Business Data Graphs list — click Model Extensions top-right](../../resources/screenshots/opt-step-7.png)
-
-You will see the **Model Extensions** list.
-
-![Model Extensions list](../../resources/screenshots/opt-step-8.png)
+![Business Data Graph — Available status with API URLs](../../resources/screenshots/opt-step-7.png)
 
 Click **Create → New Model Extension**.
+![Model Extensions list](../../resources/screenshots/opt-step-8.png)
 
 ### Step 2 — Fill in Details
 
-Fill in the details:
+Fill in the details for the model extension:
 
 | Field | Value |
 |---|---|
-| Name | `plantsupplyrisk-model-XX` |
+| Name | `plantsupplyrisk-model-XX` [replace **`XX`** with your assigned participant number]|
 | Description | `A unified Model to identify the risk associated with vendor location and stock level of a material in a plant.` |
-| Use metadata from business data graph | Select your newly created graph (e.g. `plantsupplyrisk-XX`) |
-
-![Create Model Extension dialog](../../resources/screenshots/opt-step-9.png)
+| Use metadata from business data graph | Select your newly created graph i.e. `plantsupplyrisk-XX` [replace **`XX`** with your assigned participant number] |
 
 Click **Create**.
 
----
+![Create Model Extension dialog](../../resources/screenshots/opt-step-9.png)
 
-## Ex. 1.5 — Create a Custom Entity
-
-From the Model Extension detail page, click the **Custom Entities** tab.
+## Ex. 1.3 — Create a Custom Entity
 
 You will see an empty state. Click **Create a custom entity**.
 
 ![Model Extension — No Custom Entities](../../resources/screenshots/ex1-step9-custom-entity-empty.png)
 
-### Step 1 — Name
+### Step 1 — Fill in Details
 
 Fill in the details for the custom entity:
 
@@ -158,20 +137,23 @@ Fill in the details for the custom entity:
 |---|---|
 | Name | `bestrun.assessment` |
 | Label | *(leave empty)* |
-| Description | `this custom entity defines the relationship between our backend APIs` |
+| Description | `This custom entity defines the relationship between our backend APIs` |
 | Read-only Custom Entity | *(unchecked)* |
 
-![Custom Entity — Name](../../resources/screenshots/ex1-step9-custom-entity-name.png)
-
 Click **Next**.
+
+![Custom Entity — Name](../../resources/screenshots/ex1-step9-custom-entity-name.png)
 
 ### Step 2 — Source Entities
 
 Set the **Main Source Entity** to `my.custom.Plant`.
+Then click **Add**
 
 ![Source Entities — Main Source Entity set to my.custom.Plant](../../resources/screenshots/ex1-step9-source-entities-main-selected.png)
 
-Then click **Add** under **Additional Source Entities** and configure each additional source as follows:
+### Step 3 — Additional Source Entities
+
+Under **Additional Source Entities**, configure following additional sources:
 
 **Additional Source Entity 1:**
 
@@ -182,6 +164,8 @@ Then click **Add** under **Additional Source Entities** and configure each addit
 | Additional Source Attribute | `AddressId (key)` |
 | Cardinality | `many` |
 | Composition Attribute | `addressRisks` |
+
+Then click **Add**
 
 ![Add Additional Source Entity — AddressRisk join configuration](../../resources/screenshots/ex1-step9-custom-entity-source-entities.png)
 
@@ -195,13 +179,15 @@ Then click **Add** under **Additional Source Entities** and configure each addit
 | Cardinality | `many` |
 | Composition Attribute | `matlStkInAcctMods` |
 
+Then click **Add**
+
 ![Add Additional Source Entity — MatlStkInAcctMod join configuration](../../resources/screenshots/ex1-step9-source-entities-matlstk-dialog.png)
 
 Both additional sources are now listed. Click **Next**.
 
 ![Source Entities — both additional sources added](../../resources/screenshots/ex1-step9-source-entities-both-added.png)
 
-### Step 3 — Attributes
+### Step 4 — Attributes
 
 Select the attributes from each source entity as shown below. Use the **Add as** column to rename the attribute in the custom entity's schema.
 
@@ -265,7 +251,7 @@ Click **Create**.
 > [!NOTE]
 > The attributes selected above and the join conditions reflect the specific fields relevant to this workshop's plant supply risk use case — plant identification, address-level risk scores, and material stock levels. In a real implementation, practitioners should select attributes based on their own business requirements and the fields their consumers actually need.
 
-### Step 4 — Apply the Custom Entity
+### Step 5 — Apply the Custom Entity
 
 After clicking **Create**, you will land on the **Custom Entity detail page** showing the composed attribute structure:
 
@@ -280,7 +266,7 @@ Click **Apply** to confirm the custom entity.
 
 ![Custom Entity — Attributes overview with Apply](../../resources/screenshots/ex1-step9-custom-entity-apply.png)
 
-### Step 5 — Save the Model Extension
+### Step 6 — Save the Model Extension
 
 You will be returned to the **Model Extensions** page where `bestrun.assessment` now appears in the **Custom Entities** list with:
 
@@ -293,7 +279,7 @@ Click **Save** to persist the Model Extension.
 
 ---
 
-## Ex. 1.6 — Connect the Model Extension to the Business Data Graph
+## Ex. 1.4 — Connect the Model Extension to the Business Data Graph
 
 After saving the Model Extension, you need to link it back to your Business Data Graph so the custom entity becomes part of the activated API.
 
