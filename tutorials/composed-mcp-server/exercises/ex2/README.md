@@ -26,11 +26,13 @@ You will see a list of existing Integration Packages on the tenant.
 
 ### Step 2 — Fill in Package Details
 
+Fill in the following integration package details:
+
 | Field | Value |
 |---|---|
 | Name | `plant-supply-risk-package-XX` (replace XX with your assigned participant number) |
 | Technical Name | *(auto-populated)* |
-| Short Description | `This package is created to create MCP artifacts using the OpenAPI specification & API composed URL from the plant supply risk graph.` |
+| Short Description | `This package is created to create MCP artifacts using the OpenAPI specification & API composed URL from the plant supply risk graph` |
 | Version | `1.0.0` |
 | Vendor | `SAP` |
 
@@ -206,30 +208,31 @@ Click on your Integration Suite business system to open it.
 
 Click the **AI Artifacts** tab. You will see a list of all deployed MCP Servers registered on this business system.
 
-Select **`plantsupplyrisk_XX` (replace XX with your assigned participant number)** by checking the checkbox next to it.
+Select **`plantsupplyrisk_XX`** (replace XX with your assigned participant number) by checking the checkbox next to it.
 Click **Create Product**
 
 ![Business System — MCP Servers tab, server selected](../../resources/screenshots/ex2-step4-mcp-servers-select.png)
 
 ### Step 5 — Fill in Product Details and Publish
 
-Fill in the product details:
+Fill in the following product details:
 
 | Field | Value |
 |---|---|
-| Name | `plantsupplyriskProduct-XX` |
-| ID | `plantsupplyriskProduct-XX` |
-| Short Text | *(optional)* |
-| Description | `The Plant Supply Risk MCP Artifact is deployed as a product.` |
+| Name | `plantsupplyriskProduct-XX` (replace XX with your assigned participant number) |
+| ID | `plantsupplyriskProduct-XX` (replace XX with your assigned participant number) |
+| Short Text | `The Plant Supply Risk MCP Artifact is deployed as a produc` |
+| Description | `The Plant Supply Risk MCP Artifact is deployed as a product` |
+
+Click **Publish**
 
 ![Create Product dialog](../../resources/screenshots/ex2-step4-create-product.png)
-
-Click **Publish**.
 
 > [!NOTE]
 > Publishing triggers an AI-assisted content creation process in the background. You can optionally monitor its progress via **Admin Center → Scheduled Requests**. Wait for the status to change to **Success** before subscribing.
 >
-> ![Scheduled Requests — publish status](../../resources/screenshots/ex2-step4-scheduled-requests-optional.png)
+> ![Scheduled Requests — publish status](../../resources/screenshots/ex2-step4-scheduled-requests-optional-1.png)
+> ![Scheduled Requests — publish status](../../resources/screenshots/ex2-step4-scheduled-requests-optional-2.png)
 
 ### Step 6 — Confirm the Product is Live
 
