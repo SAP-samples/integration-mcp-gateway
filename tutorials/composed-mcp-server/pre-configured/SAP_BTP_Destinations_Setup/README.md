@@ -9,6 +9,9 @@
 - **SAP Integration Suite** tenant, and the `Integration_Provisioner` role collection assigned to the user
 - **API Composition** capability activated on the SAP Integration Suite and `Graph.KeyUser` role collection assigned to the user
 
+>[!NOTE]
+>Integration Cell runtime needs to be activated before activating the API composition capability. Refer to the [Get Started with Integration Cell](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/get-started-with-integration-cell) for more details.
+
 For reference on how you can set the SAP Integration Suite trial tenant and enable the API Composition capability, see:
 
 - [Check BTP regions where the API Composition capability is available](https://me.sap.com/notes/3338820)
