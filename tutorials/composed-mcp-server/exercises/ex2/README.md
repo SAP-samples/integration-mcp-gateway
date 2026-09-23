@@ -326,41 +326,33 @@ Click **Add**
 
 ![Add server dialog — Server ID, Transport, URL filled in](../../resources/screenshots/ex2-step8-add-server-dialog.png)
 
-### Step 2 — Get a Bearer Token
-
-SAP Integration Suite uses OAuth 2.0 Client Credentials. Use any API client (Bruno, Postman, curl, etc.) to request a token.
-
-Make a `POST` request with **Form URL Encoded** body:
-
-| Field | Value |
-|---|---|
-| URL | Your **Token URL** from Ex. 2.7 |
-| `grant_type` | `client_credentials` |
-| `client_id` | Your **Key** from Ex. 2.7 |
-| `client_secret` | Your **Secret** from Ex. 2.7 |
-
-A `200 OK` response returns an `access_token`. Copy it.
-
-![Bruno — POST request to get access token, 200 OK response with access_token](../../resources/screenshots/ex2-step7-get-access-token.png)
-
-### Step 3 — Configure Authentication
+### Step 2 — Configure OAuth Authentication
 
 On the server card, click **Settings**.
 
-Scroll to **Custom Headers** and click to expand the section. Click **+ Add Header** and enter:
+Scroll to the bottom of the Settings dialog and click **OAuth Settings** to expand it.
 
-| Key | Value |
+![Server Settings — OAuth Settings section highlighted](../../resources/screenshots/ex2-step8-server-settings-oauth.png)
+
+Configure the following fields:
+
+| Field | Value |
 |---|---|
-| `Authorization` | `Bearer <paste your access_token here>` |
+| **Enterprise-managed authorization** | Leave **unchecked** |
+| **Client ID** | Your **Key** from Ex. 2.7 |
+| **Client Secret** | Your **Secret** from Ex. 2.7 |
+| **Request refresh token** | **Uncheck** (checked by default) |
+| **Revoke tokens on clear** | **Uncheck** (checked by default) |
 
-![Server Settings — Custom Headers with Authorization Bearer token added](../../resources/screenshots/ex2-step8-custom-headers.png)
+![OAuth Settings — Client ID and Client Secret filled in](../../resources/screenshots/ex2-step8-oauth-settings-credentials.png)
 
-Scroll down to **OAuth Settings**. Ensure **Enterprise-managed authorization** is **unchecked**.
+Scroll down within OAuth Settings to **Token URL override** and enter your **Token URL** from Ex. 2.7. Leave **Authorization URL override** blank.
+
+![OAuth Settings — Token URL override filled in](../../resources/screenshots/ex2-step8-oauth-settings-token-url.png)
+
 Close Settings.
 
-![Server Settings — OAuth Settings with Enterprise-managed authorization unchecked](../../resources/screenshots/ex2-step8-oauth-settings.png)
-
-### Step 4 — Connect and Explore Tools
+### Step 3 — Connect and Explore Tools
 
 Toggle the server switch to **Connected**. The server card turns green confirming a successful connection.
 
@@ -389,9 +381,9 @@ Click **Execute Tool** — this returns the live risk scores for that plant's lo
 | Issue | Fix |
 |---|---|
 | Cannot connect | Verify the MCP URL matches the one shown in Ex. 2.4 |
-| 401 Unauthorized | Re-generate a fresh token — tokens expire after ~3600 seconds |
+| 401 Unauthorized | Verify Client ID, Client Secret, and Token URL are entered correctly in OAuth Settings |
 | No tools listed | Ensure the correct tools were selected during Ex. 2.2 Step 4 |
-| Issuer mismatch error | Do not use Enterprise-managed authorization — use Custom Headers with Bearer token instead |
+| Issuer mismatch error | Ensure **Enterprise-managed authorization** is **unchecked** in OAuth Settings |
 
 ---
 
