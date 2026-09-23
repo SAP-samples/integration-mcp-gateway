@@ -393,6 +393,60 @@ Click **Execute Tool** — this returns the live risk scores for that plant's lo
 
 ---
 
+## Ex. 2.9 — Monitor MCP Consumption
+
+After testing the MCP Server in Ex. 2.8, SAP Integration Suite records every tool call as a message in **Monitor Message Processing**. In this exercise you will enable trace logging and inspect the processing details of your MCP calls.
+
+### Step 1 — Navigate to Manage Integration Content
+
+In SAP Integration Suite, go to **Monitor → Integrations and APIs**. Set **Runtime** to **Integration Cell**.
+
+Click the **Manage Integration Content** tile.
+
+![Monitor Overview — Manage Integration Content tile](../../resources/screenshots/ex2-step9-monitor-overview-content.png)
+
+### Step 2 — Enable Trace Logging
+
+In the **Integration Content** list, click on **`plantsupplyrisk_XX`**.
+
+In the right panel, scroll to **Log Configuration** and set the **Log Level** to **Trace**.
+
+![Manage Integration Content — plantsupplyrisk_XX Log Configuration set to Trace](../../resources/screenshots/ex2-step9-manage-content-trace.png)
+
+> [!NOTE]
+> Trace logging captures full policy execution details and request/response payloads. It is automatically reset after approximately 1 hour.
+
+### Step 3 — Trigger Tool Calls via MCP Inspector
+
+Return to MCP Inspector and run one or more tools as in Ex. 2.8. Each tool call creates a message entry in the monitor.
+
+### Step 4 — Open Monitor Message Processing
+
+Return to the Monitor Overview and click the **Monitor Message Processing** tile.
+
+![Monitor Overview — Monitor Message Processing tile highlighted](../../resources/screenshots/ex2-step9-monitor-overview-messages.png)
+
+### Step 5 — View Completed Messages
+
+You will see a list of completed **MCP Server** messages for `plantsupplyrisk_XX`. Click on a message row to open the detail panel.
+
+The panel shows:
+- **Status** — Message processing completed successfully
+- **Processing Time**
+- **Logs** — Log Level: Trace
+
+![Monitor Message Processing — completed message with detail panel](../../resources/screenshots/ex2-step9-message-detail.png)
+
+### Step 6 — Inspect Run Steps
+
+Click **MCP Server Model** (top-right of the detail view).
+
+The **Run Steps** panel shows each policy component and its execution time — **Authentication** and **Authorization 1** — overlaid on the Policy Model diagram.
+
+![Message Processing Run — Run Steps with Policy Model](../../resources/screenshots/ex2-step9-run-steps.png)
+
+---
+
 ## Summary
 
 In this exercise you:
@@ -403,6 +457,7 @@ In this exercise you:
 - Published the MCP Server as a **product** (`plantsupplyriskProduct-XX`) in the Developer Hub
 - Subscribed to the product (`plantsupplyriskSubscription-XX`) and retrieved the **OAuth credentials** (Token URL, Key, Secret) needed by AI agents
 - Tested the MCP Server tools using the **agentic client** (MCP Inspector)
+- Monitored MCP consumption via **Monitor Message Processing** — enabled Trace logging and inspected the policy execution run steps
 
 The MCP Server is now ready to be consumed by any MCP-compatible AI agent.
 
