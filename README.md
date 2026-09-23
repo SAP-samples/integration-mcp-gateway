@@ -17,11 +17,13 @@ To get started and build expertise with the technologies used in this workshop, 
 
 ## Session Overview
 
-## Scenario
+### Business Scenario
+**BestRun** receives a procurement request: "Source 500 units of Material M-4821 for delivery to Hamburg, Germany."
 
-**Company:** BestRun
+Multiple suppliers offer this material from plants in different locations. The agent must evaluate each option and recommend the optimal supplier — balancing risk exposure, stock availability, and logistics distance.
+The company **BestRun** wants to optimize their procurement process by establishing a Risk Assessment Process using an AI Agent.
 
-**Challenge:** The company BestRun wants to optimize their procurement process by establishing a Risk Assessment Process using an AI Agent.
+**Goal:** Select most reliable supplier for each material taking into consideration the risk associated with a location of the plant, stock levels of the material at a plant and physical distance of the plant from delivery location.
 
 **Data Sources:**
 | Source | Content |
@@ -34,10 +36,6 @@ To get started and build expertise with the technologies used in this workshop, 
 
 > [!NOTE]
 > All these APIs are mock APIs publicly hosted for trial. They can be used to create a composed API via Business Data Graph, as detailed in this exercise.
-
-**Goal:** Select most reliable supplier for each material taking into consideration the risk associated with a location of the plant, stock levels of the material at a plant and physical distance of the plant from delivery location.
-
----
 
 ![MCP Scenario Diagram](./tutorials/composed-mcp-server/resources/screenshots/MCP_Scenario_Diagram.jpg)
 
@@ -61,11 +59,10 @@ To complete the exercises, the instructors will provide the following system URL
 > - _Do not delete, change or undeploy any artifact in the tenant other than yours._
 
 ## Exercises
+The complete list of exercise steps are listed below, run through them in the given order.
 
-| # | Title |
-|---|---|
-| [Exercise 1](tutorials/composed-mcp-server/exercises/ex1/README.md) | Build a Unified Supply Risk API with Business Data Graph |
-| [Exercise 2](tutorials/composed-mcp-server/exercises/ex2/README.md) | Create, Deploy & Consume an MCP Server |
+- [Exercise 1 - Build a Unified Supply Risk API with Business Data Graph](tutorials/composed-mcp-server/exercises/ex1/README.md)
+- [Exercise 2 - Create, Deploy & Consume an MCP Server using SAP Integration Suite](tutorials/composed-mcp-server/exercises/ex2/README.md)
 
 ## Feedback
 We appreciate your feedback after the session!
