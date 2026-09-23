@@ -440,4 +440,4 @@ This composed API is what powers the MCP Server in the core exercises — enabli
 
 ---
 
-Continue to [Exercise 2 — Create, Deploy & Consume an MCP Server](../ex2/README.md)
+Continue to [Exercise 2 — Create, Deploy & Consume an MCP Server using SAP Integration Suite](../ex2/README.md)
