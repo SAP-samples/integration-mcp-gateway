@@ -57,7 +57,6 @@ Agentic Client
 Chapters in this section provide pre-configured setups to support learning, without being part of the hands-on exercises:
 
 - [SAP BTP Destinations Setup (for your information only)](tutorials/composed-mcp-server/pre-configured/SAP_BTP_Destinations_Setup/README.md)
-- [MCP Gateway Tenant Setup (for your information only)](tutorials/composed-mcp-server/pre-configured/MCP_Gateway_Tenant_Setup/README.md)
   
 ## System URL and login information
 To complete the exercises, the instructors will provide the following system URL and access:
