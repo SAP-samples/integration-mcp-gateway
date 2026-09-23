@@ -39,8 +39,8 @@ To get started and build expertise with the technologies used in this workshop, 
 
 ---
 
+![MCP Scenario Diagram](../../resources/screenshots/MCP_Scenario_Diagram.jpg)
 
-![MCP Scenario Diagram](./assets/MCP_Scenario_Diagram.jpg)
 
 ```
 
