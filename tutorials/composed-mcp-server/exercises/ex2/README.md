@@ -307,15 +307,21 @@ The MCP Server can be consumed by any MCP-compatible agent. For this workshop, y
 
 ### Step 1 — Add Your MCP Server
 
-In MCP Inspector, click **Add Servers → HTTP** and fill in the following:
+Click **Add Servers → + Add manually**.
+
+![MCP Inspector — Add Servers dropdown](../../resources/screenshots/ex2-step8-add-servers-menu.png)
+
+In the **Add server** dialog, fill in:
 
 | Field | Value |
 |---|---|
-| Server ID | `plantsupplyrisk_XX` |
+| Server ID | `plantsupplyrisk-mcp-XX` |
 | Transport | `streamable-http` |
 | URL | Your MCP URL from Ex. 2.4 (e.g. `https://<virtual-host>/mcp-plantsupplyrisk-XX`) |
 
-Click **Save**.
+![Add server dialog — Server ID, Transport, URL filled in](../../resources/screenshots/ex2-step8-add-server-dialog.png)
+
+Click **Add**.
 
 ### Step 2 — Get a Bearer Token
 
@@ -334,31 +340,41 @@ A `200 OK` response returns an `access_token`. Copy it.
 
 ![Bruno — POST request to get access token, 200 OK response with access_token](../../resources/screenshots/ex2-step7-get-access-token.png)
 
-### Step 3 — Add the Token to MCP Inspector
+### Step 3 — Configure Authentication
 
-On the server card, click **Settings** → scroll to **Custom Headers** → expand and add:
+On the server card, click **Settings**.
+
+Scroll to **Custom Headers** and click to expand the section. Click **+ Add Header** and enter:
 
 | Key | Value |
 |---|---|
 | `Authorization` | `Bearer <paste your access_token here>` |
 
-Scroll to **OAuth Settings** → ensure **Enterprise-managed authorization** is unchecked.
+![Server Settings — Custom Headers with Authorization Bearer token added](../../resources/screenshots/ex2-step8-custom-headers.png)
 
-Close Settings → toggle the server switch to **Connected**.
+Scroll down to **OAuth Settings**. Ensure **Enterprise-managed authorization** is **unchecked**.
 
-### Step 4 — Explore and Test Tools
+![Server Settings — OAuth Settings with Enterprise-managed authorization unchecked](../../resources/screenshots/ex2-step8-oauth-settings.png)
 
-Once connected, click **Settings** on the server card → open the **Tools** tab.
+Close Settings.
 
-You will see the 4 operations exposed from your OpenAPI spec. Start with:
+### Step 4 — Connect and Explore Tools
 
-1. Click **Retrieve a list of assessment** (`get_bestrun_assessment`)
-2. No parameters needed — click **Run Tool**
-3. The response lists all plants with their IDs (Berlin, Munich, London, etc.)
+Toggle the server switch to **Connected**. The server card turns green confirming a successful connection.
 
-Pick any `id` from the results and run **Retrieve a list of address risks** (`get_bestrun_assessment_id_addressRisks`) — this returns the live risk scores for that plant's location.
+![MCP Inspector — plantsupplyrisk-mcp-xx Connected](../../resources/screenshots/ex2-step8-connected.png)
 
-![MCP Inspector — Tools tab with 4 tools and live assessment results](../../resources/screenshots/ex2-step7-mcp-inspector-tools.png)
+In the top navigation bar, click **Tools**. You will see the 4 operations exposed from your OpenAPI spec.
+
+![MCP Inspector — Tools tab with 4 tools listed](../../resources/screenshots/ex2-step8-tools-list.png)
+
+Click **Retrieve a list of assessment** (`get_bestrun_assessment`). No parameters are needed — the Results pane shows all plants with their IDs (Berlin, Munich, London, etc.).
+
+![MCP Inspector — Assessment results showing plant list](../../resources/screenshots/ex2-step8-assessment-results.png)
+
+Pick any `id` from the results and click **Retrieve a list of address risks of an assessment** (`get_bestrun_assessment_id_addressRisks`). Enter the `id` as a parameter and run — this returns the live risk scores for that plant's location.
+
+![MCP Inspector — Address risk results for a plant](../../resources/screenshots/ex2-step8-address-risk-results.png)
 
 > **Tip:** The data you see here — plant IDs, risk factors, risk scores — is exactly what an AI agent will receive when it calls these tools autonomously to answer a procurement question.
 
