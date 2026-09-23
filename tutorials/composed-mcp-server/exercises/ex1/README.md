@@ -123,6 +123,8 @@ Click **Create**.
 
 ![Create Model Extension dialog](../../resources/screenshots/opt-step-9.png)
 
+---
+
 ## Ex. 1.3 — Create a Custom Entity
 
 You will see an empty state. Click **Create a custom entity**.
