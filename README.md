@@ -60,7 +60,7 @@ Chapters in this section provide pre-configured setups to support learning, with
 - [MCP Gateway Tenant Setup (for your information only)](tutorials/composed-mcp-server/pre-configured/MCP_Gateway_Tenant_Setup/README.md)
   
 ## System URL and login information
-To complete the exercises, the instructors will provide the following system URL and access
+To complete the exercises, the instructors will provide the following system URL and access:
 
 - **SAP Integration Suite**
 - **MCP Inspector** (MCP Client)
