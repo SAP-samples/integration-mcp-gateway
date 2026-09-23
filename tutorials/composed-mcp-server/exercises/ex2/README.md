@@ -143,6 +143,9 @@ Beyond the defaults, additional policies can be added to the processing flow:
 
 For this workshop, the default configuration is sufficient. Return to the **Overview** tab and proceed to deployment.
 
+> [!NOTE]
+> **No action needed** — the default policy settings are pre-configured and ready to use. You do not need to modify any policy for this workshop.
+
 ---
 
 ## Ex. 2.4 — Deploy the MCP Server
@@ -292,6 +295,9 @@ Copy and save the following — you will need all three in Ex. 2.8:
 | **Secret** | OAuth Client Secret |
 
 ![Subscription — Credentials section](../../resources/screenshots/ex2-step6-credentials.png)
+
+> [!NOTE]
+> It may take a short while for the credentials to appear on the Overview page. If the Credentials section is not yet visible, refresh the page and try again.
 
 ---
 
