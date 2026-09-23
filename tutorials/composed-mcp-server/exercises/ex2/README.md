@@ -1,4 +1,4 @@
-# Exercise 2 — Create, Deploy & Consume an MCP Server
+# Exercise 2 — Create, Deploy & Consume an MCP Server using SAP Integration Suite
 
 ## Overview
 
@@ -20,29 +20,27 @@ By the end, your supply risk data is accessible to any MCP-compatible agent — 
 In SAP Integration Suite, go to **Design → Integrations and APIs**.
 
 You will see a list of existing Integration Packages on the tenant.
+<br>Click **Create**
 
 ![Design — Integration Packages list](../../resources/screenshots/ex2-step1-integration-packages.png)
 
-Click **Create**.
-
 ### Step 2 — Fill in Package Details
-
-Fill in the package details:
 
 | Field | Value |
 |---|---|
-| Name | `plant-supply-risk-packageXX`  |
+| Name | `plant-supply-risk-package-XX` (replace XX with your assigned participant number) |
 | Technical Name | *(auto-populated)* |
 | Short Description | `This package is created to create MCP artifacts using the OpenAPI specification & API composed URL from the plant supply risk graph.` |
-| Version | `1.0` |
+| Version | `1.0.0` |
+| Vendor | `SAP` |
+
+Click **Save**
 
 ![Create Integration Package — details form](../../resources/screenshots/ex2-step1-create-package.png)
 
-Click **Save**.
-
 ---
 
-## Ex. 2.2 — Add an MCP Server
+## Ex. 2.2 — Add MCP Server artifact
 
 ### Step 1 — Open the Artifacts Tab
 
@@ -56,34 +54,36 @@ Click **Add → MCP Server**.
 
 In the **Add MCP Server** wizard, select **HTTP Endpoint with OpenAPI Specification**.
 
+> [!NOTE]
 > This option creates an MCP Server from any HTTP endpoint by providing the URL and importing the OpenAPI Specification.
-
-![Add MCP Server — Select Source Type](../../resources/screenshots/ex2-step2-select-source-type.png)
 
 Click **Next**.
 
-### Step 3 — Configure MCP Server Details
+![Add MCP Server — Select Source Type](../../resources/screenshots/ex2-step2-select-source-type.png)
 
-Fill in the MCP Server details:
+### Step 3 — Provide MCP Server Details
+
+Fill in the following MCP Server details:
 
 | Field | Value |
 |---|---|
 | Method | `Upload` |
-| File Name | Upload the **OpenAPI Specification** file downloaded from the API Composition Navigator in Ex. 1.7 |
+| File Name | Upload the **OpenAPI Specification** file downloaded from the API Composition Navigator in [Ex. 1.5](../ex1/README.md#ex-15--explore-the-business-data-graph-via-api-composition-navigator) |
 | Source | `URL` |
-| URL | The **OData URL** copied from the Business Data Graph Overview in Ex. 1.6 |
-| Name | `plantsupplyrisk_XX` |
-| ID | `plantsupplyrisk_XX` |
-| MCP Path | `/mcp-plantsupplyrisk-XX` |
-| Version | `1.0` |
+| URL | The **OData URL** copied from the Business Data Graph Overview in [Ex. 1.4](../ex1/README.md#ex-14--connect-the-model-extension-to-the-business-data-graph) |
+| Name | `plantsupplyrisk_XX` (replace XX with your assigned participant number) |
+| ID | `plantsupplyrisk_XX` (replace XX with your assigned participant number) |
+| MCP Path | `/mcp-plantsupplyrisk-XX` (replace XX with your assigned participant number) |
+| Version | `1.0.0` |
+
+Click **Next**
 
 ![Add MCP Server — MCP Details](../../resources/screenshots/ex2-step2-mcp-details.png)
 
-Click **Next**.
-
 ### Step 4 — Select Tools
 
-The wizard reads your OpenAPI Specification and lists all available operations as **tools**. Select the tools you want to expose to the AI agent.
+The wizard reads your OpenAPI Specification and lists all available operations as **tools**. 
+<br>Select the following tools, these tools would be exposed to the AI agent.
 
 | Method | Path | Description | Select |
 |---|---|---|---|
@@ -94,13 +94,13 @@ The wizard reads your OpenAPI Specification and lists all available operations a
 | GET | `/bestrun/assessment/{id}/matlStkInAcctMods` | Retrieve a list of material stock records | |
 | GET | `/bestrun/assessment/{id}/matlStkInAcctMods/{mat}...` | Retrieve a single material stock record | |
 
-![Add MCP Server — Select Tools](../../resources/screenshots/ex2-step2-select-tools.png)
-
 Click **Add**.
 
 > [!NOTE]
 > The four tools selected above expose the assessment and address risk operations — the operations most relevant to the supply risk use case. Practitioners should select tools based on what the AI agent actually needs to answer business questions.
 
+![Add MCP Server — Select Tools](../../resources/screenshots/ex2-step2-select-tools.png)
+![Add MCP Server — Created](../../resources/screenshots/ex2-step2-created-mcp.png)
 ---
 
 ## Ex. 2.3 — Review the Policy Model
@@ -110,6 +110,8 @@ From the MCP Server detail page, click the **Policies** tab.
 ### Default Processing Flow
 
 When an MCP Server is created, SAP Integration Suite automatically applies a default processing template. This template provides the runtime flow required to receive, authenticate, authorize, and forward requests to the backend service.
+> [!NOTE]
+> **No action needed** — the default policy settings are pre-configured and ready to use. You do not need to modify any policy for this workshop.
 
 | Component | Role |
 |---|---|
@@ -122,7 +124,7 @@ When an MCP Server is created, SAP Integration Suite automatically applies a def
 
 ### Authorization Settings
 
-Click the **Authorization 1** policy in the diagram. The **Policy Settings** tab shows:
+Double click the **Authorization 1** policy in the diagram. The **Policy Settings** tab shows:
 
 | Setting | Value |
 |---|---|
@@ -130,7 +132,10 @@ Click the **Authorization 1** policy in the diagram. The **Policy Settings** tab
 | Scope Key | `scope` |
 | Scope | `API.invoke` |
 
-Access is granted if the caller presents either a valid OAuth scope (`API.invoke`) **or** a valid Developer Key. Other available modes include requiring both, OAuth scope only, or Developer Key only.
+Access is granted if the caller presents either a valid OAuth scope (`API.invoke`) **or** a valid Developer Key. Other available modes includes
+- OAuth Scope
+- Developer Key
+- OAuth Scope and Developer Key
 
 ### Extending the Policy Flow
 
@@ -141,9 +146,6 @@ Beyond the defaults, additional policies can be added to the processing flow:
 - **Transformation & Mediation** — Payload modification, format conversion, JavaScript or Python scripts
 
 For this workshop, the default configuration is sufficient. Return to the **Overview** tab and proceed to deployment.
-
-> [!NOTE]
-> **No action needed** — the default policy settings are pre-configured and ready to use. You do not need to modify any policy for this workshop.
 
 ---
 
@@ -160,20 +162,19 @@ A confirmation dialog will appear:
 | Runtime Profile | `Integration Cell` |
 | Virtual Host | *(auto-populated based on your tenant)* |
 
+Click **Deploy** to confirm.
 ![Deploy MCP Server — confirmation dialog](../../resources/screenshots/ex2-step3-deploy-confirm.png)
-
-Click **Yes** to confirm.
 
 ### Step 2 — Verify Deployment Status
 
 Wait for the status to update. When deployment completes successfully, the status bar will show:
 
-**Deployed on \<date\>, Runtime Status: STARTED**
+**Deployed on \<date\>\<time\>, Runtime Status: STARTED**
 
 ![MCP Server — Deployed and STARTED](../../resources/screenshots/ex2-step3-deployed-started.png)
 
 > [!NOTE]
-> Note the **MCP URL** shown on this page — it follows the pattern `https://<virtual-host>/mcp-plantsupplyrisk-XX`. You will use this URL when connecting the agentic client in Ex. 2.8.
+> Note the **MCP URL** shown on this page — it follows the pattern `https://<virtual-host>/mcp-plantsupplyrisk-XX`. You will use this URL when connecting the MCP client in Ex. 2.8.
 
 ---
 
