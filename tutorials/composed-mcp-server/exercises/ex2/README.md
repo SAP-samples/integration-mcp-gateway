@@ -364,15 +364,19 @@ Toggle the server switch to **Connected**. The server card turns green confirmin
 
 ![MCP Inspector — plantsupplyrisk-mcp-xx Connected](../../resources/screenshots/ex2-step8-connected.png)
 
-In the top navigation bar, click **Tools**. You will see the 4 operations exposed from your OpenAPI spec.
+In the top navigation bar, click **Tools**. You will see the 4 operations exposed from your OpenAPI spec. Click **Retrieve a list of assessment** (`get_bestrun_assessment`) — the parameter form opens in the center pane. No parameters are required — click **Execute Tool**.
 
-![MCP Inspector — Tools tab with 4 tools listed](../../resources/screenshots/ex2-step8-tools-list.png)
+![MCP Inspector — get_bestrun_assessment selected with Execute Tool button](../../resources/screenshots/ex2-step8-tools-list.png)
 
-Click **Retrieve a list of assessment** (`get_bestrun_assessment`). No parameters are needed — the Results pane shows all plants with their IDs (Berlin, Munich, London, etc.).
+The Results pane shows all plants with their IDs (Berlin, Munich, London, etc.).
 
 ![MCP Inspector — Assessment results showing plant list](../../resources/screenshots/ex2-step8-assessment-results.png)
 
-Pick any `id` from the results and click **Retrieve a list of address risks of an assessment** (`get_bestrun_assessment_id_addressRisks`). Enter the `id` as a parameter and run — this returns the live risk scores for that plant's location.
+Pick any `id` from the results and click **Retrieve a list of address risks of an assessment** (`get_bestrun_assessment_id_addressRisks`). Enter the `id` value in the **id** field.
+
+![MCP Inspector — id parameter field filled in for address risks tool](../../resources/screenshots/ex2-step8-address-risk-id.png)
+
+Click **Execute Tool** — this returns the live risk scores for that plant's location.
 
 ![MCP Inspector — Address risk results for a plant](../../resources/screenshots/ex2-step8-address-risk-results.png)
 
