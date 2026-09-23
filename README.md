@@ -39,7 +39,7 @@ To get started and build expertise with the technologies used in this workshop, 
 
 ---
 
-![MCP Scenario Diagram](./../../resources/screenshots/MCP_Scenario_Diagram.jpg)
+![MCP Scenario Diagram](./tutorials/composed-mcp-server/resources/screenshots/MCP_Scenario_Diagram.jpg)
 
 
 ## Pre-configured Setup
