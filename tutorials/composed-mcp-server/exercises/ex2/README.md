@@ -461,7 +461,7 @@ In this exercise you:
 - Tested the MCP Server tools using the **agentic client** (MCP Inspector)
 - Monitored MCP consumption via **Monitor Message Processing** — enabled Trace logging and inspected the policy execution run steps
 
-The MCP Server is now ready to be consumed by any MCP-compatible AI agent.
+The MCP Server is now ready to be consumed by any AI agent.
 
 ---
 
