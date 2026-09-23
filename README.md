@@ -17,6 +17,8 @@ To get started and build expertise with the technologies used in this workshop, 
 
 ## Session Overview
 
+## Scenario
+
 **Company:** BestRun
 
 **Challenge:** The company BestRun wants to optimize their procurement process by establishing a Risk Assessment Process using an AI Agent.
@@ -31,26 +33,15 @@ To get started and build expertise with the technologies used in this workshop, 
 
 
 > [!NOTE]
-> All these APIs are mock APIs publicly hosted for trial. They can be used to create a composed API via Business Data Graph, as detailed in [Exercise 1](tutorials/composed-mcp-server/exercises/ex1/README.md).
+> All these APIs are mock APIs publicly hosted for trial. They can be used to create a composed API via Business Data Graph, as detailed in this exercise.
 
 **Goal:** Select most reliable supplier for each material taking into consideration the risk associated with a location of the plant, stock levels of the material at a plant and physical distance of the plant from delivery location.
 
-See [architecture.md](architecture.md) for the full solution architecture diagram.
+---
 
-```
-SAP Backend APIs
-      │
-      ▼
-SAP Integration Suite (Integration Cell)
-  ├─ Business Data Graph  ◄── Destinations
-  └─ MCP Server  ◄── OpenAPI Spec
-      │
-      ▼
-SAP Developer Hub
-  └─ Product  →  Subscribe  →  Key & Secret
-      │
-      ▼
-Agentic Client
+
+![MCP Scenario Diagram](./assets/MCP_Scenario_Diagram.jpg)
+
 ```
 
 ## Pre-configured Setup
