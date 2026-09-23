@@ -407,7 +407,7 @@ Click the **Manage Integration Content** tile.
 
 ### Step 2 — Enable Trace Logging
 
-In the **Integration Content** list, click on **`plantsupplyrisk_XX`**.
+Set **Runtime** to **Integration Cell**. In the **Integration Content** list, click on **`plantsupplyrisk_XX`**.
 
 In the right panel, scroll to **Log Configuration** and set the **Log Level** to **Trace**.
 
@@ -428,7 +428,7 @@ Return to the Monitor Overview and click the **Monitor Message Processing** tile
 
 ### Step 5 — View Completed Messages
 
-You will see a list of completed **MCP Server** messages for `plantsupplyrisk_XX`. Click on a message row to open the detail panel.
+Set **Runtime** to **Integration Cell**. You will see a list of completed **MCP Server** messages for `plantsupplyrisk_XX`. Click on a message row to open the detail panel.
 
 The panel shows:
 - **Status** — Message processing completed successfully
