@@ -336,7 +336,7 @@ The status will return to **Available** and the `bestrun` namespace will now app
 
 ---
 
-## Ex. 1.7 — Explore the Business Data Graph via API Composition Navigator
+## Ex. 1.5 — Explore the Business Data Graph via API Composition Navigator
 
 ### Step 1 — Open the API Composition Navigator
 
@@ -441,7 +441,5 @@ This composed API is what powers the MCP Server in the core exercises — enabli
 ---
 
 Continue to [Exercise 2 — Create, Deploy & Consume an MCP Server](../ex2/README.md)
-
----
 
 [Back to Overview](../../README.md)
