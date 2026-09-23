@@ -102,39 +102,6 @@ Click **Add**.
 > [!NOTE]
 > The four tools selected above expose the assessment and address risk operations — the operations most relevant to the supply risk use case. Practitioners should select tools based on what the AI agent actually needs to answer business questions.
 
-<details>
-<summary>About the MCP Server Policy Model — expand to learn more</summary>
-
-An MCP Server is more than a collection of AI tools — it is an enterprise endpoint that must be secured and governed. Every MCP Server created in SAP Integration Suite is provisioned with a default policy model that can be further customized based on your organization's security and governance requirements.
-
-By default, the policy model includes the **MCP Sender Adapter**, **HTTP Receiver Adapter**, **Authentication**, and **Authorization** policies. Together, these components provide a secure communication channel between the AI application and the backend business system.
-
-**MCP Adapter (Sender)**
-
-The MCP Adapter acts as the entry point for MCP-compatible clients. It receives requests from AI applications using the Model Context Protocol and forwards them into the policy processing pipeline.
-
-**Authentication Policy**
-
-When an MCP Server is created from an API, the Authentication policy is automatically inherited from the source API. This ensures that the MCP Server follows the same authentication mechanism as the underlying API, providing a consistent security model without requiring additional configuration.
-
-Since the authentication settings are inherited, they are read-only within the MCP Server and cannot be modified independently. Any changes to the authentication mechanism should be made on the source API, after which the MCP Server can be synchronized to inherit the updated configuration.
-
-**Authorization Policy**
-
-The Authorization policy determines whether an authenticated client is permitted to invoke the MCP Server. The authorization type is set to **OAuth Scope or Developer Key**, allowing access to be controlled either through OAuth scopes or API consumer credentials.
-
-The default required scope is `API.invoke`. When provisioning the Process Integration Runtime instance, administrators must assign the `API.invoke` scope so that authenticated MCP clients are authorized to invoke the exposed tools.
-
-> **Note:** If the source API is already protected by an Authorization policy, enable the **Trust Upstream MCP Authorization** option in the source API authorization policy. When selected, the MCP Server trusts the authorization decision made by the upstream API and does not perform an additional authorization check — preventing duplicate policy evaluation and ensuring a single, consistent authorization model across the API and the MCP Server.
-
-**HTTP Adapter (Receiver)**
-
-The HTTP Adapter connects the MCP Server to the underlying managed API. Rather than requiring its own endpoint configuration, it automatically references the source API selected during MCP Server creation, ensuring that all requests are routed through the managed API.
-
-![MCP Server — Policies tab showing Authorization policy settings](../../resources/screenshots/ex2-step2-policies-optional.png)
-
-</details>
-
 ---
 
 ## Ex. 2.3 — Review the Policy Model
@@ -204,7 +171,7 @@ Wait for the status to update. When deployment completes successfully, the statu
 ![MCP Server — Deployed and STARTED](../../resources/screenshots/ex2-step3-deployed-started.png)
 
 > [!NOTE]
-> Note the **MCP URL** shown on this page — it follows the pattern `https://<virtual-host>/mcp-plantsupplyrisk-XX`. You will use this URL when connecting the MCP Inspector in Ex. 2.8.
+> Note the **MCP URL** shown on this page — it follows the pattern `https://<virtual-host>/mcp-plantsupplyrisk-XX`. You will use this URL when connecting the agentic client in Ex. 2.8.
 
 ---
 
@@ -264,7 +231,7 @@ Click **Publish**.
 
 ### Step 6 — Confirm the Product is Live
 
-Navigate to the **Developer Hub** home page. Your product `plantsupplyriskProduct-XX` should appear in the catalog.
+In the top navigation bar, click **Developer Hub** to return to the Developer Hub home page. Your product `plantsupplyriskProduct-XX` should appear in the catalog.
 
 ![Developer Hub — product catalog with published product](../../resources/screenshots/ex2-step4-product-published.png)
 
@@ -296,7 +263,7 @@ Fill in the subscription details:
 Click **Create**.
 
 > [!NOTE]
-> It may take a couple of minutes for the subscription to be finalized and for the credentials to become available. Proceed to Ex. 2.7 once the subscription appears in **My Workspace → Subscriptions → Agents**.
+> Subscription finalization may take a short while. The credentials will become available once provisioning is complete. Proceed to Ex. 2.7 once the subscription appears in **My Workspace → Subscriptions → Agents**.
 
 ---
 
@@ -328,34 +295,11 @@ Copy and save the following — you will need all three in Ex. 2.8:
 
 ---
 
-## Ex. 2.8 — Test with MCP Inspector
+## Ex. 2.8 — Test with an Agentic Client
 
-> [!NOTE]
-> **Workshop participants:** Your instructor will share a hosted MCP Inspector URL — open it in your browser and skip to Step 3.
->
-> **Self-paced / Individual:** You can use any MCP-compatible agent (Claude CLI, Joule, or any custom agent) to consume the MCP Server. The steps below show how to set it up with the open-source **MCP Inspector**.
+The MCP Server can be consumed by any MCP-compatible agent. For this workshop, your instructor will provide a hosted **MCP Inspector** URL — open it in your browser.
 
-### Step 1 — Launch MCP Inspector
-
-In your terminal, run:
-
-```bash
-npx @modelcontextprotocol/inspector
-```
-
-Open `http://127.0.0.1:6274` in your browser. Click **Add Servers → HTTP**.
-
-Fill in:
-
-| Field | Value |
-|---|---|
-| Server ID | `plantsupplyrisk_XX` |
-| Transport | `streamable-http` |
-| URL | Your MCP URL from Ex. 2.4 (e.g. `https://<virtual-host>/mcp-plantsupplyrisk-XX`) |
-
-Click **Save**.
-
-### Step 2 — Get a Bearer Token
+### Step 1 — Get a Bearer Token
 
 SAP Integration Suite uses OAuth 2.0 Client Credentials. Use any API client (Bruno, Postman, curl, etc.) to request a token.
 
@@ -372,7 +316,7 @@ A `200 OK` response returns an `access_token`. Copy it.
 
 ![Bruno — POST request to get access token, 200 OK response with access_token](../../resources/screenshots/ex2-step7-get-access-token.png)
 
-### Step 3 — Add the Token to MCP Inspector
+### Step 2 — Add the Token to MCP Inspector
 
 On the server card, click **Settings** → scroll to **Custom Headers** → expand and add:
 
@@ -384,7 +328,7 @@ Scroll to **OAuth Settings** → ensure **Enterprise-managed authorization** is 
 
 Close Settings → toggle the server switch to **Connected**.
 
-### Step 4 — Explore and Test Tools
+### Step 3 — Explore and Test Tools
 
 Once connected, click **Settings** on the server card → open the **Tools** tab.
 
