@@ -281,9 +281,9 @@ In the Developer Hub top navigation bar, click **My Workspace**.
 
 On the **Subscriptions** page, click the **Agents** tab. You will see your newly created subscription `plantsupplyriskSubscription-XX` in the list.
 
-![My Workspace — Agents subscriptions list](../../resources/screenshots/ex2-step6-my-workspace-agents.png)
+Click on **`plantsupplyriskSubscription-XX`** (replace XX with your assigned participant number) to open it.
 
-Click on **`plantsupplyriskSubscription-XX`** to open it.
+![My Workspace — Agents subscriptions list](../../resources/screenshots/ex2-step6-my-workspace-agents.png)
 
 ### Step 2 — Copy Your Credentials
 
@@ -297,16 +297,16 @@ Copy and save the following — you will need all three in Ex. 2.8:
 | **Key** | OAuth Client ID |
 | **Secret** | OAuth Client Secret |
 
-![Subscription — Credentials section](../../resources/screenshots/ex2-step6-credentials.png)
-
 > [!NOTE]
 > It may take a short while for the credentials to appear on the Overview page. If the Credentials section is not yet visible, refresh the page and try again.
 
+![Subscription — Credentials section](../../resources/screenshots/ex2-step6-credentials.png)
+
 ---
 
-## Ex. 2.8 — Test with an Agentic Client
+## Ex. 2.8 — Test with the MCP Client
 
-The MCP Server can be consumed by any MCP-compatible agent. For this workshop, your instructor will provide a hosted **MCP Inspector** URL — open it in your browser.
+Any AI agent or MCP client can consume the MCP Server. For this workshop, your instructor has provided a hosted **MCP Inspector** (MCP Client) URL; open it in your browser.
 
 ### Step 1 — Add Your MCP Server
 
@@ -318,13 +318,13 @@ In the **Add server** dialog, fill in:
 
 | Field | Value |
 |---|---|
-| Server ID | `plantsupplyrisk-mcp-XX` |
+| Server ID | `plantsupplyrisk-mcp-XX` (replace XX with your assigned participant number)  |
 | Transport | `streamable-http` |
 | URL | Your MCP URL from Ex. 2.4 (e.g. `https://<virtual-host>/mcp-plantsupplyrisk-XX`) |
 
-![Add server dialog — Server ID, Transport, URL filled in](../../resources/screenshots/ex2-step8-add-server-dialog.png)
+Click **Add**
 
-Click **Add**.
+![Add server dialog — Server ID, Transport, URL filled in](../../resources/screenshots/ex2-step8-add-server-dialog.png)
 
 ### Step 2 — Get a Bearer Token
 
@@ -356,10 +356,9 @@ Scroll to **Custom Headers** and click to expand the section. Click **+ Add Head
 ![Server Settings — Custom Headers with Authorization Bearer token added](../../resources/screenshots/ex2-step8-custom-headers.png)
 
 Scroll down to **OAuth Settings**. Ensure **Enterprise-managed authorization** is **unchecked**.
+Close Settings.
 
 ![Server Settings — OAuth Settings with Enterprise-managed authorization unchecked](../../resources/screenshots/ex2-step8-oauth-settings.png)
-
-Close Settings.
 
 ### Step 4 — Connect and Explore Tools
 
