@@ -132,7 +132,7 @@ Double click the **Authorization 1** policy in the diagram. The **Policy Setting
 | Scope Key | `scope` |
 | Scope | `API.invoke` |
 
-Access is granted if the caller presents either a valid OAuth scope (`API.invoke`) **or** a valid Developer Key. Other available modes includes
+Access is granted if the caller presents either a valid OAuth scope (`API.invoke`) **or** a valid Developer Key. Other available modes includes:
 - OAuth Scope
 - Developer Key
 - OAuth Scope and Developer Key
@@ -202,15 +202,14 @@ Click on your Integration Suite business system to open it.
 
 ![Manage Content — Business Systems list](../../resources/screenshots/ex2-step4-business-systems.png)
 
-### Step 4 — Select the MCP Server
+### Step 4 — Select the AI Artifacts (MCP Server)
 
-Click the **MCP Servers** tab. You will see a list of all deployed MCP Servers registered on this business system.
+Click the **AI Artifacts** tab. You will see a list of all deployed MCP Servers registered on this business system.
 
-Select **`plantsupplyrisk_XX`** by checking the checkbox next to it.
+Select **`plantsupplyrisk_XX` (replace XX with your assigned participant number)** by checking the checkbox next to it.
+Click **Create Product**
 
 ![Business System — MCP Servers tab, server selected](../../resources/screenshots/ex2-step4-mcp-servers-select.png)
-
-Click **Create Product**.
 
 ### Step 5 — Fill in Product Details and Publish
 
@@ -234,7 +233,7 @@ Click **Publish**.
 
 ### Step 6 — Confirm the Product is Live
 
-In the top navigation bar, click **Developer Hub** to return to the Developer Hub home page. Your product `plantsupplyriskProduct-XX` should appear in the catalog.
+In the top navigation bar, click **Developer Hub** to return to the Developer Hub home page. Your product `plantsupplyriskProduct-XX` (replace XX with your assigned participant number) should appear in the catalog.
 
 ![Developer Hub — product catalog with published product](../../resources/screenshots/ex2-step4-product-published.png)
 
@@ -244,7 +243,7 @@ In the top navigation bar, click **Developer Hub** to return to the Developer Hu
 
 ### Step 1 — Open the Product and Subscribe
 
-Click on **`plantsupplyriskProduct-XX`** from the Developer Hub catalog.
+Click on **`plantsupplyriskProduct-XX` (replace XX with your assigned participant number)** from the Developer Hub catalog.
 
 On the product detail page, click **Subscribe → Create New Subscription for Agent**.
 
@@ -257,16 +256,17 @@ Fill in the subscription details:
 | Field | Value |
 |---|---|
 | Product | `plantsupplyriskProduct-XX` *(pre-filled)* |
-| Name | `plantsupplyriskSubscription-XX` |
-| Short Text | *(optional)* |
-| Description | `Plant supply risk MCP product is subscribed.` |
+| Name | `plantsupplyriskSubscription-XX` (replace XX with your assigned participant number) |
+| Short Text | `Plant supply risk MCP product is subscribed` |
+| Description | `Plant supply risk MCP product is subscribed` |
 
-![Create New Subscription for Agent](../../resources/screenshots/ex2-step5-create-subscription.png)
-
-Click **Create**.
+Click **Create**
 
 > [!NOTE]
 > Subscription finalization may take a short while. The credentials will become available once provisioning is complete. Proceed to Ex. 2.7 once the subscription appears in **My Workspace → Subscriptions → Agents**.
+
+![Create New Subscription for Agent](../../resources/screenshots/ex2-step5-create-subscription.png)
+
 
 ---
 
