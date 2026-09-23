@@ -68,3 +68,10 @@ To make these systems accessible to SAP Integration Suite, four SAP BTP Destinat
    The screenshot below shows the completed destination form for `demo_LocationRisk` as a reference example. The same structure is applied to all four destinations, with the respective name and URL substituted.
 
    ![Destination form — completed example for demo_LocationRisk](./assets/ex1-prereq-create-destination.png)
+
+   ## Summary
+
+   You should now have a clear understanding of the configurations completed in the **SAP BTP Cockpit** to **create the BTP Destinations** required for Business Data Graph, which combines data from APIs across four different backend systems.
+   <br><br>Now that you have gone through the pre-requisites chapters, you should have a clear picture of the overall integration scenario and the pre-configuration steps that have been performed on the systems.
+
+   You can now proceed with the actual exercises. To do this, navigate to the [Exercises](../../../../?tab=main#exercises) section.
