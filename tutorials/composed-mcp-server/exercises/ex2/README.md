@@ -12,7 +12,7 @@ By the end, your supply risk data is accessible to any MCP-compatible agent — 
 ---
 
 > [!IMPORTANT]
-> Add your participant number to the end of every artifact you create. Wherever you see `XX` in the steps below, replace it with your assigned number (e.g. participant `03` uses `plantSupplyRiskMCPDemoXX03`).
+> Add your participant number to the end of every artifact you create. Wherever you see `XX` in the steps below, replace it with your assigned number (e.g. participant `03` uses `plantsupplyrisk_03` for the MCP Server, `plantsupplyriskProduct-03` for the Product, and `plantsupplyriskSubscription-03` for the Subscription).
 
 ## Ex. 2.1 — Create an Integration Package
 
@@ -73,9 +73,9 @@ Fill in the MCP Server details:
 | File Name | Upload the **OpenAPI Specification** file downloaded from the API Composition Navigator in Ex. 1.7 |
 | Source | `URL` |
 | URL | The **OData URL** copied from the Business Data Graph Overview in Ex. 1.6 |
-| Name | `plantSupplyRiskMCPDemoXX` |
-| ID | `plantSupplyRiskMCPDemoXX` |
-| MCP Path | `/mcp-plantsupplyriskmcpdemo-XX` |
+| Name | `plantsupplyrisk_XX` |
+| ID | `plantsupplyrisk_XX` |
+| MCP Path | `/mcp-plantsupplyrisk-XX` |
 | Version | `1.0` |
 
 ![Add MCP Server — MCP Details](../../resources/screenshots/ex2-step2-mcp-details.png)
@@ -204,7 +204,7 @@ Wait for the status to update. When deployment completes successfully, the statu
 ![MCP Server — Deployed and STARTED](../../resources/screenshots/ex2-step3-deployed-started.png)
 
 > [!NOTE]
-> Note the **MCP URL** shown on this page — it follows the pattern `https://<virtual-host>/mcp-plantsupplyriskmcpdemo-XX`. You will use this URL when connecting the MCP Inspector in Ex. 2.8.
+> Note the **MCP URL** shown on this page — it follows the pattern `https://<virtual-host>/mcp-plantsupplyrisk-XX`. You will use this URL when connecting the MCP Inspector in Ex. 2.8.
 
 ---
 
@@ -236,7 +236,7 @@ Click on your Integration Suite business system to open it.
 
 Click the **MCP Servers** tab. You will see a list of all deployed MCP Servers registered on this business system.
 
-Select **`plantSupplyRiskMCPDemoXX`** by checking the checkbox next to it.
+Select **`plantsupplyrisk_XX`** by checking the checkbox next to it.
 
 ![Business System — MCP Servers tab, server selected](../../resources/screenshots/ex2-step4-mcp-servers-select.png)
 
@@ -248,8 +248,8 @@ Fill in the product details:
 
 | Field | Value |
 |---|---|
-| Name | `plantSupplyRiskMCPProductXX` |
-| ID | `plantSupplyRiskMCPProductXX` |
+| Name | `plantsupplyriskProduct-XX` |
+| ID | `plantsupplyriskProduct-XX` |
 | Short Text | *(optional)* |
 | Description | `The Plant Supply Risk MCP Artifact is deployed as a product.` |
 
@@ -264,7 +264,7 @@ Click **Publish**.
 
 ### Step 6 — Confirm the Product is Live
 
-Navigate to the **Developer Hub** home page. Your product `plantSupplyRiskMCPProductXX` should appear in the catalog.
+Navigate to the **Developer Hub** home page. Your product `plantsupplyriskProduct-XX` should appear in the catalog.
 
 ![Developer Hub — product catalog with published product](../../resources/screenshots/ex2-step4-product-published.png)
 
@@ -274,7 +274,7 @@ Navigate to the **Developer Hub** home page. Your product `plantSupplyRiskMCPPro
 
 ### Step 1 — Open the Product and Subscribe
 
-Click on **`plantSupplyRiskMCPProductXX`** from the Developer Hub catalog.
+Click on **`plantsupplyriskProduct-XX`** from the Developer Hub catalog.
 
 On the product detail page, click **Subscribe → Create New Subscription for Agent**.
 
@@ -286,8 +286,8 @@ Fill in the subscription details:
 
 | Field | Value |
 |---|---|
-| Product | `plantSupplyRiskMCPProductXX` *(pre-filled)* |
-| Name | `plantSupplyRiskMCPSubscriptionXX` |
+| Product | `plantsupplyriskProduct-XX` *(pre-filled)* |
+| Name | `plantsupplyriskSubscription-XX` |
 | Short Text | *(optional)* |
 | Description | `Plant supply risk MCP product is subscribed.` |
 
@@ -306,11 +306,11 @@ Click **Create**.
 
 In the Developer Hub top navigation bar, click **My Workspace**.
 
-On the **Subscriptions** page, click the **Agents** tab. You will see your newly created subscription `plantSupplyRiskMCPSubscriptionXX` in the list.
+On the **Subscriptions** page, click the **Agents** tab. You will see your newly created subscription `plantsupplyriskSubscription-XX` in the list.
 
 ![My Workspace — Agents subscriptions list](../../resources/screenshots/ex2-step6-my-workspace-agents.png)
 
-Click on **`plantSupplyRiskMCPSubscriptionXX`** to open it.
+Click on **`plantsupplyriskSubscription-XX`** to open it.
 
 ### Step 2 — Copy Your Credentials
 
@@ -349,9 +349,9 @@ Fill in:
 
 | Field | Value |
 |---|---|
-| Server ID | `plantSupplyRiskMCPDemoXX` |
+| Server ID | `plantsupplyrisk_XX` |
 | Transport | `streamable-http` |
-| URL | Your MCP URL from Ex. 2.4 (e.g. `https://<virtual-host>/mcp-plantsupplyriskmcpdemo-XX`) |
+| URL | Your MCP URL from Ex. 2.4 (e.g. `https://<virtual-host>/mcp-plantsupplyrisk-XX`) |
 
 Click **Save**.
 
@@ -404,8 +404,7 @@ Pick any `id` from the results and run **Retrieve a list of address risks** (`ge
 
 | Issue | Fix |
 |---|---|
-| Cannot connect | Verify the MCP URL matches the one shown in Ex. 2.4 |
-| 401 Unauthorized | Re-generate a fresh token — tokens expire after ~3600 seconds |
+| Cannot connect | Verify the MCP URL matches the one shown in Ex. 2.4 || 401 Unauthorized | Re-generate a fresh token — tokens expire after ~3600 seconds |
 | No tools listed | Ensure the correct tools were selected during Ex. 2.2 Step 4 |
 | Issuer mismatch error | Do not use Enterprise-managed authorization — use Custom Headers with Bearer token instead |
 
@@ -418,8 +417,8 @@ In this exercise you:
 - Created an **Integration Package** and added an **MCP Server** backed by the Business Data Graph OpenAPI Specification from Exercise 1
 - Reviewed the default **Policy Model** — MCP Sender Adapter, Authentication, Authorization (`API.invoke`), and HTTP Receiver Adapter
 - Deployed the MCP Server to **Integration Cell**, making the assessment tools available as a live endpoint
-- Published the MCP Server as a **product** in the Developer Hub
-- Subscribed to the product and retrieved the **OAuth credentials** (Token URL, Key, Secret) needed by AI agents
+- Published the MCP Server as a **product** (`plantsupplyriskProduct-XX`) in the Developer Hub
+- Subscribed to the product (`plantsupplyriskSubscription-XX`) and retrieved the **OAuth credentials** (Token URL, Key, Secret) needed by AI agents
 - Verified the MCP Server tools using the **MCP Inspector**
 
 The MCP Server is now ready to be consumed by any MCP-compatible AI agent.
