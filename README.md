@@ -33,12 +33,18 @@ The company **BestRun** wants to optimize their procurement process by establish
 | Plant API | Plant details |
 | Material API | Material, Storage location, stock levels, and batch details |
 
+**Solution:** In this hands-on session, you will build and configure an MCP Server that exposes a composed API as a tool, enabling AI agents to automate supplier selection within Best Run’s procurement process securely and with proper governance, without compromising business context. The agent dynamically evaluates multiple risk dimensions—including geopolitical and environmental risks at the plant location, available stock levels, and physical proximity to the delivery point—to recommend the most reliable supplier for a given material request.
 
-> [!NOTE]
-> All these APIs are mock APIs publicly hosted for trial. They can be used to create a composed API via Business Data Graph, as detailed in this exercise.
+Creation of AI agent is not part of this hands-on, it mainly includes the following:
+
+- Combining multiple backend system APIs into a single composed API using the API Composition capability of SAP Integration Suite
+- Creating and exposing an MCP server with the composed API as a tool in SAP Integration Suite, enabling an AI agent to automate supplier selection within Best Run’s procurement process securely and with proper governance, without compromising business context
+- Testing the MCP server using MCP client
 
 ![MCP Scenario Diagram](./tutorials/composed-mcp-server/resources/screenshots/MCP_Scenario_Diagram.jpg)
 
+> [!NOTE]
+> All these APIs are mock APIs publicly hosted for hands-on session
 
 ## Pre-configured Setup
 Chapters in this section provide pre-configured setups to support learning, without being part of the hands-on exercises:
