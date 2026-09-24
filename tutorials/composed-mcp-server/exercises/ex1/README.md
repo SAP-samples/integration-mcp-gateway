@@ -290,9 +290,6 @@ Navigate to **Design → Business Data Graphs**.
 
 Your graph `plantsupplyrisk-XX` (replace **`XX`** with your assigned participant number) will appear in the list with status **Available**. Click on it to open it.
 
-> [!NOTE]
-> After opening, the graph status changes to **Draft**. This happens because linking a Model Extension is a configuration change that requires a fresh activation cycle.
-
 ![Business Data Graphs list](../../resources/screenshots/ex1-step10-bdg-list.png)
 
 ### Step 2 — Add the Model Extension
