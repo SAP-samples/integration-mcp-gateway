@@ -221,7 +221,7 @@ Fill in the following product details:
 |---|---|
 | Name | `plantsupplyriskProduct-XX` (replace XX with your assigned participant number) |
 | ID | `plantsupplyriskProduct-XX` (replace XX with your assigned participant number) |
-| Short Text | `The Plant Supply Risk MCP Artifact is deployed as a produc` |
+| Short Text | `The Plant Supply Risk MCP Artifact is deployed as a product` |
 | Description | `The Plant Supply Risk MCP Artifact is deployed as a product` |
 
 Click **Publish**

@@ -1,7 +1,6 @@
 # Exercise 1 — Build a Unified Supply Risk API with Business Data Graph
 
 In this exercise, you will use API Composition to compose supplier, plant, stock, and location risk data into a single unified API.
-By the end, you will have an OData endpoint and an OpenAPI Specification ready for the MCP Server in [Exercise 2 — Create, Deploy & Consume an MCP Server](../ex2/README.md).
 
 > [!NOTE]
 > For a deeper understanding of the capability, refer to [SAP Help: API Composition](https://help.sap.com/docs/api-composition/isuite-api-composition/what-is-api-composition?locale=en-US)
@@ -35,6 +34,9 @@ Under **Data Source Destinations**, select all the following 4 destinations we p
 - `demo_S4_API_MATERIAL_STOCK_SRV`
 - `demo_S4_sap-s4-ce-plant-0001-v1`
 - `s4hana_api_business-partner`
+
+> [!NOTE]
+> The tenant may contain additional destinations. You must select **only these four** destinations listed above — do not select any others.
 
 Click **Next**.
 
@@ -90,9 +92,6 @@ Once activation is complete, the **Overview** page will display the generated UR
 Your graph now appears in **Design → Business Data Graphs** with status **Available**.
 
 ![Business Data Graph — Available status with API URLs](../../resources/screenshots/opt-step-6.png)
-
-> [!NOTE]
-> You will copy the final OData URL after re-activating the Business Data Graph with the **Model Extension**. That is the URL to use in your MCP Server configuration. Make a note of where to find it — the URL is shown on the Overview page under the graph name.
 
 ---
 
@@ -352,6 +351,9 @@ Click on **`plantsupplyrisk-XX`** (replace **`XX`** with your assigned participa
 
 ### Step 2 — Explore the Custom Entity
 
+> [!NOTE]
+> Before exploring the entity, click **OpenAPI Specification** to download the spec file and save it to your local machine — you will upload it in Exercise 2.
+
 In the left panel, expand the **bestrun (1)** namespace and click on **assessment**.
 
 The entity overview shows:
@@ -361,9 +363,6 @@ The entity overview shows:
 - **Connected Entities** — a visual graph showing `assessment` linked to `assessment_addressRisks` and `assessment_matlStkInAcctMods`
 
 ![API Composition Navigator — assessment entity overview](../../resources/screenshots/ex1-step11-assessment-entity-overview.png)
-
-> [!NOTE]
-> The **OpenAPI Specification** downloaded here is what you will use to register the Business Data Graph as an MCP tool in Exercise 2.
 
 ### Step 3 — Try Out the API
 
