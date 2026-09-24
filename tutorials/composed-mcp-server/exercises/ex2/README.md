@@ -428,6 +428,8 @@ The panel shows:
 - **Processing Time**
 - **Logs** — Log Level: Trace
 
+Click **Trace**
+
 ![Monitor Message Processing — completed message with detail panel](../../resources/screenshots/ex2-step9-message-detail.png)
 
 ### Step 6 — Inspect Run Steps
