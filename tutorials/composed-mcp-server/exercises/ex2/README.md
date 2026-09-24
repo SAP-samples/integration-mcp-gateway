@@ -258,7 +258,6 @@ Fill in the subscription details:
 
 | Field | Value |
 |---|---|
-| Product | `plantsupplyriskProduct-XX` *(pre-filled)* |
 | Name | `plantsupplyriskSubscription-XX` (replace XX with your assigned participant number) |
 | Short Text | `Plant supply risk MCP product is subscribed` |
 | Description | `Plant supply risk MCP product is subscribed` |
