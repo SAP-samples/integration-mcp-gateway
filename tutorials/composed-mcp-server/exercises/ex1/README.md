@@ -351,9 +351,6 @@ Click on **`plantsupplyrisk-XX`** (replace **`XX`** with your assigned participa
 
 ### Step 2 — Explore the Custom Entity
 
-> [!NOTE]
-> Before exploring the entity, click **OpenAPI Specification** to download the spec file and save it to your local machine — you will upload it in Exercise 2.
-
 In the left panel, expand the **bestrun (1)** namespace and click on **assessment**.
 
 The entity overview shows:
@@ -361,6 +358,9 @@ The entity overview shows:
 - **API Specification** — click **OpenAPI Specification** to download the spec file. Save the file to your local machine — you will upload it in Exercise 2.
 - **Source Entities** — `my.custom/Plant`, `my.custom/AddressRisk`, `sap.s4/A_MatlStkInAcctMod`
 - **Connected Entities** — a visual graph showing `assessment` linked to `assessment_addressRisks` and `assessment_matlStkInAcctMods`
+
+> [!NOTE]
+> Before exploring the entity, click **OpenAPI Specification** to download the spec file and save it to your local machine — you will upload it in Exercise 2.
 
 ![API Composition Navigator — assessment entity overview](../../resources/screenshots/ex1-step11-assessment-entity-overview.png)
 
