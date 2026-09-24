@@ -53,11 +53,30 @@ Chapters in this section provide pre-configured setups to support learning, with
 
 - [SAP BTP Destinations Setup (for your information only)](tutorials/composed-mcp-server/pre-configured/SAP_BTP_Destinations_Setup/README.md)
   
-## System URL and login information
-To complete the exercises, the instructors will provide the following system URL and access:
+## System URL and Login Information
 
-- **SAP Integration Suite**
-- **MCP Inspector** (MCP Client)
+To complete the exercises, the instructors will provide access to the following systems. Use the tenant assigned to your participant number.
+
+**Users 01 – 50** (`User01` to `User50`):
+
+| System | Tenant |
+|---|---|
+| SAP Integration Suite | APJ01 Tenant *(URL provided by instructor)* |
+| MCP Inspector (MCP Client) | APJ01 *(URL provided by instructor)* |
+
+**Users 51 – 99** (`User51` to `User99`):
+
+| System | Tenant |
+|---|---|
+| SAP Integration Suite | APJ02 Tenant *(URL provided by instructor)* |
+| MCP Inspector (MCP Client) | APJ02 *(URL provided by instructor)* |
+
+**Backup Tenants** *(use only with explicit instructor permission)*:
+
+| System | Tenant |
+|---|---|
+| SAP Integration Suite | US01 Backup Tenant *(URL provided by instructor)* |
+| SAP Integration Suite | US02 Backup Tenant *(URL provided by instructor)* |
 
 > [!IMPORTANT]
 > - _For a smooth experience, tenants have been preconfigured, and you already have all the roles and permissions needed to complete this exercise._
