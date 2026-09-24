@@ -57,26 +57,17 @@ Chapters in this section provide pre-configured setups to support learning, with
 
 To complete the exercises, the instructors will provide access to the following systems. Use the tenant assigned to your participant number.
 
-**Users 01 – 50** (`User01` to `User50`):
+- **First 50 Users** should use the following system : **Users01 to User50**:
+  - [SAP Integration Suite Tenant - APJ01](https://url.sap/h74p0i)
+  - [MCP Inspector (MCP Client) - APJ01](https://url.sap/cw0g5p)
 
-| System | Tenant |
-|---|---|
-| SAP Integration Suite | APJ01 Tenant *(URL provided by instructor)* |
-| MCP Inspector (MCP Client) | APJ01 *(URL provided by instructor)* |
+- **Second 49 Users** should use the following system : **Users51 to User99**:
+  - [SAP Integration Suite Tenant - APJ02](https://url.sap/ywq83x)
+  - [MCP Inspector (MCP Client) - APJ02](https://url.sap/6rpxy6)
 
-**Users 51 – 99** (`User51` to `User99`):
-
-| System | Tenant |
-|---|---|
-| SAP Integration Suite | APJ02 Tenant *(URL provided by instructor)* |
-| MCP Inspector (MCP Client) | APJ02 *(URL provided by instructor)* |
-
-**Backup Tenants** *(use only with explicit instructor permission)*:
-
-| System | Tenant |
-|---|---|
-| SAP Integration Suite | US01 Backup Tenant *(URL provided by instructor)* |
-| SAP Integration Suite | US02 Backup Tenant *(URL provided by instructor)* |
+- **Backup Tenants** *(use only with explicit instructor permission)*:
+  - [SAP Integration Suite Backup Tenant - US01](https://url.sap/lkn61l)
+  - [SAP Integration Suite Backup Tenant - US02](https://url.sap/yfy3px)
 
 > [!IMPORTANT]
 > - _For a smooth experience, tenants have been preconfigured, and you already have all the roles and permissions needed to complete this exercise._
