@@ -65,10 +65,6 @@ To complete the exercises, the instructors will provide access to the following 
   - [SAP Integration Suite Tenant - APJ02](https://url.sap/ywq83x)
   - [MCP Inspector (MCP Client) - APJ02](https://url.sap/6rpxy6)
 
-- **Backup Tenants** *(use only with explicit instructor permission)*:
-  - [SAP Integration Suite Backup Tenant - US01](https://url.sap/lkn61l)
-  - [SAP Integration Suite Backup Tenant - US02](https://url.sap/yfy3px)
-
 > [!IMPORTANT]
 > - _For a smooth experience, tenants have been preconfigured, and you already have all the roles and permissions needed to complete this exercise._
 > - _System details along with User ID and password information will be provided to you by the instructors._
