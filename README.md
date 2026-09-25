@@ -57,11 +57,6 @@ Chapters in this section provide pre-configured setups to support learning, with
 
 To complete the exercises, the instructors will provide access to the following systems. Use the tenant assigned to your participant number.
 
-- **First 50 Users** should use the following system : **Users01 to User50**:
-  - [SAP Integration Suite Tenant - APJ01](https://url.sap/h74p0i)
-  - [MCP Inspector (MCP Client) - APJ01](https://url.sap/cw0g5p)
-
-- **Second 49 Users** should use the following system : **Users51 to User99**:
   - [SAP Integration Suite Tenant - APJ02](https://url.sap/ywq83x)
   - [MCP Inspector (MCP Client) - APJ02](https://url.sap/6rpxy6)
 
