@@ -55,10 +55,10 @@ Chapters in this section provide pre-configured setups to support learning, with
   
 ## System URL and Login Information
 
-To complete the exercises, the instructors will provide access to the following systems. Use the tenant assigned to your participant number.
+To complete the exercises, the instructors will provide access to the systems.
 
-  - [SAP Integration Suite Tenant - APJ02](https://url.sap/ywq83x)
-  - [MCP Inspector (MCP Client) - APJ02](https://url.sap/6rpxy6)
+  - SAP Integration Suite Tenant
+  - MCP Inspector (MCP Client)
 
 > [!IMPORTANT]
 > - _For a smooth experience, tenants have been preconfigured, and you already have all the roles and permissions needed to complete this exercise._
