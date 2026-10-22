@@ -3,9 +3,13 @@
 # MCP Unlocked: Governed access to composed APIs for AI Agents 
 
 ## Description
-This hands-on session demonstrates how **SAP Integration Suite** supports agentic AI scenarios by using **MCP Gateway** functionality to expose composed business APIs as **Model Context Protocol (MCP) tools**. _This approach gives AI agents standardized, secure, and governed access to enterprise context._
+This hands-on session demonstrates how **SAP Integration Suite** supports agentic AI scenarios by using **MCP Gateway** functionality to expose composed business APIs as **Model Context Protocol (MCP) tools**. This approach gives AI agents standardized, secure, and governed access to enterprise context.
 
-Through the exercises, you will combine multiple backend APIs into a unified Business Data Graph, package it as an MCP Server, and test it using MCP Client
+Through the exercises, you will:
+
+- Combine multiple backend APIs into a unified Business Data Graph, package it as an MCP Server, and test it using MCP Client.
+- Learn how the model context protocol (MCP) gateway in SAP Integration Suite applies policy, security, and analytics while curating MCP tools.
+- Securely connect enterprise tools to an AI agent, including unified APIs with governed access.
 
 ## Requirements
 There are no dedicated requirements for this session. You would be able to execute the exercises by just following the descriptions even if you do not have any experience with **SAP Integration Suite** and the **Model Context Protocol (MCP)**.
