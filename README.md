@@ -1,6 +1,6 @@
 ![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/integration-mcp-gateway)
 
-# Expose Composed APIs as MCP Server using SAP Integration Suite MCP Gateway
+# MCP Unlocked: Governed access to composed APIs for AI Agents 
 
 ## Description
 This hands-on session demonstrates how **SAP Integration Suite** supports agentic AI scenarios by using **MCP Gateway** functionality to expose composed business APIs as **Model Context Protocol (MCP) tools**. _This approach gives AI agents standardized, secure, and governed access to enterprise context._
