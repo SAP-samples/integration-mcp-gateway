@@ -15,7 +15,7 @@ In this exercise, you will use API Composition to compose supplier, plant, stock
 1. Log in to your assigned **SAP Integration Suite** tenant — refer to the [System URL and Login Details](../../../../README.md#system-url-and-login-information) for your SAP Integration Suite tenant URL.
    For login, use the participant number that is assigned to you.
 	
-   - **User Name:** **`User**`** *(replace ** with your assigned participant number)*
+   - **User Name:** **`User0**`** *(replace ** with your assigned participant number)*
    - **Password:** *will be shared by the instructors*
    
    ![Login to Integration Suite](images/Login_IntegrationSuite.png)
