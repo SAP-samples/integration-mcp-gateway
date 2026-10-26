@@ -70,8 +70,8 @@ To complete the exercises, the access to the following systems have been provide
 
   | Participant Number | SAP Integration Suite Tenant Tenant | MCP Inspector Tenant
   |---|---|---|
-  | 01 – 20 | [**SAP Integration Suite 01**](https://url.sap/9hm37x) | [**MCP Inspector 01**](https://url.sap/e2rbtf) |
-  | 21 – 40 | [**SAP Integration Suite 02**](https://url.sap/kam7o4)| [**MCP Inspector 02**](https://url.sap/v0b2lp) |
+  | 001 – 020 | [**SAP Integration Suite 01**](https://url.sap/9hm37x) | [**MCP Inspector 01**](https://url.sap/e2rbtf) |
+  | 021 – 040 | [**SAP Integration Suite 02**](https://url.sap/kam7o4)| [**MCP Inspector 02**](https://url.sap/v0b2lp) |
 
 
 > [!IMPORTANT]
