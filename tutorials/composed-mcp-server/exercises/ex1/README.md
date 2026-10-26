@@ -18,7 +18,7 @@ In this exercise, you will use API Composition to compose supplier, plant, stock
    - **User Name:** **`User0**`** *(replace ** with your assigned participant number)*
    - **Password:** *will be shared by the instructors*
    
-   ![Login to Integration Suite](images/Login_IntegrationSuite.png)
+   ![Login to Integration Suite](../../resources/screenshots/Login_IntegrationSuite.png)
 
 In **SAP Integration Suite**, go to **Design → Business Data Graphs**.
 
