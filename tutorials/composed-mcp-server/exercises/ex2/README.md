@@ -434,7 +434,7 @@ Click **Trace**
 
 ### Step 6 — Inspect Run Steps
 
-Click **MCP Server Model** (top-right of the detail view).
+Click **MCP Server Model**.
 
 The **Run Steps** panel shows each policy component and its execution time — **Authentication** and **Authorization 1** — overlaid on the Policy Model diagram.
 
