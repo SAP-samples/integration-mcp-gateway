@@ -63,11 +63,8 @@ Close Settings.
 
 Toggle the server switch to **Connected**. The server card turns green.
 
-At the moment of connection, MCP Inspector automatically fires multiple protocol handshake requests simultaneously — to initialize the session, discover tools, list resources, and more. These all arrive at the MCP Server within the same instant.
-
-![MCP Inspector — server Connected, Messages panel showing PENDING calls](../../resources/screenshots/ex3-step1-server-connected.png)
-
-Now click **Tools** in the top navigation bar.
+> [!IMPORTANT]
+> Immediately click **Tools** in the top navigation bar — do this before reading further. You have a 9-second window to catch the Surge Protection response.
 
 Look at the **Messages** panel on the right. You will see several entries timestamped at the same second — **TOOLS/LIST** and **RESOURCES/LIST** are shown as **PENDING**. Scroll down to see the two calls that passed: **INITIALIZE** and **NOTIFICATIONS/INITIALIZED**.
 
@@ -80,10 +77,18 @@ Couldn't load tools
 Error POSTing to endpoint: {"error":{"code":"surgeProtectionLimitExceeded","message":"Surge Protection limit exceeded for maximum number of calls"}}
 ```
 
+Now look at the **Messages** panel on the right.
+
+![MCP Inspector — server Connected, Messages panel showing PENDING calls](../../resources/screenshots/ex3-step1-server-connected.png)
+
+When the connection was established, MCP Inspector automatically fired multiple protocol handshake requests simultaneously — to initialize the session, discover tools, list resources, and more. All arrived at the MCP Server within the same instant.
+
+You will see several entries timestamped at the same second — **TOOLS/LIST** and **RESOURCES/LIST** are shown as **PENDING**. Scroll down to see the two calls that passed: **INITIALIZE** and **NOTIFICATIONS/INITIALIZED**.
+
 > [!NOTE]
 > You did not click anything — Surge Protection fired the moment the connection was established. The MCP Inspector's automatic handshake sent more than 3 requests within 9 seconds, and the policy stopped the rest before they reached the backend. This is exactly what Surge Protection does to an AI agent that floods the endpoint.
 
-**Wait approximately 10 seconds** for the Surge Protection window to reset, then click **Tools** again. The 4 tools exposed from your OpenAPI spec will now load successfully.
+**Wait approximately 10 seconds** for the Surge Protection window to reset, then click **Tools** again. The 4 tools will now load successfully.
 
 Click **Retrieve a list of assessment** (`get_bestrun_assessment`) — the parameter form opens in the center pane. No parameters are required — click **Execute Tool**.
 
