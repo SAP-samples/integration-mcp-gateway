@@ -176,7 +176,7 @@ The **Quota 1** node is inserted. Click the node — the settings panel appears 
 | Field | Value |
 |---|---|
 | Mode | `Calendar` |
-| Start Time (UTC) | Select a date at least one week in the past |
+| Start Time (UTC) | Using the date picker, select a date one week prior to today |
 | Calls | `15` |
 | Duration | `1` |
 | Duration Unit | `Days` |
@@ -186,8 +186,6 @@ The **Quota 1** node is inserted. Click the node — the settings panel appears 
 The final policy flow is:
 
 **Agent → Authentication → Authorization 1 → Surge Protection → Quota → Request Reply → Target**
-
-![Policy flow — complete policy chain with all policies configured](../../resources/screenshots/ex2-step3-full-policy-flow.png)
 
 Click **Save** to save the policy updates.
 

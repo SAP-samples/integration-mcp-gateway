@@ -246,7 +246,7 @@ In this exercise you:
 
 - Connected the **MCP Inspector** to your MCP Server using OAuth credentials and verified all four tools are accessible
 - Enabled **Trace logging** to capture full policy execution detail for all subsequent requests
-- Triggered **Surge Protection** — observed the `surgeProtectionLimitExceeded` error when exceeding 5 calls within a 9-second window, and confirmed the policy resets after the window expires
+- Triggered **Surge Protection** — observed the `surgeProtectionLimitExceeded` error when exceeding 3 calls within a 9-second window, and confirmed the policy resets after the window expires
 - Triggered **Quota Management** — observed the `quotaLimitExceeded` error when the daily call allowance per OAuth Client ID was exhausted
 - Used **Monitor Message Processing** to inspect all three message types — successful, Surge Protection failure, and Quota failure — and compared the **Run Steps** diagrams to see exactly which policy fired for each
 
