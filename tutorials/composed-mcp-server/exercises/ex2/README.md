@@ -180,6 +180,8 @@ The **Quota 1** node is inserted. Click the node — the settings panel appears 
 | Calls | `15` |
 | Duration | `1` |
 | Duration Unit | `Days` |
+| On Error | (default) |
+| Quota Identifier | `${context.authn.getClientID()}` (default) |
 
 ![Quota — Policy Settings tab with values filled in](../../resources/screenshots/ex2-step3-quota-config.png)
 
