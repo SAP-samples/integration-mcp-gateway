@@ -359,15 +359,18 @@ Copy and save the following — you will need all three in [Ex. 3.1](../ex3/READ
 
 In this exercise you:
 
-- Created an **Integration Package** and added an **MCP Server** backed by the Business Data Graph OpenAPI Specification from Exercise 1
-- Reviewed the default **Policy Model** — MCP Sender Adapter, Authentication, Authorization (`API.invoke`), and HTTP Receiver Adapter
-- Extended the Policy Model with two **Traffic Management** policies — **Surge Protection** (3 calls per 9 seconds) and **Quota Management** (15 calls per day, tracked per OAuth Client ID)
-- Deployed the MCP Server to **Integration Cell**, making the assessment tools available as a governed, live endpoint
-- Published the MCP Server as a **product** (`plantsupplyriskProduct-XX`) in the Developer Hub
-- Subscribed to the product (`plantsupplyriskSubscription-XX`) and retrieved the **OAuth credentials** (Token URL, Key, Secret) needed by AI agents
+- **Created** an **Integration Package** and added an **MCP Server** artifact backed by an OpenAPI Specification
+- **Selected** four API operations as **Tools**, exposing assessment and address risk data to the AI agent
+- **Reviewed** the default **Policy Model** — MCP Sender Adapter, Authentication, Authorization, and HTTP Receiver Adapter
+- **Extended** the Policy Model with two **Traffic Management** policies — **Surge Protection** (3 calls per 9 seconds) and **Quota Management** (15 calls per day per OAuth Client ID)
+- **Deployed** the MCP Server to **Integration Cell** as a governed, live endpoint
+- **Published** the MCP Server as a product (`plantsupplyriskProduct-XX`) in the **Developer Hub**
+- **Subscribed** to the product and retrieved the **OAuth credentials** (Token URL, Key, Secret)
 
-Your MCP Server is deployed, published, and ready to be governed. Continue to [Exercise 3](../ex3/README.md) to connect an MCP client, observe the traffic policies in action, and monitor consumption.
+Your MCP Server is deployed, published, and governed — ready for an AI agent to connect and consume.
 
 ---
+
+Continue to [Exercise 3 — Connect, Govern & Analyze an MCP Server using SAP Integration Suite](../ex3/README.md)
 
 [Back to Overview](../../../../README.md)
