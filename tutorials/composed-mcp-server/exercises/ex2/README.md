@@ -151,38 +151,23 @@ Access is granted if the caller presents either a valid OAuth scope (`API.invoke
 
 ### Extending the Policy Flow
 
-Beyond the defaults, additional policies can be added to the processing flow across three categories:
+Beyond the defaults, additional policies can be added to the processing flow:
 
 - **Security** — Request validation, threat protection, certificate pinning
 - **Traffic Management** — Surge Protection and Quota Management to protect backend systems from burst traffic and overuse
 - **Transformation & Mediation** — Payload modification, format conversion, JavaScript or Python scripts
 
-In the following steps, you will add two **Traffic Management** policies — **Surge Protection** and **Quota Management** — to govern how AI agents consume your MCP Server.
+In the following steps, you will add **Surge Protection** and **Quota Management** to the flow.
 
-### Add Surge Protection
-
-An AI agent that loops or retries aggressively can overwhelm a backend with a burst of rapid, repeated tool calls. Surge Protection limits the rate of incoming requests within a short time window — any calls exceeding the threshold are rejected before they reach the backend.
-
-#### Step 1 — Select the Position in the Flow
+### Step 1 — Add Surge Protection
 
 In the policy flow diagram, click the connector arrow between **Authorization 1** and **Request Reply** to select it.
 
-> [!NOTE]
-> Placing Surge Protection after Authorization ensures that only authenticated and authorized requests count toward the rate limit. Unauthenticated requests are rejected earlier in the flow and never reach this policy.
+In the toolbar, use **Search and Add a Step** and type `Surge Protection`. Select it from the results — the node is inserted between **Authorization 1** and **Request Reply**.
 
-![Policy flow — connector between Authorization 1 and Request Reply selected](../../resources/screenshots/ex2-step3-surge-select-position.png)
+![Policy flow — Surge Protection node added](../../resources/screenshots/ex2-step3-surge-flow.png)
 
-#### Step 2 — Add the Policy
-
-In the toolbar, use **Search and Add a Step** and type `Surge Protection`. Select it from the results.
-
-The **Surge Protection** node is inserted between **Authorization 1** and **Request Reply**.
-
-![Policy flow — Surge Protection node added between Authorization 1 and Request Reply](../../resources/screenshots/ex2-step3-surge-flow.png)
-
-#### Step 3 — Configure Surge Protection
-
-Click the **Surge Protection** node to open its settings. In the **Configure** tab, fill in the following:
+Click the **Surge Protection** node to open its settings. In the **Configure** tab, fill in:
 
 | Field | Value |
 |---|---|
@@ -193,37 +178,20 @@ Click the **Surge Protection** node to open its settings. In the **Configure** t
 
 Click outside the panel to close it.
 
-![Surge Protection — Configure tab with values filled in](../../resources/screenshots/ex2-step3-surge-config.png)
+![Surge Protection — Configure tab](../../resources/screenshots/ex2-step3-surge-config.png)
 
 > [!NOTE]
-> This configuration allows a maximum of 5 calls within any 9-second window. Requests beyond this threshold return a `429 Too Many Requests` response immediately — the backend never receives the excess calls. The supported duration range for this policy is 200 milliseconds to 9 seconds.
+> The supported duration range is 200 milliseconds to 9 seconds. With these settings, more than 5 calls within any 9-second window returns a `429 Too Many Requests` and the request is stopped before reaching the backend.
 
----
-
-### Add Quota Management
-
-Where Surge Protection guards against short bursts, Quota Management governs total consumption over a longer period. Each AI agent subscription gets its own independent call counter — giving you visibility and control over how much each agent is allowed to consume per day.
-
-#### Step 1 — Select the Position in the Flow
+### Step 2 — Add Quota Management
 
 Click the connector arrow between **Surge Protection** and **Request Reply** to select it.
 
-> [!NOTE]
-> Placing Quota after Surge Protection means that calls rejected by Surge Protection do not decrement the quota counter. Only requests that successfully pass the burst check consume from the daily allowance.
-
-![Policy flow — connector between Surge Protection and Request Reply selected](../../resources/screenshots/ex2-step3-quota-select-position.png)
-
-#### Step 2 — Add the Policy
-
-In the toolbar, use **Search and Add a Step** and type `Quota`. Select it from the results.
-
-The **Quota** node is inserted between **Surge Protection** and **Request Reply**.
+In the toolbar, use **Search and Add a Step** and type `Quota`. Select it from the results — the node is inserted between **Surge Protection** and **Request Reply**.
 
 ![Policy flow — complete chain with Quota added](../../resources/screenshots/ex2-step3-quota-flow.png)
 
-#### Step 3 — Configure Quota Management
-
-Click the **Quota** node to open its settings. In the **Policy Settings** tab, fill in the following:
+Click the **Quota** node to open its settings. In the **Policy Settings** tab, fill in:
 
 | Field | Value |
 |---|---|
@@ -238,12 +206,12 @@ Click outside the panel to close it.
 ![Quota — Policy Settings tab with values filled in](../../resources/screenshots/ex2-step3-quota-config.png)
 
 > [!IMPORTANT]
-> **Start Time must be set in UTC.** If your local timezone is ahead of UTC — for example, IST is UTC+5:30 — convert your current local time to UTC before entering it. Setting the start time in the future will prevent the quota window from opening, and no calls will be counted against the limit.
+> **Start Time must be set in UTC.** If your timezone is ahead of UTC (e.g. IST is UTC+5:30), convert before entering. A future start time prevents the quota window from opening.
 
 > [!NOTE]
-> **Quota Identifier** — `${context.authn.getClientID()}` tracks the call count per OAuth Client ID. This means each participant's subscription has its own independent 5-call counter. Without this identifier, all participants on the tenant would share a single quota pool and exhaust it collectively.
+> `${context.authn.getClientID()}` tracks the counter per OAuth Client ID — each participant's subscription has its own independent quota.
 
-The final policy flow is now:
+The final policy flow is:
 
 **Agent → Authentication → Authorization 1 → Surge Protection → Quota → Request Reply → Target**
 
