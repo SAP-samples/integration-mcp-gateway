@@ -159,47 +159,57 @@ Beyond the defaults, additional policies can be added to the processing flow:
 
 In the following steps, you will add **Surge Protection** and **Quota Management** to the flow.
 
+Click **Edit** in the top-right to enter edit mode.
+
+![MCP Server — Policies tab, Edit button highlighted](../../resources/screenshots/ex2-step3-policies-edit.png)
+
 ### Step 1 — Add Surge Protection
 
-In the policy flow diagram, click the connector arrow between **Authorization 1** and **Request Reply** to select it.
+Click the **+** button on the connector between **Authorization 1** and **Request Reply**.
 
-In the toolbar, use **Search and Add a Step** and type `Surge Protection`. Select it from the results — the node is inserted between **Authorization 1** and **Request Reply**.
+![Policy flow — + button on connector between Authorization 1 and Request Reply](../../resources/screenshots/ex2-step3-surge-add.png)
 
-![Policy flow — Surge Protection node added](../../resources/screenshots/ex2-step3-surge-flow.png)
+The **Add Flow Step** panel opens. Under **Traffic Management**, select **Surge Protection**.
 
-Click the **Surge Protection** node to open its settings. In the **Configure** tab, fill in:
+![Add Flow Step panel — Surge Protection highlighted under Traffic Management](../../resources/screenshots/ex2-step3-surge-select.png)
+
+The **SurgeProtection 1** node is inserted. Click it to open its settings and select the **Configure** tab. Fill in:
 
 | Field | Value |
 |---|---|
 | On Error | `Abort` |
-| Calls | `5` |
+| Calls | `3` |
 | Duration | `9` |
 | Duration Unit | `Seconds` |
 
-Click outside the panel to close it.
-
-![Surge Protection — Configure tab](../../resources/screenshots/ex2-step3-surge-config.png)
+![Surge Protection — Configure tab with values filled in](../../resources/screenshots/ex2-step3-surge-config.png)
 
 > [!NOTE]
-> The supported duration range is 200 milliseconds to 9 seconds. With these settings, more than 5 calls within any 9-second window returns a `429 Too Many Requests` and the request is stopped before reaching the backend.
+> The supported duration range is 200 milliseconds to 9 seconds. With these settings, more than 3 calls within any 9-second window returns a `429 Too Many Requests` and the request is stopped before reaching the backend.
 
 ### Step 2 — Add Quota Management
 
-Click the connector arrow between **Surge Protection** and **Request Reply** to select it.
+Click the **+** button on the connector between **SurgeProtection 1** and **Request Reply**.
 
-In the toolbar, use **Search and Add a Step** and type `Quota`. Select it from the results — the node is inserted between **Surge Protection** and **Request Reply**.
+![Policy flow — + button on connector between SurgeProtection 1 and Request Reply](../../resources/screenshots/ex2-step3-quota-add.png)
 
-![Policy flow — complete chain with Quota added](../../resources/screenshots/ex2-step3-quota-flow.png)
+The **Add Flow Step** panel opens. Under **Traffic Management**, select **Quota**.
 
-Click the **Quota** node to open its settings. In the **Policy Settings** tab, fill in:
+![Add Flow Step panel — Quota highlighted under Traffic Management](../../resources/screenshots/ex2-step3-quota-select.png)
+
+The **Quota 1** node is inserted. Click it to open its settings and select the **Policy Settings** tab. Fill in:
 
 | Field | Value |
 |---|---|
+| On Error | `Abort` |
+| Mode | `Calendar` |
 | Start Time (UTC) | A timestamp a few minutes in the past, in UTC |
-| Calls | `5` |
+| Calls | `15` |
 | Duration | `1` |
 | Duration Unit | `Days` |
 | Quota Identifier | `${context.authn.getClientID()}` |
+
+![Quota — Policy Settings tab with values filled in](../../resources/screenshots/ex2-step3-quota-config.png)
 
 Click outside the panel to close it.
 
@@ -378,7 +388,7 @@ In this exercise you:
 
 - Created an **Integration Package** and added an **MCP Server** backed by the Business Data Graph OpenAPI Specification from Exercise 1
 - Reviewed the default **Policy Model** — MCP Sender Adapter, Authentication, Authorization (`API.invoke`), and HTTP Receiver Adapter
-- Extended the Policy Model with two **Traffic Management** policies — **Surge Protection** (5 calls per 9 seconds) and **Quota Management** (5 calls per day, tracked per OAuth Client ID)
+- Extended the Policy Model with two **Traffic Management** policies — **Surge Protection** (3 calls per 9 seconds) and **Quota Management** (15 calls per day, tracked per OAuth Client ID)
 - Deployed the MCP Server to **Integration Cell**, making the assessment tools available as a governed, live endpoint
 - Published the MCP Server as a **product** (`plantsupplyriskProduct-XX`) in the Developer Hub
 - Subscribed to the product (`plantsupplyriskSubscription-XX`) and retrieved the **OAuth credentials** (Token URL, Key, Secret) needed by AI agents

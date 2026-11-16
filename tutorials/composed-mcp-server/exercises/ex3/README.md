@@ -125,14 +125,14 @@ Return to MCP Inspector before proceeding to the next step.
 ### Step 2 — Trigger Surge Protection
 
 Recall the Surge Protection policy configured in Ex. 2.3:
-- **Limit:** 5 calls within any 9-second window
+- **Limit:** 3 calls within any 9-second window
 - **On breach:** `429 Too Many Requests` — request is aborted before reaching the backend
 
-In MCP Inspector, click **Retrieve a list of assessment** (`get_bestrun_assessment`) and click **Execute Tool** six times as fast as possible — do not wait for each response before clicking again.
+In MCP Inspector, click **Retrieve a list of assessment** (`get_bestrun_assessment`) and click **Execute Tool** four times as fast as possible — do not wait for each response before clicking again.
 
 ![MCP Inspector — Surge Protection error response](../../resources/screenshots/ex3-step2-surge-error.png)
 
-The first five calls succeed. The sixth call within the 9-second window returns:
+The first three calls succeed. The fourth call within the 9-second window returns:
 
 ```json
 {
@@ -151,14 +151,14 @@ The first five calls succeed. The sixth call within the 9-second window returns:
 ### Step 3 — Trigger Quota Management
 
 Recall the Quota Management policy configured in Ex. 2.3:
-- **Limit:** 5 calls per day per OAuth Client ID
+- **Limit:** 15 calls per day per OAuth Client ID
 - **On breach:** `429 Too Many Requests` — request is aborted before reaching the backend
 - **Tracked by:** `${context.authn.getClientID()}` — your subscription has its own independent counter
 
 > [!IMPORTANT]
 > To trigger Quota without being blocked by Surge Protection first, space each call at least **10 seconds apart**. Calls rejected by Surge Protection do not count toward the quota — only successful calls decrement the counter.
 
-Make tool calls on `get_bestrun_assessment`, waiting 10 seconds between each. The successful calls from Ex. 3.1 already count toward your quota. Continue until the sixth successful call of the day, which returns:
+Make tool calls on `get_bestrun_assessment`, waiting 10 seconds between each. The successful calls from Ex. 3.1 already count toward your quota. Continue until the 16th successful call of the day, which returns:
 
 ```json
 {
