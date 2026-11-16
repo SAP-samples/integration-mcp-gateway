@@ -140,7 +140,7 @@ Click **Edit** in the top-right to enter edit mode.
 
 ### Step 1 — Add Surge Protection
 
-Click the **sequence flow** — the line connecting **Authorization 1** and **Request Reply**. A **+** button appears on it. Click **+**.
+Click the **sequence flow** — the line connecting **Authorization 1** and **Request Reply**. **+** button appears on it. Click **+**.
 
 ![Policy flow — + button on sequence flow between Authorization 1 and Request Reply](../../resources/screenshots/ex2-step3-surge-add.png)
 
@@ -163,7 +163,7 @@ The **SurgeProtection 1** node is inserted. Click the node — the settings pane
 
 ### Step 2 — Add Quota Management
 
-Click the **sequence flow** — the line connecting **SurgeProtection 1** and **Request Reply**. A **+** button appears on it. Click **+**.
+Click the **sequence flow** — the line connecting **SurgeProtection 1** and **Request Reply**. **+** button appears on it. Click **+**.
 
 ![Policy flow — + button on sequence flow between SurgeProtection 1 and Request Reply](../../resources/screenshots/ex2-step3-quota-add.png)
 
