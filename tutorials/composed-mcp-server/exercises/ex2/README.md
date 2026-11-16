@@ -152,6 +152,7 @@ The **SurgeProtection 1** node is inserted. Click the node — the settings pane
 
 | Field | Value |
 |---|---|
+| On Error | `Abort` (default) |
 | Calls | `3` |
 | Duration | `9` |
 | Duration Unit | `Seconds` |
@@ -175,12 +176,12 @@ The **Quota 1** node is inserted. Click the node — the settings panel appears 
 
 | Field | Value |
 |---|---|
+| On Error | `Abort` (default) |
 | Mode | `Calendar` |
 | Start Time (UTC) | Using the date picker, select a date one week prior to today |
 | Calls | `15` |
 | Duration | `1` |
 | Duration Unit | `Days` |
-| On Error | (default) |
 | Quota Identifier | `${context.authn.getClientID()}` (default) |
 
 ![Quota — Policy Settings tab with values filled in](../../resources/screenshots/ex2-step3-quota-config.png)
