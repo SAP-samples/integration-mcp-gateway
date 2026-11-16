@@ -189,6 +189,14 @@ The final policy flow is:
 
 Click **Save** to save the policy updates.
 
+> [!IMPORTANT]
+> The two Traffic Management policies you just configured enforce the following limits on every AI agent that connects to this MCP Server:
+> - **Surge Protection** — no more than **3 calls within any 9-second window**. Requests that exceed this rate are immediately rejected with `429 Too Many Requests` before reaching the backend.
+> - **Quota Management** — no more than **15 calls per day per OAuth Client ID**. Once the daily allowance is exhausted, all further requests are rejected until the next quota window opens.
+
+> [!NOTE]
+> Quota counts only calls made **after** the Start Time you set. If your quota does not seem to be counting down, verify that the Start Time is set to a date in the past.
+
 With both Traffic Management policies saved, return to the **Overview** tab and proceed to deployment in Ex. 2.4.
 
 ---
