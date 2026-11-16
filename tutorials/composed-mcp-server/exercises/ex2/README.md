@@ -134,50 +134,24 @@ When an MCP Server is created, SAP Integration Suite automatically applies a def
 
 ![MCP Server — Policies tab showing default policy model and authorization settings](../../resources/screenshots/ex2-step3-policies-tab.png)
 
-### Authorization Settings
-
-Double click the **Authorization 1** policy in the diagram. The **Policy Settings** tab shows:
-
-| Setting | Value |
-|---|---|
-| Authorization Type | `OAuth Scope or Developer Key` |
-| Scope Key | `scope` |
-| Scope | `API.invoke` |
-
-Access is granted if the caller presents either a valid OAuth scope (`API.invoke`) **or** a valid Developer Key. Other available modes include:
-- OAuth Scope
-- Developer Key
-- OAuth Scope and Developer Key
-
-### Extending the Policy Flow
-
-Beyond the defaults, additional policies can be added to the processing flow:
-
-- **Security** — Request validation, threat protection, certificate pinning
-- **Traffic Management** — Surge Protection and Quota Management to protect backend systems from burst traffic and overuse
-- **Transformation & Mediation** — Payload modification, format conversion, JavaScript or Python scripts
-
-In the following steps, you will add **Surge Protection** and **Quota Management** to the flow.
-
 Click **Edit** in the top-right to enter edit mode.
 
 ![MCP Server — Policies tab, Edit button highlighted](../../resources/screenshots/ex2-step3-policies-edit.png)
 
 ### Step 1 — Add Surge Protection
 
-Click the **+** button on the connector between **Authorization 1** and **Request Reply**.
+Click the **sequence flow** — the line connecting **Authorization 1** and **Request Reply**. A **+** button appears on it. Click **+**.
 
-![Policy flow — + button on connector between Authorization 1 and Request Reply](../../resources/screenshots/ex2-step3-surge-add.png)
+![Policy flow — + button on sequence flow between Authorization 1 and Request Reply](../../resources/screenshots/ex2-step3-surge-add.png)
 
 The **Add Flow Step** panel opens. Under **Traffic Management**, select **Surge Protection**.
 
 ![Add Flow Step panel — Surge Protection highlighted under Traffic Management](../../resources/screenshots/ex2-step3-surge-select.png)
 
-The **SurgeProtection 1** node is inserted. Click it to open its settings and select the **Configure** tab. Fill in:
+The **SurgeProtection 1** node is inserted. Click the node — the settings panel appears at the bottom. Drag the panel up using the handle (**⋮⋮⋮**) to expand it, then select the **Configure** tab. Fill in:
 
 | Field | Value |
 |---|---|
-| On Error | `Abort` |
 | Calls | `3` |
 | Duration | `9` |
 | Duration Unit | `Seconds` |
@@ -189,37 +163,25 @@ The **SurgeProtection 1** node is inserted. Click it to open its settings and se
 
 ### Step 2 — Add Quota Management
 
-Click the **+** button on the connector between **SurgeProtection 1** and **Request Reply**.
+Click the **sequence flow** — the line connecting **SurgeProtection 1** and **Request Reply**. A **+** button appears on it. Click **+**.
 
-![Policy flow — + button on connector between SurgeProtection 1 and Request Reply](../../resources/screenshots/ex2-step3-quota-add.png)
+![Policy flow — + button on sequence flow between SurgeProtection 1 and Request Reply](../../resources/screenshots/ex2-step3-quota-add.png)
 
 The **Add Flow Step** panel opens. Under **Traffic Management**, select **Quota**.
 
 ![Add Flow Step panel — Quota highlighted under Traffic Management](../../resources/screenshots/ex2-step3-quota-select.png)
 
-The **Quota 1** node is inserted. Click it to open its settings and select the **Policy Settings** tab. Fill in:
+The **Quota 1** node is inserted. Click the node — the settings panel appears at the bottom. Drag the panel up using the handle (**⋮⋮⋮**) to expand it, then select the **Policy Settings** tab. Fill in:
 
 | Field | Value |
 |---|---|
-| On Error | `Abort` |
 | Mode | `Calendar` |
-| Start Time (UTC) | A timestamp a few minutes in the past, in UTC |
+| Start Time (UTC) | Select a date at least one week in the past |
 | Calls | `15` |
 | Duration | `1` |
 | Duration Unit | `Days` |
-| Quota Identifier | `${context.authn.getClientID()}` |
 
 ![Quota — Policy Settings tab with values filled in](../../resources/screenshots/ex2-step3-quota-config.png)
-
-Click outside the panel to close it.
-
-![Quota — Policy Settings tab with values filled in](../../resources/screenshots/ex2-step3-quota-config.png)
-
-> [!IMPORTANT]
-> **Start Time must be set in UTC.** If your timezone is ahead of UTC (e.g. IST is UTC+5:30), convert before entering. A future start time prevents the quota window from opening.
-
-> [!NOTE]
-> `${context.authn.getClientID()}` tracks the counter per OAuth Client ID — each participant's subscription has its own independent quota.
 
 The final policy flow is:
 
@@ -227,7 +189,9 @@ The final policy flow is:
 
 ![Policy flow — complete policy chain with all policies configured](../../resources/screenshots/ex2-step3-full-policy-flow.png)
 
-With both Traffic Management policies configured, return to the **Overview** tab and proceed to deployment in Ex. 2.4.
+Click **Save** to save the policy updates.
+
+With both Traffic Management policies saved, return to the **Overview** tab and proceed to deployment in Ex. 2.4.
 
 ---
 
