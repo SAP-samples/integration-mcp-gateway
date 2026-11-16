@@ -59,13 +59,33 @@ Scroll down within OAuth Settings to **Token URL override** and enter your **Tok
 
 Close Settings.
 
-### Step 3 — Connect and Make Initial Tool Calls
+### Step 3 — Connect and Observe Surge Protection in Action
 
-Toggle the server switch to **Connected**. The server card turns green confirming a successful connection.
+Toggle the server switch to **Connected**. The server card turns green.
 
-![MCP Inspector — plantsupplyrisk-mcp-xx Connected](../../resources/screenshots/ex2-step8-connected.png)
+At the moment of connection, MCP Inspector automatically fires multiple protocol handshake requests simultaneously — to initialize the session, discover tools, list resources, and more. These all arrive at the MCP Server within the same instant.
 
-In the top navigation bar, click **Tools**. You will see the 4 operations exposed from your OpenAPI spec. Click **Retrieve a list of assessment** (`get_bestrun_assessment`) — the parameter form opens in the center pane. No parameters are required — click **Execute Tool**.
+![MCP Inspector — server Connected, Messages panel showing PENDING calls](../../resources/screenshots/ex3-step1-server-connected.png)
+
+Look at the **Messages** panel on the right. You will see several entries timestamped at the same second — **TOOLS/LIST** and **RESOURCES/LIST** are shown as **PENDING**. Scroll down to see the two calls that passed: **INITIALIZE** and **NOTIFICATIONS/INITIALIZED**.
+
+Now click **Tools** in the top navigation bar.
+
+![MCP Inspector — Tools tab showing surgeProtectionLimitExceeded error](../../resources/screenshots/ex3-step1-surge-on-connect.png)
+
+The Tools panel shows:
+
+```
+Couldn't load tools
+Error POSTing to endpoint: {"error":{"code":"surgeProtectionLimitExceeded","message":"Surge Protection limit exceeded for maximum number of calls"}}
+```
+
+> [!NOTE]
+> You did not click anything — Surge Protection fired the moment the connection was established. The MCP Inspector's automatic handshake sent more than 3 requests within 9 seconds, and the policy stopped the rest before they reached the backend. This is exactly what Surge Protection does to an AI agent that floods the endpoint.
+
+**Wait approximately 10 seconds** for the Surge Protection window to reset, then click **Tools** again. The 4 tools exposed from your OpenAPI spec will now load successfully.
+
+Click **Retrieve a list of assessment** (`get_bestrun_assessment`) — the parameter form opens in the center pane. No parameters are required — click **Execute Tool**.
 
 ![MCP Inspector — get_bestrun_assessment selected with Execute Tool button](../../resources/screenshots/ex2-step8-tools-list.png)
 
@@ -84,7 +104,7 @@ Click **Execute Tool** — this returns the live risk scores for that plant's lo
 > **Tip:** The data you see here — plant IDs, risk factors, risk scores — is exactly what an AI agent will receive when it calls these tools autonomously to answer a procurement question.
 
 > [!NOTE]
-> The tool calls you make in this step generate **successful** message entries in Monitor Message Processing. These will appear alongside the policy violation messages you create in Ex. 3.2, giving you a complete picture when you analyze consumption in Ex. 3.3.
+> The successful tool calls you make in this step count toward your daily Quota. Keep this in mind as you continue to Ex. 3.2.
 
 ### Troubleshooting
 
