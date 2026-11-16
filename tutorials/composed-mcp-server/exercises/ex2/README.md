@@ -5,7 +5,7 @@
 An AI agent is only as useful as the data it can reach. Getting it to enterprise data safely is the challenge.
 
 In this exercise, you will wrap the Business Data Graph from [Exercise 1](../ex1/README.md) as an **MCP Server** — the standardized bridge between enterprise APIs and AI agents. You will deploy a MCP artifact, publish it as a product, and retrieve the OAuth credentials that authorize agent access.
-By the end, your MCP Server is deployed, published, and governed — ready for an AI agent to connect and consume in [Exercise 3](../ex3/README.md).
+By the end, your MCP Server is deployed, published and ready to be governed — ready for an AI agent to connect and consume in [Exercise 3](../ex3/README.md).
 
 > [!NOTE]
 > For a deeper understanding of the **Model Context Protocol (MCP)** and **MCP paradigm in SAP Integration Suite**, refer to [What is the Model Context Protocol (MCP)?](https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro) and [API-Centric Integration in SAP Integration Suite: A New Paradigm for API & MCP](https://community.sap.com/t5/technology-blog-posts-by-sap/api-centric-integration-in-sap-integration-suite-a-new-paradigm-for-api-amp/ba-p/14438245)
@@ -415,7 +415,7 @@ In this exercise you:
 - Published the MCP Server as a **product** (`plantsupplyriskProduct-XX`) in the Developer Hub
 - Subscribed to the product (`plantsupplyriskSubscription-XX`) and retrieved the **OAuth credentials** (Token URL, Key, Secret) needed by AI agents
 
-Your MCP Server is deployed, published, and governed. Continue to [Exercise 3](../ex3/README.md) to connect an MCP client, observe the traffic policies in action, and monitor consumption.
+Your MCP Server is deployed, published, and ready to be governed. Continue to [Exercise 3](../ex3/README.md) to connect an MCP client, observe the traffic policies in action, and monitor consumption.
 
 ---
 
