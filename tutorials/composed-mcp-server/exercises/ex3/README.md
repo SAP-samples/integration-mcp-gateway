@@ -183,7 +183,7 @@ With both policies triggered, proceed to Ex. 3.3 to analyze what was captured.
 
 ## Ex. 3.3 — Analyze: Monitor MCP Consumption
 
-Every request processed by your MCP Server — successful or rejected — is recorded as a message in Monitor Message Processing. With trace logging enabled from Ex. 3.2, each message carries full policy execution detail. In this step you will inspect all three message types side by side and understand exactly what the policy pipeline did for each.
+Every request processed by your MCP Server — successful or rejected — is recorded as a message in Monitor Message Processing. With trace logging enabled from Ex. 3.2, each message carries full policy execution detail.
 
 ### Step 1 — Open Monitor Message Processing
 
@@ -193,53 +193,43 @@ Click the **Monitor Message Processing** tile.
 
 ![Monitor Overview — Monitor Message Processing tile highlighted](../../resources/screenshots/ex2-step9-monitor-overview-messages.png)
 
-### Step 2 — View All Message Types
+### Step 2 — View the Message List
 
-Set **Runtime** to **Integration Cell**. You will see a list of messages for `plantsupplyrisk_XX` — both completed and failed. The list reflects everything that happened across Ex. 3.1 and Ex. 3.2:
+Set **Runtime** to **Integration Cell**. You will see a list of messages for `plantsupplyrisk_XX` — a mix of **Failed** and **Completed** entries.
 
-| Message Status | Origin | What happened |
-|---|---|---|
-| **Completed** | Ex. 3.1 tool calls | Request passed all policies and reached the backend |
-| **Failed** | Surge Protection breach (Ex. 3.2) | Request was aborted at the Surge Protection step |
-| **Failed** | Quota breach (Ex. 3.2) | Request was aborted at the Quota step |
-
-Click on a **Completed** message row to open the detail panel.
-
-The panel shows:
-- **Status** — Message processing completed successfully
-- **Processing Time**
-- **Logs** — Log Level: Trace
-
-Click **Trace**
-
-![Monitor Message Processing — completed message with detail panel](../../resources/screenshots/ex2-step9-message-detail.png)
-
-### Step 3 — Inspect Run Steps for a Successful Message
-
-Click **MCP Server Model**.
-
-The **Run Steps** panel shows each policy component and its execution time — **Authentication**, **Authorization 1**, **Surge Protection**, and **Quota** — all highlighted green, overlaid on the Policy Model diagram. This confirms the request passed through every policy and reached the backend.
-
-![Monitor — Run Steps for a successful message](../../resources/screenshots/ex3-step3-run-steps-success.png)
-
-### Step 4 — Inspect Run Steps for a Surge Protection Failure
-
-Go back to the message list and click on a **Failed** message that corresponds to the Surge Protection breach.
-
-In the **Run Steps** panel, the flow stops at the **Surge Protection** node — highlighted in red. Authentication and Authorization 1 completed successfully, but Surge Protection aborted the request before it reached Quota or the backend.
-
-![Monitor — Run Steps for a Surge Protection failure](../../resources/screenshots/ex3-step3-run-steps-surge.png)
-
-### Step 5 — Inspect Run Steps for a Quota Failure
-
-Click on a **Failed** message that corresponds to the Quota breach.
-
-In the **Run Steps** panel, the flow progresses further — Authentication, Authorization 1, and Surge Protection all completed — but stops at the **Quota** node. This reflects the order of the policy chain: Quota is only reached by requests that have already passed the burst check.
-
-![Monitor — Run Steps for a Quota failure](../../resources/screenshots/ex3-step3-run-steps-quota.png)
+![Monitor Message Processing — message list with Failed and Completed entries](../../resources/screenshots/ex3-step3-message-list.png)
 
 > [!NOTE]
-> Comparing the three Run Steps diagrams side by side is the clearest way to understand how the policy chain works. Each policy acts as a gate — a request reaches the next gate only if it passes the current one. The Run Steps diagram shows exactly where each request stopped and why.
+> You will notice two log levels in the list — messages processed before you enabled Trace logging show **Info**, while messages processed after show **Trace**. Only Trace messages carry full policy execution detail.
+
+### Step 3 — Open a Failed Message
+
+Click on any **Failed** message row to open the detail panel on the right.
+
+The **Status** tab opens by default and shows two sections:
+- **Status** — "Message processing failed"
+- **Error Details** — the policy error that caused the failure, e.g. `Quota exceeded for maximum number of calls`
+
+![Monitor — Failed message detail, Status tab showing error details](../../resources/screenshots/ex3-step3-message-status.png)
+
+### Step 4 — Navigate to Run Steps
+
+Scroll down in the detail panel to the **Logs** section. You will see **Log Level: Trace** — click **Trace**.
+
+![Monitor — Logs section showing Log Level Trace link](../../resources/screenshots/ex3-step3-message-logs.png)
+
+### Step 5 — Inspect Run Steps
+
+The **Run Steps** view opens, showing each policy component that executed and how long it took.
+
+![Monitor — Run Steps showing Quota 1 failure with red error marker on policy diagram](../../resources/screenshots/ex3-step3-run-steps.png)
+
+The left panel lists the steps in execution order — the step where the request failed is marked with a red ⊗. The Policy Model diagram on the right highlights the exact node where the flow stopped.
+
+In the example above, the request passed **Authentication**, **Authorization 1**, and **SurgeProtection 1** — but failed at **Quota 1**. This confirms the policy chain worked as configured: Quota is only reached by requests that have already cleared the burst check.
+
+> [!NOTE]
+> Try clicking on different Failed messages in the list and compare their Run Steps. A Surge Protection failure stops at SurgeProtection 1 — the request never reaches Quota. A Quota failure progresses one step further. The diagram makes the difference immediately visible.
 
 ---
 
@@ -250,8 +240,8 @@ In this exercise you:
 - Connected the **MCP Inspector** to your MCP Server using OAuth credentials and verified all four tools are accessible
 - Enabled **Trace logging** to capture full policy execution detail for all subsequent requests
 - Triggered **Surge Protection** — observed the `surgeProtectionLimitExceeded` error when exceeding 3 calls within a 9-second window, and confirmed the policy resets after the window expires
-- Triggered **Quota Management** — observed the `quotaLimitExceeded` error when the daily call allowance per OAuth Client ID was exhausted
-- Used **Monitor Message Processing** to inspect all three message types — successful, Surge Protection failure, and Quota failure — and compared the **Run Steps** diagrams to see exactly which policy fired for each
+- Triggered **Quota Management** — observed the `quotaExceeded` error when the daily call allowance per OAuth Client ID was exhausted
+- Used **Monitor Message Processing** to inspect Failed messages, read the error details on the Status tab, and navigated to **Run Steps** via the Trace log link to see exactly which policy stopped each request
 
 The full MCP Server lifecycle is now complete: composed from enterprise APIs in Exercise 1, deployed and governed in Exercise 2, and connected, tested, and analyzed in Exercise 3.
 
