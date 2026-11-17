@@ -191,7 +191,7 @@ In SAP Integration Suite, go to **Monitor → Integrations and APIs**.
 
 Click the **Monitor Message Processing** tile.
 
-![Monitor Overview — Monitor Message Processing tile highlighted](../../resources/screenshots/ex2-step9-monitor-overview-messages.png)
+![Monitor Overview — Integrations and APIs, Runtime set to Integration Cell, Messages tile highlighted](../../resources/screenshots/ex3-step3-monitor-overview.png)
 
 ### Step 2 — View the Message List
 
