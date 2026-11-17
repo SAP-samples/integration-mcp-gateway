@@ -66,6 +66,8 @@ Toggle the server switch to **Connected**. The server card turns green.
 > [!IMPORTANT]
 > Immediately click **Tools** in the top navigation bar — do this before reading further. You have a 9-second window to catch the Surge Protection response.
 
+![MCP Inspector — server Connected, Messages panel showing PENDING calls](../../resources/screenshots/ex3-step1-server-connected.png)
+
 ![MCP Inspector — Tools tab showing surgeProtectionLimitExceeded error](../../resources/screenshots/ex3-step1-surge-on-connect.png)
 
 The Tools panel shows:
@@ -76,8 +78,6 @@ Error POSTing to endpoint: {"error":{"code":"surgeProtectionLimitExceeded","mess
 ```
 
 Now look at the **Messages** panel on the right.
-
-![MCP Inspector — server Connected, Messages panel showing PENDING calls](../../resources/screenshots/ex3-step1-server-connected.png)
 
 When the connection was established, MCP Inspector automatically fired multiple protocol handshake requests simultaneously — to initialize the session, discover tools, list resources, and more. All arrived at the MCP Server within the same instant.
 
