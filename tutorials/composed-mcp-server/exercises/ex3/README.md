@@ -134,7 +134,7 @@ Click the **Manage Integration Content** tile.
 
 ![Monitor Overview — Manage Integration Content tile](../../resources/screenshots/ex2-step9-monitor-overview-content.png)
 
-Set **Runtime** to **Integration Cell**. In the **Integration Content** list, click on **`plantsupplyrisk_XX`**.
+Set **Runtime** to **Integration Cell**. In the **Integration Content** list, click on **`plantsupplyrisk_XX`** (replace XX with your participant number).
 
 In the right panel, scroll to **Log Configuration** and set the **Log Level** to **Trace**.
 
