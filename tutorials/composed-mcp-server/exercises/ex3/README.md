@@ -66,9 +66,6 @@ Toggle the server switch to **Connected**. The server card turns green.
 > [!IMPORTANT]
 > Immediately click **Tools** in the top navigation bar — do this before reading further. You have a 9-second window to catch the Surge Protection response.
 
-Look at the **Messages** panel on the right. You will see several entries timestamped at the same second — **TOOLS/LIST** and **RESOURCES/LIST** are shown as **PENDING**. Scroll down to see the two calls that passed: **INITIALIZE** and **NOTIFICATIONS/INITIALIZED**.
-
-![MCP Inspector — server Connected, Messages panel showing PENDING calls](../../resources/screenshots/ex3-step1-server-connected.png)
 ![MCP Inspector — Tools tab showing surgeProtectionLimitExceeded error](../../resources/screenshots/ex3-step1-surge-on-connect.png)
 
 The Tools panel shows:
@@ -80,6 +77,7 @@ Error POSTing to endpoint: {"error":{"code":"surgeProtectionLimitExceeded","mess
 
 Now look at the **Messages** panel on the right.
 
+![MCP Inspector — server Connected, Messages panel showing PENDING calls](../../resources/screenshots/ex3-step1-server-connected.png)
 
 When the connection was established, MCP Inspector automatically fired multiple protocol handshake requests simultaneously — to initialize the session, discover tools, list resources, and more. All arrived at the MCP Server within the same instant.
 
@@ -134,7 +132,7 @@ Click the **Manage Integration Content** tile.
 
 ![Monitor Overview — Manage Integration Content tile](../../resources/screenshots/ex2-step9-monitor-overview-content.png)
 
-Set **Runtime** to **Integration Cell**. In the **Integration Content** list, click on **`plantsupplyrisk_XX`** (replace XX with your participant number).
+In the **Integration Content** list, click on **`plantsupplyrisk_XX`** (replace XX with your participant number).
 
 In the right panel, scroll to **Log Configuration** and set the **Log Level** to **Trace**.
 
