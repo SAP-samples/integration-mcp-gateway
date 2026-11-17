@@ -1,4 +1,4 @@
-# Exercise 3 — Connect, Govern & Analyze an MCP Server using SAP Integration Suite
+# Exercise 3 — Connect, Govern, Monitor & Analyze an MCP Server using SAP Integration Suite
 
 ## Overview
 
@@ -179,7 +179,7 @@ With both policies triggered, proceed to Ex. 3.3 to analyze what was captured.
 
 ---
 
-## Ex. 3.3 — Analyze: Monitor MCP Consumption
+## Ex. 3.3 — Monitor: Inspect Message Processing
 
 Every request processed by your MCP Server — successful or rejected — is recorded as a message in Monitor Message Processing. With trace logging enabled from Ex. 3.2, each message carries full policy execution detail.
 
@@ -231,17 +231,73 @@ In the example above, the request passed **Authentication**, **Authorization 1**
 
 ---
 
+## Ex. 3.4 — Analyze: Explore the Analytics Dashboard
+
+Every call routed through your MCP Server is tracked and surfaced in the SAP Integration Suite **Analyze** dashboard — giving you visibility into call volumes, response times, error rates, and policy violations across all your MCP Servers.
+
+### Step 1 — Navigate to Analyze
+
+In the left navigation, click **Analyze**.
+
+Set the following filters:
+
+| Filter | Value |
+|---|---|
+| Runtime | `Integration Cell` |
+| Artifact Type | `MCP Server` |
+
+![Analyze — Overview tab with KPI tiles, Runtime and Artifact Type filters highlighted](../../resources/screenshots/ex3-step4-analyze-overview.png)
+
+The **Overview** tab shows three KPIs for the selected period:
+
+| KPI | What it shows |
+|---|---|
+| **Total MCP Calls** | Total volume of calls made to all MCP Servers |
+| **MCP Response Time** | Average response time across all calls |
+| **Total MCP Errors** | Proportion of calls that resulted in an error |
+
+### Step 2 — Explore MCP Call Charts
+
+Scroll down to see the **MCP Server Calls** chart — daily call count broken down by **Cumulative**, **Failure**, and **Success**.
+
+![Analyze — MCP Server Calls daily chart showing Cumulative, Failure, and Success](../../resources/screenshots/ex3-step4-analyze-calls-chart.png)
+
+Scroll further to see **Top MCP Servers of the Week** and **Top Subscriptions for Agents** — showing which MCP Servers and agent subscriptions drove the most traffic across the tenant.
+
+![Analyze — Top MCP Servers and Top Subscriptions for Agents charts](../../resources/screenshots/ex3-step4-analyze-top-servers.png)
+
+> [!NOTE]
+> These charts cover all MCP Servers across the tenant. You will see other participants' servers alongside yours — this is the shared observability layer for the workshop environment.
+
+### Step 3 — Review the Health Tab
+
+Click the **Health** tab.
+
+![Analyze — Health tab showing MCP Server Errors by Tool vs Resource and MCP Policy Errors heatmap](../../resources/screenshots/ex3-step4-analyze-health.png)
+
+The Health view shows two charts side by side:
+
+| Chart | What it shows |
+|---|---|
+| **MCP Server Errors by Tool vs Resource** | Failed call count broken down by Tools and Resources per MCP Server |
+| **MCP Policy Errors** | Failed call count due to policy violations per MCP Server — shown as a heatmap |
+
+The **MCP Policy Errors** heatmap reflects the Surge Protection and Quota violations you triggered in Ex. 3.2. The darker the tile, the higher the policy error count for that MCP Server.
+
+---
+
 ## Summary
 
 In this exercise you:
 
-- Connected the **MCP Inspector** to your MCP Server using OAuth credentials and verified all four tools are accessible
-- Enabled **Trace logging** to capture full policy execution detail for all subsequent requests
-- Triggered **Surge Protection** — observed the `surgeProtectionLimitExceeded` error when exceeding 3 calls within a 9-second window, and confirmed the policy resets after the window expires
-- Triggered **Quota Management** — observed the `quotaExceeded` error when the daily call allowance per OAuth Client ID was exhausted
-- Used **Monitor Message Processing** to inspect Failed messages, read the error details on the Status tab, and navigated to **Run Steps** via the Trace log link to see exactly which policy stopped each request
+- **Connected** the **MCP Inspector** to your MCP Server using OAuth credentials and verified all four tools are accessible
+- **Observed** **Surge Protection** firing at connection time — the automatic MCP handshake exceeded the 3-call limit within 9 seconds, and the policy blocked the remaining requests
+- **Enabled** **Trace logging** to capture full policy execution detail for all subsequent requests
+- **Triggered** both **Traffic Management** policies using the Replay button — `surgeProtectionLimitExceeded` when replaying rapidly, and `quotaExceeded` after exhausting the daily allowance
+- **Monitored** all requests in **Monitor Message Processing** — inspected the Error Details on Failed messages and navigated to **Run Steps** via the Trace log link to see exactly which policy stopped each request
+- **Analyzed** MCP consumption in the **Analyze** dashboard — reviewed call volumes, response times, and policy error patterns across the **Overview** and **Health** tabs
 
-The full MCP Server lifecycle is now complete: composed from enterprise APIs in Exercise 1, deployed and governed in Exercise 2, and connected, tested, and analyzed in Exercise 3.
+The full MCP Server lifecycle is now complete: composed from enterprise APIs in Exercise 1, deployed and governed in Exercise 2, and connected, tested, monitored, and analyzed in Exercise 3.
 
 ---
 

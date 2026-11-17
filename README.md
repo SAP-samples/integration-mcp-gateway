@@ -87,7 +87,7 @@ The complete list of exercise steps are listed below, run through them in the gi
 
 - [Exercise 1 - Build a Unified Supply Risk API with Business Data Graph](tutorials/composed-mcp-server/exercises/ex1/README.md)
 - [Exercise 2 - Create, Deploy & Publish an MCP Server using SAP Integration Suite](tutorials/composed-mcp-server/exercises/ex2/README.md)
-- [Exercise 3 - Connect, Govern & Analyze an MCP Server using SAP Integration Suite](tutorials/composed-mcp-server/exercises/ex3/README.md)
+- [Exercise 3 - Connect, Govern, Monitor & Analyze an MCP Server using SAP Integration Suite](tutorials/composed-mcp-server/exercises/ex3/README.md)
 
 ## Feedback
 We appreciate your feedback after the session!
