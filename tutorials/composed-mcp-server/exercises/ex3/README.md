@@ -175,6 +175,8 @@ Error POSTing to endpoint: {"error":{"code":"quotaExceeded","message":"Quota exc
 > [!NOTE]
 > Unlike Surge Protection, Quota does not reset within the workshop session. Once exhausted, no further successful calls are possible until the next quota window opens.
 
+> **Tip:** If your quota is exhausted and you want to continue making calls, go back to [Ex. 2.3 Step 2](../ex2/README.md#step-2--add-quota-management), increase the **Calls** value (e.g. from `15` to `30`), click **Save**, then redeploy the MCP Server from Ex. 2.4. The updated quota limit takes effect immediately — no new product or subscription required.
+
 With both policies triggered, proceed to Ex. 3.3 to analyze what was captured.
 
 ---
