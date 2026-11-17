@@ -147,59 +147,37 @@ Return to MCP Inspector before proceeding to the next step.
 
 ---
 
-### Step 2 — Trigger Surge Protection
+### Step 2 — Trigger the Traffic Policies
 
-Recall the Surge Protection policy configured in Ex. 2.3:
-- **Limit:** 3 calls within any 9-second window
-- **On breach:** `429 Too Many Requests` — request is aborted before reaching the backend
+In the **Messages** panel, find any successful **TOOLS/CALL** entry. Click the **Replay** button (circular arrow icon) on that entry — this re-sends the exact same call instantly without filling in parameters again.
 
-In MCP Inspector, click **Retrieve a list of assessment** (`get_bestrun_assessment`) and click **Execute Tool** four times as fast as possible — do not wait for each response before clicking again.
+![MCP Inspector — Replay button on a TOOLS/CALL entry in Messages panel](../../resources/screenshots/ex3-step2-replay-button.png)
 
-![MCP Inspector — Surge Protection error response](../../resources/screenshots/ex3-step2-surge-error.png)
+Keep clicking **Replay** rapidly. After 3 calls within the 9-second window, Surge Protection fires. A **Replay failed** popup appears at the bottom-right:
 
-The first three calls succeed. The fourth call within the 9-second window returns:
-
-```json
-{
-  "error": {
-    "code": "surgeProtectionLimitExceeded",
-    "message": "Surge Protection limit exceeded for maximum number of calls"
-  }
-}
+```
+Replay failed
+Error POSTing to endpoint: {"error":{"code":"surgeProtectionLimitExceeded","message":"Surge Protection limit exceeded for maximum number of calls"}}
 ```
 
+![MCP Inspector — Replay failed with surgeProtectionLimitExceeded](../../resources/screenshots/ex3-step2-surge-triggered.png)
+
 > [!NOTE]
-> Wait approximately 10 seconds and click **Execute Tool** again — the request succeeds. Surge Protection resets after the window expires. This distinguishes it from Quota, which does not reset until the next day.
+> Surge Protection resets after the 9-second window expires. Wait approximately 10 seconds — the next Replay will succeed.
 
----
+Continue replaying, spacing each call at least **10 seconds apart**. The successful calls from Ex. 3.1 already count toward your daily quota — keep going until the quota is exhausted. The **Replay failed** popup now shows:
 
-### Step 3 — Trigger Quota Management
-
-Recall the Quota Management policy configured in Ex. 2.3:
-- **Limit:** 15 calls per day per OAuth Client ID
-- **On breach:** `429 Too Many Requests` — request is aborted before reaching the backend
-- **Tracked by:** `${context.authn.getClientID()}` — your subscription has its own independent counter
-
-> [!IMPORTANT]
-> To trigger Quota without being blocked by Surge Protection first, space each call at least **10 seconds apart**. Calls rejected by Surge Protection do not count toward the quota — only successful calls decrement the counter.
-
-Make tool calls on `get_bestrun_assessment`, waiting 10 seconds between each. The successful calls from Ex. 3.1 already count toward your quota. Continue until the 16th successful call of the day, which returns:
-
-```json
-{
-  "error": {
-    "code": "quotaLimitExceeded",
-    "message": "Quota limit exceeded"
-  }
-}
+```
+Replay failed
+Error POSTing to endpoint: {"error":{"code":"quotaExceeded","message":"Quota exceeded for maximum number of calls"}}
 ```
 
-![MCP Inspector — Quota exceeded error response](../../resources/screenshots/ex3-step2-quota-error.png)
+![MCP Inspector — Replay failed with quotaExceeded](../../resources/screenshots/ex3-step2-quota-exceeded.png)
 
 > [!NOTE]
-> Unlike Surge Protection, the Quota limit does not reset within the workshop session — it resets at the start of the next quota window (based on the Start Time you configured in UTC). This is intentional: Quota governs total daily consumption per agent subscription, not momentary burst rate.
+> Unlike Surge Protection, Quota does not reset within the workshop session. Once exhausted, no further successful calls are possible until the next quota window opens.
 
-With both policies triggered, the quota is now exhausted. No further successful tool calls are possible in this quota window — proceed directly to Ex. 3.3 to analyze what was captured.
+With both policies triggered, proceed to Ex. 3.3 to analyze what was captured.
 
 ---
 
