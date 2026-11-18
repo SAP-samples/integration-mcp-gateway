@@ -371,6 +371,6 @@ Your MCP Server is deployed, published, and governed — ready for an AI agent t
 
 ---
 
-Continue to [Exercise 3 — Connect, Govern & Analyze an MCP Server using SAP Integration Suite](../ex3/README.md)
+Continue to [Exercise 3 — Connect, Govern, Monitor & Analyze an MCP Server using SAP Integration Suite](../ex3/README.md)
 
 [Back to Overview](../../../../README.md)

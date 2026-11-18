@@ -121,8 +121,6 @@ In the right panel, scroll to **Log Configuration** and set the **Log Level** to
 
 Return to MCP Inspector before proceeding to the next step.
 
----
-
 ### Step 2 — Trigger the Traffic Policies
 
 In the **Messages** panel, find any successful **TOOLS/CALL** entry. Click the **Replay** button (circular arrow icon) on that entry — this re-sends the exact same call instantly without filling in parameters again.
