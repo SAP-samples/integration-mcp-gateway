@@ -1,11 +1,11 @@
-# Exercise 2 — Create, Deploy & Consume an MCP Server using SAP Integration Suite
+# Exercise 2 — Create, Deploy & Publish an MCP Server using SAP Integration Suite
 
 ## Overview
 
 An AI agent is only as useful as the data it can reach. Getting it to enterprise data safely is the challenge.
 
 In this exercise, you will wrap the Business Data Graph from [Exercise 1](../ex1/README.md) as an **MCP Server** — the standardized bridge between enterprise APIs and AI agents. You will deploy a MCP artifact, publish it as a product, and retrieve the OAuth credentials that authorize agent access.
-By the end, your supply risk data is accessible to any MCP-compatible agent — secured, governed, and ready.
+By the end, your MCP Server is deployed, published and ready to be governed — ready for an AI agent to connect and consume in [Exercise 3](../ex3/README.md).
 
 > [!NOTE]
 > For a deeper understanding of the **Model Context Protocol (MCP)** and **MCP paradigm in SAP Integration Suite**, refer to [What is the Model Context Protocol (MCP)?](https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro) and [API-Centric Integration in SAP Integration Suite: A New Paradigm for API & MCP](https://community.sap.com/t5/technology-blog-posts-by-sap/api-centric-integration-in-sap-integration-suite-a-new-paradigm-for-api-amp/ba-p/14438245)
@@ -86,7 +86,7 @@ Click **Next**
 
 ### Step 4 — Select Tools
 
-The wizard reads your OpenAPI Specification and lists all available operations as **tools**. 
+The wizard reads your OpenAPI Specification and lists all available operations as **tools**.
 <br>Select the following tools only, these tools would be exposed to the AI agent.
 
 | Method | Path | Description | Select |
@@ -101,19 +101,29 @@ Click **Add**.
 > [!NOTE]
 > The four tools selected above expose the assessment and address risk operations — the operations most relevant to the supply risk use case. Practitioners should select tools based on what the AI agent actually needs to answer business questions.
 
+> [!NOTE]
+> MCP servers can expose three types of primitives to AI agents. It is important to understand the difference when designing what your MCP Server exposes:
+>
+> | Primitive | What it is | In this MCP Server |
+> |---|---|---|
+> | **Tools** | Callable operations — the agent invokes a tool with parameters to fetch or act on data at runtime | ✓ The 4 operations selected above |
+> | **Prompts** | Pre-defined prompt templates — guide how the agent uses the server's capabilities in a structured, repeatable way | — Not configured |
+> | **Resources** | Readable reference content — the agent reads this as background context rather than invoking it as a function | — Not configured |
+>
+> This MCP Server exposes only **Tools**, generated directly from the OpenAPI Specification. Prompts and Resources can be configured separately to further guide agent behaviour.
+
 ![Add MCP Server — Select Tools](../../resources/screenshots/ex2-step2-select-tools.png)
 ![Add MCP Server — Created](../../resources/screenshots/ex2-step2-created-mcp.png)
+
 ---
 
-## Ex. 2.3 — Review the Policy Model
+## Ex. 2.3 — Review and Configure the Policy Model
 
 From the MCP Server detail page, click the **Policies** tab.
 
 ### Default Processing Flow
 
 When an MCP Server is created, SAP Integration Suite automatically applies a default processing template. This template provides the runtime flow required to receive, authenticate, authorize, and forward requests to the backend service.
-> [!NOTE]
-> **No action needed** — the default policy settings are pre-configured and ready to use. You do not need to modify any policy for this workshop.
 
 | Component | Role |
 |---|---|
@@ -124,30 +134,73 @@ When an MCP Server is created, SAP Integration Suite automatically applies a def
 
 ![MCP Server — Policies tab showing default policy model and authorization settings](../../resources/screenshots/ex2-step3-policies-tab.png)
 
-### Authorization Settings
+Click **Edit** in the top-right to enter edit mode.
 
-Double click the **Authorization 1** policy in the diagram. The **Policy Settings** tab shows:
+![MCP Server — Policies tab, Edit button highlighted](../../resources/screenshots/ex2-step3-policies-edit.png)
 
-| Setting | Value |
+### Step 1 — Add Surge Protection
+
+Click the **sequence flow** — the line connecting **Authorization 1** and **Request Reply**. Click the **+** button that appears on it.
+
+![Policy flow — + button on sequence flow between Authorization 1 and Request Reply](../../resources/screenshots/ex2-step3-surge-add.png)
+
+The **Add Flow Step** panel opens. Under **Traffic Management**, select **Surge Protection**.
+
+![Add Flow Step panel — Surge Protection highlighted under Traffic Management](../../resources/screenshots/ex2-step3-surge-select.png)
+
+The **SurgeProtection 1** node is inserted. Click the node — the settings panel appears at the bottom. Drag the panel up using the handle (**⋮⋮⋮**) to expand it, then select the **Configure** tab. Fill in:
+
+| Field | Value |
 |---|---|
-| Authorization Type | `OAuth Scope or Developer Key` |
-| Scope Key | `scope` |
-| Scope | `API.invoke` |
+| On Error | `Abort` (default) |
+| Calls | `8` |
+| Duration | `9` |
+| Duration Unit | `Seconds` |
 
-Access is granted if the caller presents either a valid OAuth scope (`API.invoke`) **or** a valid Developer Key. Other available modes includes:
-- OAuth Scope
-- Developer Key
-- OAuth Scope and Developer Key
+![Surge Protection — Configure tab with values filled in](../../resources/screenshots/ex2-step3-surge-config.png)
 
-### Extending the Policy Flow
+> [!NOTE]
+> The supported duration range is 200 milliseconds to 9 seconds. With these settings, more than 7 calls within any 9-second window returns a `429 Too Many Requests` and the request is stopped before reaching the backend.
 
-Beyond the defaults, additional policies can be added to the processing flow:
+### Step 2 — Add Quota Management
 
-- **Security** — Request validation, threat protection, certificate pinning
-- **Traffic Management** — Quota limits and Spike Arrest to protect backend systems from overload
-- **Transformation & Mediation** — Payload modification, format conversion, JavaScript or Python scripts
+Click the **sequence flow** — the line connecting **SurgeProtection 1** and **Request Reply**. Click the **+** button that appears on it.
 
-For this workshop, the default configuration is sufficient. Return to the **Overview** tab and proceed to deployment.
+![Policy flow — + button on sequence flow between SurgeProtection 1 and Request Reply](../../resources/screenshots/ex2-step3-quota-add.png)
+
+The **Add Flow Step** panel opens. Under **Traffic Management**, select **Quota**.
+
+![Add Flow Step panel — Quota highlighted under Traffic Management](../../resources/screenshots/ex2-step3-quota-select.png)
+
+The **Quota 1** node is inserted. Click the node — the settings panel appears at the bottom. Drag the panel up using the handle (**⋮⋮⋮**) to expand it, then select the **Policy Settings** tab. Fill in:
+
+| Field | Value |
+|---|---|
+| On Error | `Abort` (default) |
+| Mode | `Calendar` |
+| Start Time (UTC) | Using the date picker, select a date one week prior to today |
+| Calls | `25` |
+| Duration | `1` |
+| Duration Unit | `Days` |
+| Quota Identifier | `${context.authn.getClientID()}` (default) |
+
+![Quota — Policy Settings tab with values filled in](../../resources/screenshots/ex2-step3-quota-config.png)
+
+The final policy flow is:
+
+**Agent → Authentication → Authorization 1 → Surge Protection → Quota → Request Reply → Target**
+
+Click **Save** to save the policy updates.
+
+> [!IMPORTANT]
+> The two Traffic Management policies you just configured enforce the following limits on every AI agent that connects to this MCP Server:
+> - **Surge Protection** — no more than **7 calls within any 9-second window** (the 8th call is blocked). Requests that exceed this rate are immediately rejected with `429 Too Many Requests` before reaching the backend.
+> - **Quota Management** — no more than **25 calls per day per OAuth Client ID**. Once the daily allowance is exhausted, all further requests are rejected until the next quota window opens.
+
+> [!NOTE]
+> Quota counts only calls made **after** the Start Time you set. If your quota does not seem to be counting down, verify that the Start Time is set to a date in the past.
+
+With both Traffic Management policies saved, return to the **Overview** tab and proceed to deployment in Ex. 2.4.
 
 ---
 
@@ -171,12 +224,12 @@ Click **Deploy** to confirm.
 
 Wait for the status to update. When deployment completes successfully, the status bar will show:
 
-**Deployed on \<date\>\<time\>, Runtime Status: STARTED**
+**Deployed on `<date> <time>`, Runtime Status: STARTED**
 
 ![MCP Server — Deployed and STARTED](../../resources/screenshots/ex2-step3-deployed-started.png)
 
 > [!NOTE]
-> Note the **MCP URL** shown on this page — it follows the pattern `https://<virtual-host>/mcp-plantsupplyrisk-XX`. You will use this URL when connecting the MCP client in Ex. 2.8.
+> Note the **MCP URL** shown on this page — it follows the pattern `https://<virtual-host>/mcp-plantsupplyrisk-XX`. You will use this URL when connecting the MCP client in [Ex. 3.1](../ex3/README.md#ex-31--connect-via-mcp-inspector).
 
 ---
 
@@ -269,7 +322,6 @@ Click **Create**
 
 ![Create New Subscription for Agent](../../resources/screenshots/ex2-step5-create-subscription.png)
 
-
 ---
 
 ## Ex. 2.7 — Retrieve Credentials
@@ -288,7 +340,7 @@ Click on **`plantsupplyriskSubscription-XX`** (replace XX with your assigned par
 
 On the subscription **Overview** page, locate the **Credentials** section.
 
-Copy and save the following — you will need all three in Ex. 2.8:
+Copy and save the following — you will need all three in [Ex. 3.1](../ex3/README.md#ex-31--connect-via-mcp-inspector):
 
 | Credential | What it is |
 |---|---|
@@ -303,159 +355,22 @@ Copy and save the following — you will need all three in Ex. 2.8:
 
 ---
 
-## Ex. 2.8 — Test with the MCP Client
-
-Any AI agent or MCP client can consume the MCP Server. For this workshop, your instructor has provided a hosted **MCP Inspector** (MCP Client) URL; open it in your browser.
-
-### Step 1 — Add Your MCP Server
-
-Click **Add Servers → + Add manually**.
-
-![MCP Inspector — Add Servers dropdown](../../resources/screenshots/ex2-step8-add-servers-menu.png)
-
-In the **Add server** dialog, fill in:
-
-| Field | Value |
-|---|---|
-| Server ID | `plantsupplyrisk-mcp-XX` (replace XX with your assigned participant number)  |
-| Transport | `streamable-http` |
-| URL | Your MCP URL from Ex. 2.4 (e.g. `https://<virtual-host>/mcp-plantsupplyrisk-XX`) |
-
-Click **Add**
-
-![Add server dialog — Server ID, Transport, URL filled in](../../resources/screenshots/ex2-step8-add-server-dialog.png)
-
-### Step 2 — Configure OAuth Authentication
-
-On the server card, click **Settings**.
-
-Scroll to the bottom of the Settings dialog and click **OAuth Settings** to expand it.
-
-![Server Settings — OAuth Settings section highlighted](../../resources/screenshots/ex2-step8-server-settings-oauth.png)
-
-Configure the following fields:
-
-| Field | Value |
-|---|---|
-| **Enterprise-managed authorization** | Leave **unchecked** |
-| **Client ID** | Your **Key** from Ex. 2.7 |
-| **Client Secret** | Your **Secret** from Ex. 2.7 |
-| **Request refresh token** | **Uncheck** (checked by default) |
-| **Revoke tokens on clear** | **Uncheck** (checked by default) |
-
-![OAuth Settings — Client ID and Client Secret filled in](../../resources/screenshots/ex2-step8-oauth-settings-credentials.png)
-
-Scroll down within OAuth Settings to **Token URL override** and enter your **Token URL** from Ex. 2.7. Leave **Authorization URL override** blank.
-
-![OAuth Settings — Token URL override filled in](../../resources/screenshots/ex2-step8-oauth-settings-token-url.png)
-
-Close Settings.
-
-### Step 3 — Connect and Explore Tools
-
-Toggle the server switch to **Connected**. The server card turns green confirming a successful connection.
-
-![MCP Inspector — plantsupplyrisk-mcp-xx Connected](../../resources/screenshots/ex2-step8-connected.png)
-
-In the top navigation bar, click **Tools**. You will see the 4 operations exposed from your OpenAPI spec. Click **Retrieve a list of assessment** (`get_bestrun_assessment`) — the parameter form opens in the center pane. No parameters are required — click **Execute Tool**.
-
-![MCP Inspector — get_bestrun_assessment selected with Execute Tool button](../../resources/screenshots/ex2-step8-tools-list.png)
-
-The Results pane shows all plants with their IDs (Berlin, Munich, London, etc.).
-
-![MCP Inspector — Assessment results showing plant list](../../resources/screenshots/ex2-step8-assessment-results.png)
-
-Pick `id` - **`my.custom~0010`** from the results and click **Retrieve a list of address risks of an assessment** (`get_bestrun_assessment_id_addressRisks`). Enter the `id` value in the **id** field.
-
-![MCP Inspector — id parameter field filled in for address risks tool](../../resources/screenshots/ex2-step8-address-risk-id.png)
-
-Click **Execute Tool** — this returns the live risk scores for that plant's location.
-
-![MCP Inspector — Address risk results for a plant](../../resources/screenshots/ex2-step8-address-risk-results.png)
-
-> **Tip:** The data you see here — plant IDs, risk factors, risk scores — is exactly what an AI agent will receive when it calls these tools autonomously to answer a procurement question.
-
-### Troubleshooting
-
-| Issue | Fix |
-|---|---|
-| Cannot connect | Verify the MCP URL matches the one shown in Ex. 2.4 |
-| 401 Unauthorized | Verify Client ID, Client Secret, and Token URL are entered correctly in OAuth Settings |
-| No tools listed | Ensure the correct tools were selected during Ex. 2.2 Step 4 |
-| Issuer mismatch error | Ensure **Enterprise-managed authorization** is **unchecked** in OAuth Settings |
-
----
-
-## Ex. 2.9 — Monitor MCP Consumption
-
-After testing the MCP Server in Ex. 2.8, SAP Integration Suite records every tool call as a message in **Monitor Message Processing**. In this exercise you will enable trace logging and inspect the processing details of your MCP calls.
-
-### Step 1 — Navigate to Manage Integration Content
-
-In SAP Integration Suite, go to **Monitor → Integrations and APIs**. Set **Runtime** to **Integration Cell**.
-
-Click the **Manage Integration Content** tile.
-
-![Monitor Overview — Manage Integration Content tile](../../resources/screenshots/ex2-step9-monitor-overview-content.png)
-
-### Step 2 — Enable Trace Logging
-
-Set **Runtime** to **Integration Cell**. In the **Integration Content** list, click on **`plantsupplyrisk_XX`**.
-
-In the right panel, scroll to **Log Configuration** and set the **Log Level** to **Trace**.
-
-![Manage Integration Content — plantsupplyrisk_XX Log Configuration set to Trace](../../resources/screenshots/ex2-step9-manage-content-trace.png)
-
-> [!NOTE]
-> Trace logging captures full policy execution details and request/response payloads. It is automatically reset after approximately 1 hour.
-
-### Step 3 — Trigger Tool Calls via MCP Inspector
-
-Return to MCP Inspector and run one or more tools as in Ex. 2.8. Each tool call creates a message entry in the monitor.
-
-### Step 4 — Open Monitor Message Processing
-
-Return to the Monitor Overview and click the **Monitor Message Processing** tile.
-
-![Monitor Overview — Monitor Message Processing tile highlighted](../../resources/screenshots/ex2-step9-monitor-overview-messages.png)
-
-### Step 5 — View Completed Messages
-
-Set **Runtime** to **Integration Cell**. You will see a list of completed **MCP Server** messages for `plantsupplyrisk_XX`. Click on a message row to open the detail panel.
-
-The panel shows:
-- **Status** — Message processing completed successfully
-- **Processing Time**
-- **Logs** — Log Level: Trace
-
-Click **Trace**
-
-![Monitor Message Processing — completed message with detail panel](../../resources/screenshots/ex2-step9-message-detail.png)
-
-### Step 6 — Inspect Run Steps
-
-Click **MCP Server Model**.
-
-The **Run Steps** panel shows each policy component and its execution time — **Authentication** and **Authorization 1** — overlaid on the Policy Model diagram.
-
-![Message Processing Run — Run Steps with Policy Model](../../resources/screenshots/ex2-step9-run-steps.png)
-
----
-
 ## Summary
 
 In this exercise you:
 
-- Created an **Integration Package** and added an **MCP Server** backed by the Business Data Graph OpenAPI Specification from Exercise 1
-- Reviewed the default **Policy Model** — MCP Sender Adapter, Authentication, Authorization (`API.invoke`), and HTTP Receiver Adapter
-- Deployed the MCP Server to **Integration Cell**, making the assessment tools available as a live endpoint
-- Published the MCP Server as a **product** (`plantsupplyriskProduct-XX`) in the Developer Hub
-- Subscribed to the product (`plantsupplyriskSubscription-XX`) and retrieved the **OAuth credentials** (Token URL, Key, Secret) needed by AI agents
-- Tested the MCP Server tools using the **agentic client** (MCP Inspector)
-- Monitored MCP consumption via **Monitor Message Processing** — enabled Trace logging and inspected the policy execution run steps
+- **Created** an **Integration Package** and added an **MCP Server** artifact backed by an OpenAPI Specification
+- **Selected** four API operations as **Tools**, exposing assessment and address risk data to the AI agent
+- **Reviewed** the default **Policy Model** — MCP Sender Adapter, Authentication, Authorization, and HTTP Receiver Adapter
+- **Extended** the Policy Model with two **Traffic Management** policies — **Surge Protection** (7 calls per 9 seconds, 8th blocked) and **Quota Management** (25 calls per day per OAuth Client ID)
+- **Deployed** the MCP Server to **Integration Cell** as a governed, live endpoint
+- **Published** the MCP Server as a product (`plantsupplyriskProduct-XX`) in the **Developer Hub**
+- **Subscribed** to the product and retrieved the **OAuth credentials** (Token URL, Key, Secret)
 
-The MCP Server is now ready to be consumed by any AI agent.
+Your MCP Server is deployed, published, and governed — ready for an AI agent to connect and consume.
 
 ---
+
+Continue to [Exercise 3 — Connect, Govern, Monitor & Analyze an MCP Server using SAP Integration Suite](../ex3/README.md)
 
 [Back to Overview](../../../../README.md)

@@ -45,7 +45,8 @@ Creation of AI agent is not part of this hands-on, it mainly includes the follow
 
 - Combining multiple backend system APIs into a single composed API using the API Composition capability of SAP Integration Suite
 - Creating and exposing an MCP server with the composed API as a tool in SAP Integration Suite, enabling an AI agent to automate supplier selection within Best Run’s procurement process securely and with proper governance, without compromising business context
-- Testing the MCP server using MCP client
+- Governing the MCP server with Traffic Management policies — Surge Protection and Quota Management — to control how AI agents consume enterprise APIs
+- Connecting an MCP client, observing policy enforcement in action, and analyzing consumption using Monitor Message Processing
 
 ![MCP Scenario Diagram](./tutorials/composed-mcp-server/resources/screenshots/MCP_Scenario_Diagram.jpg)
 
@@ -85,7 +86,8 @@ To complete the exercises, the access to the following systems have been provide
 The complete list of exercise steps are listed below, run through them in the given order.
 
 - [Exercise 1 - Build a Unified Supply Risk API with Business Data Graph](tutorials/composed-mcp-server/exercises/ex1/README.md)
-- [Exercise 2 - Create, Deploy & Consume an MCP Server using SAP Integration Suite](tutorials/composed-mcp-server/exercises/ex2/README.md)
+- [Exercise 2 - Create, Deploy & Publish an MCP Server using SAP Integration Suite](tutorials/composed-mcp-server/exercises/ex2/README.md)
+- [Exercise 3 - Connect, Govern, Monitor & Analyze an MCP Server using SAP Integration Suite](tutorials/composed-mcp-server/exercises/ex3/README.md)
 
 ## Feedback
 We appreciate your feedback after the session!

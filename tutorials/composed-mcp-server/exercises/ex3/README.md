@@ -1,0 +1,282 @@
+# Exercise 3 — Connect, Govern, Monitor & Analyze an MCP Server using SAP Integration Suite
+
+## Overview
+
+Your MCP Server is deployed, published, and governed. Now it is time to connect an AI agent, observe how the traffic policies protect it in practice, and monitor the consumption patterns — all from within SAP Integration Suite.
+
+In this exercise, you will connect the MCP Inspector as an MCP client using the OAuth credentials from [Exercise 2](../ex2/README.md), make live tool calls against the supply risk data, and deliberately test the Surge Protection and Quota policies you configured. You will then use Monitor Message Processing to inspect how each request — successful or rejected — was handled by the policy pipeline.
+
+> [!IMPORTANT]
+> You will need the **MCP URL** from Ex. 2.4 and the **OAuth credentials** (Token URL, Key, Secret) from Ex. 2.7 to complete this exercise. Have them ready before you begin.
+
+---
+
+## Ex. 3.1 — Connect via MCP Inspector
+
+Any AI agent or MCP client can consume the MCP Server. For this workshop, your instructor has provided a hosted **MCP Inspector** (MCP Client) URL; open it in your browser.
+
+### Step 1 — Add Your MCP Server
+
+Click **Add Servers → + Add manually**.
+
+![MCP Inspector — Add Servers dropdown](../../resources/screenshots/ex2-step8-add-servers-menu.png)
+
+In the **Add server** dialog, fill in:
+
+| Field | Value |
+|---|---|
+| Server ID | `plantsupplyrisk-mcp-XX` (replace XX with your assigned participant number) |
+| Transport | `streamable-http` |
+| URL | Your MCP URL from Ex. 2.4 (e.g. `https://<virtual-host>/mcp-plantsupplyrisk-XX`) |
+
+Click **Add**
+
+![Add server dialog — Server ID, Transport, URL filled in](../../resources/screenshots/ex2-step8-add-server-dialog.png)
+
+### Step 2 — Configure OAuth Authentication
+
+On the server card, click **Settings**.
+
+Scroll to the bottom of the Settings dialog and click **OAuth Settings** to expand it.
+
+![Server Settings — OAuth Settings section highlighted](../../resources/screenshots/ex2-step8-server-settings-oauth.png)
+
+Configure the following fields:
+
+| Field | Value |
+|---|---|
+| **Enterprise-managed authorization** | Leave **unchecked** |
+| **Client ID** | Your **Key** from Ex. 2.7 |
+| **Client Secret** | Your **Secret** from Ex. 2.7 |
+| **Request refresh token** | **Uncheck** (checked by default) |
+| **Revoke tokens on clear** | **Uncheck** (checked by default) |
+
+![OAuth Settings — Client ID and Client Secret filled in](../../resources/screenshots/ex2-step8-oauth-settings-credentials.png)
+
+Scroll down within OAuth Settings to **Token URL override** and enter your **Token URL** from Ex. 2.7. Leave **Authorization URL override** blank.
+
+![OAuth Settings — Token URL override filled in](../../resources/screenshots/ex2-step8-oauth-settings-token-url.png)
+
+Close Settings.
+
+### Step 3 — Connect and Make Tool Calls
+
+Toggle the server switch to **Connected**. The server card turns green. Click **Tools** in the top navigation bar — all 4 tools load successfully.
+
+![MCP Inspector — Tools tab with all 4 tools loaded](../../resources/screenshots/ex2-step8-tools-list.png)
+
+Click **Retrieve a list of assessment** (`get_bestrun_assessment`) — the parameter form opens in the center pane. No parameters are required — click **Execute Tool**.
+
+The Results pane shows all plants with their IDs (Berlin, Munich, London, etc.).
+
+![MCP Inspector — Assessment results showing plant list](../../resources/screenshots/ex2-step8-assessment-results.png)
+
+Pick `id` — **`my.custom~0010`** from the results and click **Retrieve a list of address risks of an assessment** (`get_bestrun_assessment_id_addressRisks`). Enter the `id` value in the **id** field.
+
+![MCP Inspector — id parameter field filled in for address risks tool](../../resources/screenshots/ex2-step8-address-risk-id.png)
+
+Click **Execute Tool** — this returns the live risk scores for that plant's location.
+
+![MCP Inspector — Address risk results for a plant](../../resources/screenshots/ex2-step8-address-risk-results.png)
+
+> **Tip:** The data you see here — plant IDs, risk factors, risk scores — is exactly what an AI agent will receive when it calls these tools autonomously to answer a procurement question.
+
+> [!NOTE]
+> If a tool call returns `surgeProtectionLimitExceeded`, you have made more than 7 calls within 9 seconds. Wait approximately 10 seconds for the Surge window to reset and try again.
+
+> [!NOTE]
+> The successful tool calls you make in this step count toward your daily Quota. Keep this in mind as you continue to Ex. 3.2.
+
+### Troubleshooting
+
+| Issue | Fix |
+|---|---|
+| Cannot connect | Verify the MCP URL matches the one shown in Ex. 2.4 |
+| 401 Unauthorized | Verify Client ID, Client Secret, and Token URL are entered correctly in OAuth Settings |
+| No tools listed | Ensure the correct tools were selected during Ex. 2.2 Step 4 |
+| Issuer mismatch error | Ensure **Enterprise-managed authorization** is **unchecked** in OAuth Settings |
+
+---
+
+## Ex. 3.2 — Govern: Observe Traffic Policies in Action
+
+With the MCP Inspector connected and initial tool calls made, you will now observe both Traffic Management policies in action. Before triggering any policy violations, you will first enable trace logging — this ensures that every subsequent request, whether successful or rejected, is captured in full detail for inspection in Ex. 3.3.
+
+### Step 1 — Enable Trace Logging
+
+In SAP Integration Suite, go to **Monitor → Integrations and APIs**. Set **Runtime** to **Integration Cell**.
+
+Click the **Manage Integration Content** tile.
+
+![Monitor Overview — Manage Integration Content tile](../../resources/screenshots/ex2-step9-monitor-overview-content.png)
+
+In the **Integration Content** list, click on **`plantsupplyrisk_XX`** (replace XX with your participant number).
+
+In the right panel, scroll to **Log Configuration** and set the **Log Level** to **Trace**.
+
+![Manage Integration Content — plantsupplyrisk_XX Log Configuration set to Trace](../../resources/screenshots/ex2-step9-manage-content-trace.png)
+
+> [!NOTE]
+> Trace logging captures full policy execution details and request/response payloads for every message processed. It is automatically reset after approximately 1 hour. Enabling it now ensures both the Surge Protection and Quota violations you trigger next are recorded with full detail.
+
+Return to MCP Inspector before proceeding to the next step.
+
+### Step 2 — Trigger the Traffic Policies
+
+In the **Messages** panel, find any successful **TOOLS/CALL** entry. Click the **Replay** button (circular arrow icon) on that entry — this re-sends the exact same call instantly without filling in parameters again.
+
+![MCP Inspector — Replay button on a TOOLS/CALL entry in Messages panel](../../resources/screenshots/ex3-step2-replay-button.png)
+
+Keep clicking **Replay** rapidly. After 7 calls within the 9-second window, the 8th is blocked by Surge Protection. A **Replay failed** popup appears at the bottom-right:
+
+```
+Replay failed
+Error POSTing to endpoint: {"error":{"code":"surgeProtectionLimitExceeded","message":"Surge Protection limit exceeded for maximum number of calls"}}
+```
+
+![MCP Inspector — Replay failed with surgeProtectionLimitExceeded](../../resources/screenshots/ex3-step2-surge-triggered.png)
+
+> [!NOTE]
+> Surge Protection resets after the 9-second window expires. Wait approximately 10 seconds — the next Replay will succeed.
+
+Continue replaying, spacing each call at least **10 seconds apart**. The successful calls from Ex. 3.1 already count toward your daily quota — keep going until the quota is exhausted. The **Replay failed** popup now shows:
+
+```
+Replay failed
+Error POSTing to endpoint: {"error":{"code":"quotaExceeded","message":"Quota exceeded for maximum number of calls"}}
+```
+
+![MCP Inspector — Replay failed with quotaExceeded](../../resources/screenshots/ex3-step2-quota-exceeded.png)
+
+> [!NOTE]
+> Unlike Surge Protection, Quota does not reset within the workshop session. Once exhausted, no further successful calls are possible until the next quota window opens.
+
+> **Tip:** If your quota is exhausted and you want to continue making calls, go back to [Ex. 2.3 Step 2](../ex2/README.md#step-2--add-quota-management), increase the **Calls** value (e.g. from `25` to `30`), click **Save**, then redeploy the MCP Server from Ex. 2.4. The updated quota limit takes effect immediately — no new product or subscription required.
+
+With both policies triggered, proceed to Ex. 3.3 to analyze what was captured.
+
+---
+
+## Ex. 3.3 — Monitor: Inspect Message Processing
+
+Every request processed by your MCP Server — successful or rejected — is recorded as a message in Monitor Message Processing. With trace logging enabled from Ex. 3.2, each message carries full policy execution detail.
+
+### Step 1 — Open Monitor Message Processing
+
+In SAP Integration Suite, go to **Monitor → Integrations and APIs**.
+
+Click the **Monitor Message Processing** tile.
+
+![Monitor Overview — Integrations and APIs, Runtime set to Integration Cell, Messages tile highlighted](../../resources/screenshots/ex3-step3-monitor-overview.png)
+
+### Step 2 — View the Message List
+
+Set **Runtime** to **Integration Cell**. You will see a list of messages for `plantsupplyrisk_XX` — a mix of **Failed** and **Completed** entries.
+
+![Monitor Message Processing — message list with Failed and Completed entries](../../resources/screenshots/ex3-step3-message-list.png)
+
+> [!NOTE]
+> You will notice two log levels in the list — messages processed before you enabled Trace logging show **Info**, while messages processed after show **Trace**. Only Trace messages carry full policy execution detail.
+
+### Step 3 — Open a Failed Message
+
+Click on any **Failed** message row to open the detail panel on the right.
+
+The **Status** tab opens by default and shows two sections:
+- **Status** — "Message processing failed"
+- **Error Details** — the policy error that caused the failure, e.g. `Quota exceeded for maximum number of calls`
+
+![Monitor — Failed message detail, Status tab showing error details](../../resources/screenshots/ex3-step3-message-status.png)
+
+### Step 4 — Navigate to Run Steps
+
+Scroll down in the detail panel to the **Logs** section. You will see **Log Level: Trace** — click **Trace**.
+
+![Monitor — Logs section showing Log Level Trace link](../../resources/screenshots/ex3-step3-message-logs.png)
+
+### Step 5 — Inspect Run Steps
+
+The **Run Steps** view opens, showing each policy component that executed and how long it took.
+
+![Monitor — Run Steps showing Quota 1 failure with red error marker on policy diagram](../../resources/screenshots/ex3-step3-run-steps.png)
+
+The left panel lists the steps in execution order — the step where the request failed is marked with a red ⊗. The Policy Model diagram on the right highlights the exact node where the flow stopped.
+
+In the example above, the request passed **Authentication**, **Authorization 1**, and **SurgeProtection 1** — but failed at **Quota 1**. This confirms the policy chain worked as configured: Quota is only reached by requests that have already cleared the burst check.
+
+> [!NOTE]
+> Try clicking on different Failed messages in the list and compare their Run Steps. A Surge Protection failure stops at SurgeProtection 1 — the request never reaches Quota. A Quota failure progresses one step further. The diagram makes the difference immediately visible.
+
+---
+
+## Ex. 3.4 — Analyze: Explore the Analytics Dashboard
+
+Every call routed through your MCP Server is tracked and surfaced in the SAP Integration Suite **Analyze** dashboard — giving you visibility into call volumes, response times, error rates, and policy violations across all your MCP Servers.
+
+### Step 1 — Navigate to Analyze
+
+In the left navigation, click **Analyze**.
+
+Set the following filters:
+
+| Filter | Value |
+|---|---|
+| Runtime | `Integration Cell` |
+| Artifact Type | `MCP Server` |
+
+![Analyze — Overview tab with KPI tiles, Runtime and Artifact Type filters highlighted](../../resources/screenshots/ex3-step4-analyze-overview.png)
+
+The **Overview** tab shows three KPIs for the selected period:
+
+| KPI | What it shows |
+|---|---|
+| **Total MCP Calls** | Total volume of calls made to all MCP Servers |
+| **MCP Response Time** | Average response time across all calls |
+| **Total MCP Errors** | Proportion of calls that resulted in an error |
+
+### Step 2 — Explore MCP Call Charts
+
+Scroll down to see the **MCP Server Calls** chart — daily call count broken down by **Cumulative**, **Failure**, and **Success**.
+
+![Analyze — MCP Server Calls daily chart showing Cumulative, Failure, and Success](../../resources/screenshots/ex3-step4-analyze-calls-chart.png)
+
+Scroll further to see **Top MCP Servers of the Week** and **Top Subscriptions for Agents** — showing which MCP Servers and agent subscriptions drove the most traffic across the tenant.
+
+![Analyze — Top MCP Servers and Top Subscriptions for Agents charts](../../resources/screenshots/ex3-step4-analyze-top-servers.png)
+
+> [!NOTE]
+> These charts cover all MCP Servers across the tenant. You will see other participants' servers alongside yours — this is the shared observability layer for the workshop environment.
+
+### Step 3 — Review the Health Tab
+
+Click the **Health** tab.
+
+![Analyze — Health tab showing MCP Server Errors by Tool vs Resource and MCP Policy Errors heatmap](../../resources/screenshots/ex3-step4-analyze-health.png)
+
+The Health view shows two charts side by side:
+
+| Chart | What it shows |
+|---|---|
+| **MCP Server Errors by Tool vs Resource** | Failed call count broken down by Tools and Resources per MCP Server |
+| **MCP Policy Errors** | Failed call count due to policy violations per MCP Server — shown as a heatmap |
+
+The **MCP Policy Errors** heatmap reflects the Surge Protection and Quota violations you triggered in Ex. 3.2. The darker the tile, the higher the policy error count for that MCP Server.
+
+---
+
+## Summary
+
+In this exercise you:
+
+- **Connected** the **MCP Inspector** to your MCP Server using OAuth credentials and verified all four tools are accessible
+- **Made** live tool calls against the plant supply risk data — retrieving assessment results and address risk scores for a specific plant
+- **Enabled** **Trace logging** to capture full policy execution detail for all subsequent requests
+- **Triggered** both **Traffic Management** policies using the Replay button — `surgeProtectionLimitExceeded` after 7 calls within the 9-second Surge window, and `quotaExceeded` after exhausting the 25-call daily allowance
+- **Monitored** all requests in **Monitor Message Processing** — inspected the Error Details on Failed messages and navigated to **Run Steps** via the Trace log link to see exactly which policy stopped each request
+- **Analyzed** MCP consumption in the **Analyze** dashboard — reviewed call volumes, response times, and policy error patterns across the **Overview** and **Health** tabs
+
+The full MCP Server lifecycle is now complete: composed from enterprise APIs in Exercise 1, deployed and governed in Exercise 2, and connected, tested, monitored, and analyzed in Exercise 3.
+
+---
+
+[Back to Overview](../../../../README.md)
