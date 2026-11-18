@@ -154,13 +154,13 @@ The **SurgeProtection 1** node is inserted. Click the node — the settings pane
 |---|---|
 | On Error | `Abort` (default) |
 | Calls | `8` |
-| Duration | `60` |
+| Duration | `9` |
 | Duration Unit | `Seconds` |
 
 ![Surge Protection — Configure tab with values filled in](../../resources/screenshots/ex2-step3-surge-config.png)
 
 > [!NOTE]
-> The supported duration range is 200 milliseconds to 9 seconds. With these settings, more than 7 calls within any 60-second window returns a `429 Too Many Requests` and the request is stopped before reaching the backend.
+> The supported duration range is 200 milliseconds to 9 seconds. With these settings, more than 7 calls within any 9-second window returns a `429 Too Many Requests` and the request is stopped before reaching the backend.
 
 ### Step 2 — Add Quota Management
 
@@ -194,7 +194,7 @@ Click **Save** to save the policy updates.
 
 > [!IMPORTANT]
 > The two Traffic Management policies you just configured enforce the following limits on every AI agent that connects to this MCP Server:
-> - **Surge Protection** — no more than **7 calls within any 60-second window** (the 8th call is blocked). Requests that exceed this rate are immediately rejected with `429 Too Many Requests` before reaching the backend.
+> - **Surge Protection** — no more than **7 calls within any 9-second window** (the 8th call is blocked). Requests that exceed this rate are immediately rejected with `429 Too Many Requests` before reaching the backend.
 > - **Quota Management** — no more than **25 calls per day per OAuth Client ID**. Once the daily allowance is exhausted, all further requests are rejected until the next quota window opens.
 
 > [!NOTE]
@@ -362,7 +362,7 @@ In this exercise you:
 - **Created** an **Integration Package** and added an **MCP Server** artifact backed by an OpenAPI Specification
 - **Selected** four API operations as **Tools**, exposing assessment and address risk data to the AI agent
 - **Reviewed** the default **Policy Model** — MCP Sender Adapter, Authentication, Authorization, and HTTP Receiver Adapter
-- **Extended** the Policy Model with two **Traffic Management** policies — **Surge Protection** (7 calls per 60 seconds, 8th blocked) and **Quota Management** (25 calls per day per OAuth Client ID)
+- **Extended** the Policy Model with two **Traffic Management** policies — **Surge Protection** (7 calls per 9 seconds, 8th blocked) and **Quota Management** (25 calls per day per OAuth Client ID)
 - **Deployed** the MCP Server to **Integration Cell** as a governed, live endpoint
 - **Published** the MCP Server as a product (`plantsupplyriskProduct-XX`) in the **Developer Hub**
 - **Subscribed** to the product and retrieved the **OAuth credentials** (Token URL, Key, Secret)

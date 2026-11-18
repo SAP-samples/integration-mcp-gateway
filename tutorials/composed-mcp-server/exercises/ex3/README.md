@@ -82,7 +82,7 @@ Click **Execute Tool** — this returns the live risk scores for that plant's lo
 > **Tip:** The data you see here — plant IDs, risk factors, risk scores — is exactly what an AI agent will receive when it calls these tools autonomously to answer a procurement question.
 
 > [!NOTE]
-> If a tool call returns `surgeProtectionLimitExceeded`, you have made more than 7 calls within 60 seconds. Wait 1 minute for the Surge window to reset and try again.
+> If a tool call returns `surgeProtectionLimitExceeded`, you have made more than 7 calls within 9 seconds. Wait approximately 10 seconds for the Surge window to reset and try again.
 
 > [!NOTE]
 > The successful tool calls you make in this step count toward your daily Quota. Keep this in mind as you continue to Ex. 3.2.
@@ -129,7 +129,7 @@ In the **Messages** panel, find any successful **TOOLS/CALL** entry. Click the *
 
 ![MCP Inspector — Replay button on a TOOLS/CALL entry in Messages panel](../../resources/screenshots/ex3-step2-replay-button.png)
 
-Keep clicking **Replay** rapidly. After 7 calls within the 60-second window, the 8th is blocked by Surge Protection. A **Replay failed** popup appears at the bottom-right:
+Keep clicking **Replay** rapidly. After 7 calls within the 9-second window, the 8th is blocked by Surge Protection. A **Replay failed** popup appears at the bottom-right:
 
 ```
 Replay failed
@@ -139,9 +139,9 @@ Error POSTing to endpoint: {"error":{"code":"surgeProtectionLimitExceeded","mess
 ![MCP Inspector — Replay failed with surgeProtectionLimitExceeded](../../resources/screenshots/ex3-step2-surge-triggered.png)
 
 > [!NOTE]
-> Surge Protection resets after the 60-second window expires. Wait approximately 1 minute — the next Replay will succeed.
+> Surge Protection resets after the 9-second window expires. Wait approximately 10 seconds — the next Replay will succeed.
 
-Continue replaying, spacing each call at least **1 minute apart**. The successful calls from Ex. 3.1 already count toward your daily quota — keep going until the quota is exhausted. The **Replay failed** popup now shows:
+Continue replaying, spacing each call at least **10 seconds apart**. The successful calls from Ex. 3.1 already count toward your daily quota — keep going until the quota is exhausted. The **Replay failed** popup now shows:
 
 ```
 Replay failed
@@ -273,7 +273,7 @@ In this exercise you:
 - **Connected** the **MCP Inspector** to your MCP Server using OAuth credentials and verified all four tools are accessible
 - **Made** live tool calls against the plant supply risk data — retrieving assessment results and address risk scores for a specific plant
 - **Enabled** **Trace logging** to capture full policy execution detail for all subsequent requests
-- **Triggered** both **Traffic Management** policies using the Replay button — `surgeProtectionLimitExceeded` after 7 calls within the 60-second Surge window, and `quotaExceeded` after exhausting the 25-call daily allowance
+- **Triggered** both **Traffic Management** policies using the Replay button — `surgeProtectionLimitExceeded` after 7 calls within the 9-second Surge window, and `quotaExceeded` after exhausting the 25-call daily allowance
 - **Monitored** all requests in **Monitor Message Processing** — inspected the Error Details on Failed messages and navigated to **Run Steps** via the Trace log link to see exactly which policy stopped each request
 - **Analyzed** MCP consumption in the **Analyze** dashboard — reviewed call volumes, response times, and policy error patterns across the **Overview** and **Health** tabs
 
