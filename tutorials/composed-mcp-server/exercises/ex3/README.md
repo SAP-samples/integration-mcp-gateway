@@ -59,38 +59,13 @@ Scroll down within OAuth Settings to **Token URL override** and enter your **Tok
 
 Close Settings.
 
-### Step 3 — Connect and Observe Surge Protection in Action
+### Step 3 — Connect and Make Tool Calls
 
-Toggle the server switch to **Connected**. The server card turns green.
+Toggle the server switch to **Connected**. The server card turns green. Click **Tools** in the top navigation bar — all 4 tools load successfully.
 
-> [!IMPORTANT]
-> Immediately click **Tools** in the top navigation bar — do this before reading further. You have a 9-second window to catch the Surge Protection response.
-
-![MCP Inspector — server Connected, Messages panel showing PENDING calls](../../resources/screenshots/ex3-step1-server-connected.png)
-
-![MCP Inspector — Tools tab showing surgeProtectionLimitExceeded error](../../resources/screenshots/ex3-step1-surge-on-connect.png)
-
-The Tools panel shows:
-
-```
-Couldn't load tools
-Error POSTing to endpoint: {"error":{"code":"surgeProtectionLimitExceeded","message":"Surge Protection limit exceeded for maximum number of calls"}}
-```
-
-Now look at the **Messages** panel on the right.
-
-When the connection was established, MCP Inspector automatically fired multiple protocol handshake requests simultaneously — to initialize the session, discover tools, list resources, and more. All arrived at the MCP Server within the same instant.
-
-You will see several entries timestamped at the same second — **TOOLS/LIST** and **RESOURCES/LIST** are shown as **PENDING**. Scroll down to see the two calls that passed: **INITIALIZE** and **NOTIFICATIONS/INITIALIZED**.
-
-> [!NOTE]
-> You did not click anything — Surge Protection fired the moment the connection was established. The MCP Inspector's automatic handshake sent more than 3 requests within 9 seconds, and the policy stopped the rest before they reached the backend. This is exactly what Surge Protection does to an AI agent that floods the endpoint.
-
-**Wait approximately 10 seconds** for the Surge Protection window to reset, then click **Tools** again. The 4 tools will now load successfully.
+![MCP Inspector — Tools tab with all 4 tools loaded](../../resources/screenshots/ex2-step8-tools-list.png)
 
 Click **Retrieve a list of assessment** (`get_bestrun_assessment`) — the parameter form opens in the center pane. No parameters are required — click **Execute Tool**.
-
-![MCP Inspector — get_bestrun_assessment selected with Execute Tool button](../../resources/screenshots/ex2-step8-tools-list.png)
 
 The Results pane shows all plants with their IDs (Berlin, Munich, London, etc.).
 
@@ -105,6 +80,9 @@ Click **Execute Tool** — this returns the live risk scores for that plant's lo
 ![MCP Inspector — Address risk results for a plant](../../resources/screenshots/ex2-step8-address-risk-results.png)
 
 > **Tip:** The data you see here — plant IDs, risk factors, risk scores — is exactly what an AI agent will receive when it calls these tools autonomously to answer a procurement question.
+
+> [!NOTE]
+> If a tool call returns `surgeProtectionLimitExceeded`, you have made more than 7 calls within 60 seconds. Wait 1 minute for the Surge window to reset and try again.
 
 > [!NOTE]
 > The successful tool calls you make in this step count toward your daily Quota. Keep this in mind as you continue to Ex. 3.2.
@@ -151,7 +129,7 @@ In the **Messages** panel, find any successful **TOOLS/CALL** entry. Click the *
 
 ![MCP Inspector — Replay button on a TOOLS/CALL entry in Messages panel](../../resources/screenshots/ex3-step2-replay-button.png)
 
-Keep clicking **Replay** rapidly. After 3 calls within the 9-second window, Surge Protection fires. A **Replay failed** popup appears at the bottom-right:
+Keep clicking **Replay** rapidly. After 7 calls within the 60-second window, the 8th is blocked by Surge Protection. A **Replay failed** popup appears at the bottom-right:
 
 ```
 Replay failed
@@ -161,9 +139,9 @@ Error POSTing to endpoint: {"error":{"code":"surgeProtectionLimitExceeded","mess
 ![MCP Inspector — Replay failed with surgeProtectionLimitExceeded](../../resources/screenshots/ex3-step2-surge-triggered.png)
 
 > [!NOTE]
-> Surge Protection resets after the 9-second window expires. Wait approximately 10 seconds — the next Replay will succeed.
+> Surge Protection resets after the 60-second window expires. Wait approximately 1 minute — the next Replay will succeed.
 
-Continue replaying, spacing each call at least **10 seconds apart**. The successful calls from Ex. 3.1 already count toward your daily quota — keep going until the quota is exhausted. The **Replay failed** popup now shows:
+Continue replaying, spacing each call at least **1 minute apart**. The successful calls from Ex. 3.1 already count toward your daily quota — keep going until the quota is exhausted. The **Replay failed** popup now shows:
 
 ```
 Replay failed
@@ -175,7 +153,7 @@ Error POSTing to endpoint: {"error":{"code":"quotaExceeded","message":"Quota exc
 > [!NOTE]
 > Unlike Surge Protection, Quota does not reset within the workshop session. Once exhausted, no further successful calls are possible until the next quota window opens.
 
-> **Tip:** If your quota is exhausted and you want to continue making calls, go back to [Ex. 2.3 Step 2](../ex2/README.md#step-2--add-quota-management), increase the **Calls** value (e.g. from `15` to `30`), click **Save**, then redeploy the MCP Server from Ex. 2.4. The updated quota limit takes effect immediately — no new product or subscription required.
+> **Tip:** If your quota is exhausted and you want to continue making calls, go back to [Ex. 2.3 Step 2](../ex2/README.md#step-2--add-quota-management), increase the **Calls** value (e.g. from `25` to `30`), click **Save**, then redeploy the MCP Server from Ex. 2.4. The updated quota limit takes effect immediately — no new product or subscription required.
 
 With both policies triggered, proceed to Ex. 3.3 to analyze what was captured.
 
@@ -293,9 +271,9 @@ The **MCP Policy Errors** heatmap reflects the Surge Protection and Quota violat
 In this exercise you:
 
 - **Connected** the **MCP Inspector** to your MCP Server using OAuth credentials and verified all four tools are accessible
-- **Observed** **Surge Protection** firing at connection time — the automatic MCP handshake exceeded the 3-call limit within 9 seconds, and the policy blocked the remaining requests
+- **Made** live tool calls against the plant supply risk data — retrieving assessment results and address risk scores for a specific plant
 - **Enabled** **Trace logging** to capture full policy execution detail for all subsequent requests
-- **Triggered** both **Traffic Management** policies using the Replay button — `surgeProtectionLimitExceeded` when replaying rapidly, and `quotaExceeded` after exhausting the daily allowance
+- **Triggered** both **Traffic Management** policies using the Replay button — `surgeProtectionLimitExceeded` after 7 calls within the 60-second Surge window, and `quotaExceeded` after exhausting the 25-call daily allowance
 - **Monitored** all requests in **Monitor Message Processing** — inspected the Error Details on Failed messages and navigated to **Run Steps** via the Trace log link to see exactly which policy stopped each request
 - **Analyzed** MCP consumption in the **Analyze** dashboard — reviewed call volumes, response times, and policy error patterns across the **Overview** and **Health** tabs
 
