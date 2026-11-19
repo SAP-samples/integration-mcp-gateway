@@ -18,8 +18,8 @@ However, you will be able to derive more value from this session if you have som
 
 To get started and build expertise with the technologies used in this workshop, explore the following resources:
 
-- [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all)
-- [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro)
+- [SAP Integration Suite](test)
+- [Model Context Protocol (MCP)](test)
 
 ## Session Overview
 
