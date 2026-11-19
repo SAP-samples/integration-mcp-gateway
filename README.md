@@ -69,12 +69,6 @@ To complete the exercises, the access to the following systems have been provide
   <br>Use the tenant assigned to your participant number: Your participant number will be allotted by your instructors.
   <br>Note password will be provided by the instructor before the start of the workshop.
 
-  | Participant Number | SAP Integration Suite Tenant Tenant | MCP Inspector Tenant
-  |---|---|---|
-  | 001 – 025 | [**SAP Integration Suite 01**](https://url.sap/qo6rb9) | [**MCP Inspector 01**](https://url.sap/cyek74) |
-  | 026 – 050 | [**SAP Integration Suite 02**](https://url.sap/iel6lg)| [**MCP Inspector 02**](https://url.sap/kiphb4) |
-
-
 > [!IMPORTANT]
 > - _For a smooth experience, tenants have been preconfigured, and you already have all the roles and permissions needed to complete this exercise._
 > - _System details along with User ID and password information will be provided to you by the instructors._
